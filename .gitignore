@@ -1,0 +1,9 @@
+*.iml
+*.sql
+.idea/inspectionProfiles/Project_Default.xml
+.idea/misc.xml
+.idea/workspace.xml
+*.xml
+doc/bd/ModeloFGA.mwb
+doc/catalogopos.xlsx
+doc/tickets/adadsa.oxps

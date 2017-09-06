@@ -1,0 +1,1044 @@
+/**
+ * Created by agomez on 29/11/2016.
+ *  SenderAjax(urlPhp,nameView,params,idDiv,is_type,stringData)
+ * Created by alejandro.gomez on 14/11/2016.
+ */
+
+var validar_cierre = false;
+
+function GuardarParametros(){
+
+    var costo_trabajo_cp = $("#costo_trabajo_cp").val(),
+        mayoreo_costo_trabajo_cp = $("#cantidad_mayoreo_costo_trabajo_cp").val(),
+        costo_trabajo_mayoreo_cp = $("#costo_trabajo_mayoreo_cp").val(),
+        costo_trabajo_sp = $("#costo_trabajo_sp").val(),
+        mayoreo_costo_trabajo_sp = $("#cantidad_mayoreo_costo_trabajo_sp").val(),
+        costo_trabajo_mayoreo_sp = $("#costo_trabajo_mayoreo_sp").val(),
+        pago_minimo_credito= $("#pago_minimo_credito").val();
+
+
+    if(isNaN(pago_minimo_credito)){
+        MyAlert("El campo de pago minimo en Creditos, es incorrecto","alert");
+    }else if(isNaN(mayoreo_costo_trabajo_cp)){
+        MyAlert("La cantidad de mayoreo con producto, no es valida","alert");
+    }else if(isNaN(mayoreo_costo_trabajo_sp)){
+        MyAlert("La cantidad de mayoreo sin producto, no es valida","alert");
+    }else{
+
+        costo_trabajo_cp = setFormatoMoneda(1,costo_trabajo_cp);
+        costo_trabajo_mayoreo_cp = setFormatoMoneda(1,costo_trabajo_mayoreo_cp);
+
+        costo_trabajo_sp = setFormatoMoneda(1,costo_trabajo_sp);
+        costo_trabajo_mayoreo_sp = setFormatoMoneda(1,costo_trabajo_mayoreo_sp);
+
+        SenderAjax(
+            "modules/configuracion/src/parametros/",
+            "fn_guardar_parametros.php",
+            null,
+            "show_modal",
+            "post",
+            {
+                costo_trabajo_cp:costo_trabajo_cp,
+                mayoreo_costo_trabajo_cp:mayoreo_costo_trabajo_cp,
+                costo_trabajo_mayoreo_cp:costo_trabajo_mayoreo_cp,
+                costo_trabajo_sp:costo_trabajo_sp,
+                mayoreo_costo_trabajo_sp:mayoreo_costo_trabajo_sp,
+                costo_trabajo_mayoreo_sp:costo_trabajo_mayoreo_sp,
+                pago_minimo_credito:pago_minimo_credito
+            }
+        );
+
+    }
+
+
+
+}
+
+function fnVentaImprimirTicket(opc){
+
+
+    switch (opc){
+        case 1:
+            //Impresion al realizar la venta
+            var folio_venta = $("#folio_venta").val();
+
+            $.ajax({
+                url:"modules/ventas/reportes/tickets/frm_boleta.php",
+                type:"post",
+                data:{opc:opc,folio_venta:folio_venta}
+            }).done(function(data){
+
+                $("#form_caja").html(data);
+                $(".modal").modal('toggle');
+
+            }).fail(function(jqh,textEstatus){
+
+            });
+
+            break;
+    }
+
+
+}
+
+function setVentaPagos(data){
+
+    var opcion = data.opc;
+
+    switch (opcion){
+
+        case 1:
+            var folio = data.folio;
+            SenderAjax(
+                "modules/ventas/views/ventas/",
+                "frm_pagos.php",
+                null,"show_modal","post",{
+                    opc:opcion,
+                    folio:folio
+                }
+            );
+            break;
+        case 2:
+            var folio = data.folio;
+            SenderAjax(
+                "modules/ventas/src/ventas/",
+                "fn_detalle_pago.php",
+                null,"detalle_pago","post",{
+                    folio:folio
+                }
+            );
+            break;
+    }
+
+
+
+
+}
+
+getBell = function (e) {
+
+    $.ajax({
+        type:"POST",
+        dataType:"JSON",
+        url:"modules/applications/src/home/fn_alert_bell.php"
+    }).done( function(data) {
+
+        if(data.result == "ok"){
+
+            var alert_bell = $("#alert_bell") ;
+
+            alert_bell.html(data.total);
+
+            if(data.total > 0 ){
+
+                $("#alert_bell").prev().addClass("infinite");
+                var dlista = "";
+
+                $.each(data.lista, function(i, item) {
+                   if(i <= 5 ){
+                       dlista = dlista + "<li><a href='#'><i class='fa fa-warning text-danger'></i>" +data.lista[i][2]+ " - "  +data.lista[i][0]+"</a></li>";
+                   }
+                });
+
+                $("#list_bell").html(dlista);
+
+            }
+
+        }else{
+
+            MyAlert(data.error,"alert");
+
+        }
+
+    }).fail(function(jqXHR,textStatus,errorThrown){
+        console.log(textStatus + errorThrown);
+
+    });
+
+
+}
+
+
+agregar_carrito_compras =function(idarticulo,tipo_articulo,nombre_articulo,cantidad,precio_venta,precio_compra,e){
+
+    if(cantidad > 0 ){
+
+        $(e).closest("tr").remove();
+        SenderAjax(
+            "modules/compras/src/ordenes_compra/",
+            "fn_agregar_carrito.php",
+            null,"lista_productos","post",{
+                opc:1,idarticulo:idarticulo,cantidad:cantidad,nombre_articulo:nombre_articulo,precio_compra:precio_compra,
+                precio_venta:precio_venta,tipo_articulo:tipo_articulo
+            }
+        );
+    }else{
+
+        MyAlert("Ingrese una Cantidad, antes de agregar un producto","alert");
+
+    }
+}
+
+nueva_orden_compra = function(opc,idorden){
+
+    switch (opc){
+        case 1:
+            //Abrir modal para registrar orden de compra
+            SenderAjax(
+                "modules/compras/views/ordenes_compra/",
+                "frm_nueva_orden_compra.php",
+                null,"data_list","post",{
+                    opc:opc,
+                    idorden:idorden
+                }
+            );
+
+
+
+            break;
+        case 2:
+            //Abrir modal para agreagr productos a la compra
+            if($("#idproveedor").val() == 0 ){
+                MyAlert("Seleccione un proveedor para registrar la compra","alert");
+
+            }else{
+                SenderAjax(
+                    "modules/applications/views/productos/",
+                    "frm_buscar_producto.php",
+                    null,"show_modal","post",{
+                        opc:opc,parametro:2,
+                        idorden:idorden
+                    }
+                );
+
+            }
+
+            break;
+        case 3:
+            //buscar producto
+            $("#list_producto_cart").html('');
+            var tipo_producto =  $("#tipo_producto").val();
+            SenderAjax(
+                "modules/applications/src/productos/",
+                "fn_buscar_producto.php",
+                null,"list_producto_cart","post",{
+                    opc:opc,
+                    parametro:2,
+                    nombre_producto:$("#nombre_producto").val(),
+                    tipo_producto:tipo_producto,
+                    idorden:idorden
+                }
+            );
+
+            break;
+        case 4:
+            //Guardar Orden de compra
+
+            var idproveedor = $("#idproveedor").val();
+
+            if(idproveedor == 0 ){
+                MyAlert("Seleccione un proveedor para registrar la compra","alert");
+            }else{
+                $.ajax({
+                    data:{opc:opc,parametro:4,idproveedor:idproveedor},
+                    type:"POST",
+                    beforeSend:function(){
+                        fnloadSpinner(1);
+                    },
+                    dataType:"JSON",
+                    url:"modules/compras/src/ordenes_compra/fn_abc_orden_compra.php"
+                }).done( function(data) {
+
+                    fnloadSpinner(2);
+                    console.log(data);
+                    if(data.confirm == "ok"){
+
+                        getMessage(data.mensaje,'Compra realizada correctamente','success');
+                        nueva_orden_compra(1,2);
+
+
+                    }else{
+
+                        MyAlert(data.error,"alert");
+
+                    }
+
+                }).fail(function(jqXHR,textStatus,errorThrown){
+                    //fnloadSpinner(2);
+                    console.log(textStatus + errorThrown);
+
+                });
+
+            }
+
+            break;
+        default:
+            MyAlert("Error no se encontro el parametro para la consulta","alert");
+            break;
+    }
+};
+function setOpenModal(idmodal){
+    $('#'+idmodal).modal('toggle');
+
+    setTimeout(function() { $('.modal-body').find('input:text').first().focus(); }, 700);
+
+
+    $("#"+idmodal).draggable({
+        handle: ".modal-header"
+    });
+}
+function valida_salida_de_pantalla(valor) {
+
+    if(valor){
+        validar_cierre = true;
+    }
+}
+
+function AddOptionSelect(selector,valor,texto){
+
+    $(selector).append($("<option value='"+valor+"' selected='selected'></option>").text(texto));
+    $(selector +' option[value='+valor+' ]').prop('selected', true).change();
+
+
+
+}
+
+shortcut = {
+    'all_shortcuts': {}, //All the shortcuts are stored in this array
+    'add': function (shortcut_combination, callback, opt) {
+        //Provide a set of default options
+        var default_options = {
+            'type': 'keydown',
+            'propagate': false,
+            'disable_in_input': false,
+            'target': document,
+            'keycode': false
+        }
+        if (!opt) opt = default_options;
+        else {
+            for (var dfo in default_options) {
+                if (typeof opt[dfo] == 'undefined') opt[dfo] = default_options[dfo];
+            }
+        }
+
+        var ele = opt.target;
+        if (typeof opt.target == 'string') ele = document.getElementById(opt.target);
+        var ths = this;
+        shortcut_combination = shortcut_combination.toLowerCase();
+
+        //The function to be called at keypress
+        var func = function (e) {
+            e = e || window.event;
+
+            if (opt['disable_in_input']) { //Don't enable shortcut keys in Input, Textarea fields
+                var element;
+                if (e.target) element = e.target;
+                else if (e.srcElement) element = e.srcElement;
+                if (element.nodeType == 3) element = element.parentNode;
+
+                if (element.tagName == 'INPUT' || element.tagName == 'TEXTAREA') return;
+            }
+
+            //Find Which key is pressed
+            if (e.keyCode) code = e.keyCode;
+            else if (e.which) code = e.which;
+            var character = String.fromCharCode(code).toLowerCase();
+
+            if (code == 188) character = ","; //If the user presses , when the type is onkeydown
+            if (code == 190) character = "."; //If the user presses , when the type is onkeydown
+
+            var keys = shortcut_combination.split("+");
+            //Key Pressed - counts the number of valid keypresses - if it is same as the number of keys, the shortcut function is invoked
+            var kp = 0;
+
+            //Work around for stupid Shift key bug created by using lowercase - as a result the shift+num combination was broken
+            var shift_nums = {
+                "`": "~",
+                "1": "!",
+                "2": "@",
+                "3": "#",
+                "4": "$",
+                "5": "%",
+                "6": "^",
+                "7": "&",
+                "8": "*",
+                "9": "(",
+                "0": ")",
+                "-": "_",
+                "=": "+",
+                ";": ":",
+                "'": "\"",
+                ",": "<",
+                ".": ">",
+                "/": "?",
+                "\\": "|"
+            }
+            //Special Keys - and their codes
+            var special_keys = {
+                'esc': 27,
+                'escape': 27,
+                'tab': 9,
+                'space': 32,
+                'return': 13,
+                'enter': 13,
+                'backspace': 8,
+
+                'scrolllock': 145,
+                'scroll_lock': 145,
+                'scroll': 145,
+                'capslock': 20,
+                'caps_lock': 20,
+                'caps': 20,
+                'numlock': 144,
+                'num_lock': 144,
+                'num': 144,
+
+                'pause': 19,
+                'break': 19,
+
+                'insert': 45,
+                'home': 36,
+                'delete': 46,
+                'end': 35,
+
+                'pageup': 33,
+                'page_up': 33,
+                'pu': 33,
+
+                'pagedown': 34,
+                'page_down': 34,
+                'pd': 34,
+
+                'left': 37,
+                'up': 38,
+                'right': 39,
+                'down': 40,
+
+                'f1': 112,
+                'f2': 113,
+                'f3': 114,
+                'f4': 115,
+                'f5': 116,
+                'f6': 117,
+                'f7': 118,
+                'f8': 119,
+                'f9': 120,
+                'f10': 121,
+                'f11': 122,
+                'f12': 123
+            }
+
+            var modifiers = {
+                shift: {
+                    wanted: false,
+                    pressed: false
+                },
+                ctrl: {
+                    wanted: false,
+                    pressed: false
+                },
+                alt: {
+                    wanted: false,
+                    pressed: false
+                },
+                meta: {
+                    wanted: false,
+                    pressed: false
+                } //Meta is Mac specific
+            };
+
+            if (e.ctrlKey) modifiers.ctrl.pressed = true;
+            if (e.shiftKey) modifiers.shift.pressed = true;
+            if (e.altKey) modifiers.alt.pressed = true;
+            if (e.metaKey) modifiers.meta.pressed = true;
+
+            for (var i = 0; k = keys[i], i < keys.length; i++) {
+                //Modifiers
+                if (k == 'ctrl' || k == 'control') {
+                    kp++;
+                    modifiers.ctrl.wanted = true;
+
+                } else if (k == 'shift') {
+                    kp++;
+                    modifiers.shift.wanted = true;
+
+                } else if (k == 'alt') {
+                    kp++;
+                    modifiers.alt.wanted = true;
+                } else if (k == 'meta') {
+                    kp++;
+                    modifiers.meta.wanted = true;
+                } else if (k.length > 1) { //If it is a special key
+                    if (special_keys[k] == code) kp++;
+
+                } else if (opt['keycode']) {
+                    if (opt['keycode'] == code) kp++;
+
+                } else { //The special keys did not match
+                    if (character == k) kp++;
+                    else {
+                        if (shift_nums[character] && e.shiftKey) { //Stupid Shift key bug created by using lowercase
+                            character = shift_nums[character];
+                            if (character == k) kp++;
+                        }
+                    }
+                }
+            }
+
+            if (kp == keys.length && modifiers.ctrl.pressed == modifiers.ctrl.wanted && modifiers.shift.pressed == modifiers.shift.wanted && modifiers.alt.pressed == modifiers.alt.wanted && modifiers.meta.pressed == modifiers.meta.wanted) {
+                callback(e);
+
+                if (!opt['propagate']) { //Stop the event
+                    //e.cancelBubble is supported by IE - this will kill the bubbling process.
+                    e.cancelBubble = true;
+                    e.returnValue = false;
+
+                    //e.stopPropagation works in Firefox.
+                    if (e.stopPropagation) {
+                        e.stopPropagation();
+                        e.preventDefault();
+                    }
+                    return false;
+                }
+            }
+        }
+        this.all_shortcuts[shortcut_combination] = {
+            'callback': func,
+            'target': ele,
+            'event': opt['type']
+        };
+        //Attach the function with the event
+        if (ele.addEventListener) ele.addEventListener(opt['type'], func, false);
+        else if (ele.attachEvent) ele.attachEvent('on' + opt['type'], func);
+        else ele['on' + opt['type']] = func;
+    },
+
+    //Remove the shortcut - just specify the shortcut and I will remove the binding
+    'remove': function (shortcut_combination) {
+        shortcut_combination = shortcut_combination.toLowerCase();
+        var binding = this.all_shortcuts[shortcut_combination];
+        delete(this.all_shortcuts[shortcut_combination])
+        if (!binding) return;
+        var type = binding['event'];
+        var ele = binding['target'];
+        var callback = binding['callback'];
+
+        if (ele.detachEvent) ele.detachEvent('on' + type, callback);
+        else if (ele.removeEventListener) ele.removeEventListener(type, callback, false);
+        else ele['on' + type] = false;
+    }
+}
+
+function gn_menu_principal(opc,parametro){
+
+    $("#show_modal").html('');
+	getBell(1);
+
+	switch(opc){
+        case 1:
+            // dashboard
+
+            break;
+        case 5:
+            //Menu Almacenes
+
+            SenderAjax(
+                    "modules/almacen/views/almacen/",
+                    "frm_home.php",
+                    null,
+                    "div_general",
+                    "post",
+                    {opc:5}
+            );
+
+            break;
+        case 6:
+            // Menu Compras
+            SenderAjax(
+                "modules/compras/views/compras/",
+                "frm_home.php",
+                null,
+                "div_general",
+                "post",
+                "{opc:5}"
+            );
+            break;
+        case 7:
+            // Menu Catálogos
+            SenderAjax(
+                "modules/applications/views/catalogos/",
+                "frm_lista_catalogos.php",
+                null,
+                "div_general",
+                "post",
+                "{opc:5}"
+            );
+            break;
+        case 8:
+            // Menu Contabilidiad
+            SenderAjax(
+                "modules/contabilidad/views/contabilidad/",
+                "frm_home.php",
+                null,
+                "div_general",
+                "post",
+                "{opc:5}"
+            );
+            break;
+        case 9:
+            // Menu Ventas
+            SenderAjax(
+                "modules/ventas/views/ventas/",
+                "frm_home.php",
+                null,
+                "div_general",
+                "post",
+                "{opc:5}"
+            );
+            break;
+        case 10:
+            // Menu Reportes
+            SenderAjax(
+                "modules/reportes/views/reportes/",
+                "frm_home.php",
+                null,
+                "div_general",
+                "post",
+                "{opc:5}"
+            );
+            break;
+        case 11:
+            // Menu Reportes - Reporte de Ventas
+            SenderAjax(
+                "app/modules/reportes/views/reporte_ventas/",
+                "frm_reporte_ventas.php",
+                null,
+                "div_general",
+                "post",
+                "{opc:5}"
+            );
+            break;
+        case 12:
+            // Menu Reportes - Reporte de Productos
+            SenderAjax(
+                "app/modules/reportes/views/reporte_productos/",
+                "frm_reporte_productos.php",
+                null,
+                "div_general",
+                "post",
+                "{opc:5}"
+            );
+            break;
+        case 13:
+            // Menu Almacen  Marcas
+
+            SenderAjax(
+                "modules/almacen/views/marcas/",
+                "frm_marcas.php",
+                null,
+                "div_general",
+                "post",
+                "{opc:5}"
+            );
+            break;
+        case 14:
+            //Menu Configuraciones
+            SenderAjax(
+                "modules/configuracion/views/parametros/",
+                "frm_parametros.php",
+                null,
+                "div_general",
+                "post",
+                "{opc:5}"
+            );
+            break;
+        case 15:
+            //Menu Ventas / Servicios
+            SenderAjax(
+                "modules/servicios/views/home/",
+                "frm_servicios.php",
+                null,
+                "form_caja",
+                "post",
+                "{opc:5}"
+            );
+            break;
+	}
+}
+
+function setFormatoMoneda(opc,valor) {
+
+    switch (opc){
+        case 1:
+            //Desconvertir formato moneda
+            var cadena = valor.replace('$', "");
+            cadena = cadena.replace(',',"");
+            //console.log(cadena);
+            return cadena;
+            break;
+    }
+
+    alert(cadena);
+
+    return valor;
+
+}
+
+function setFormatoColor(opc,valor){
+
+    switch (opc){
+        case 1:
+            //Convertir a formato color: idcolor + codigoColor
+            //Retornar idcolor
+            var cadena = valor.split('-');
+            //console.log(cadena);
+            return cadena[0];
+            break;
+        case 2:
+            //Desconvertir formato color: idcolor + codigoColor
+            //Retornar codigoColor
+            var cadena = valor.split('-');
+            //console.log(cadena);
+            return cadena[1];
+            break;
+    }
+
+}
+
+function setGeneraUtilidad(opc,precio_compra,porcentaje){
+
+    switch (opc){
+        case 1:
+
+            precio_compra = setFormatoMoneda(1,precio_compra);
+
+
+            $.ajax({
+                data:{precio_compra:precio_compra,porcentaje:porcentaje },
+                type:"POST",
+                dataType:"JSON",
+                url:"modules/applications/src/catalogos/fn_calcular_precio.php"
+            }).done( function(data) {
+
+                //console.log(data);
+                $('#precio_venta').val(data.precio_venta);
+
+            }).fail(function(jqXHR,textStatus,errorThrown){
+                //console.log(textStatus + errorThrown);
+
+            });
+
+            break;
+        case 2:
+            //Con Javascre
+            var precio = setFormatoMoneda(1,precio);
+
+            //alert(precio + "-" + porcentaje);
+
+            var total = ( parseFloat(precio)  * parseInt(porcentaje) / 100) ;
+
+            return parseFloat(precio) + parseFloat(total);
+            break;
+    }
+
+}
+
+
+//Funcion para la pantalla completa
+function requestFullScreen() {
+
+    var el = document.body;
+
+    // Supports most browsers and their versions.
+    var requestMethod = el.requestFullScreen || el.webkitRequestFullScreen
+        || el.mozRequestFullScreen || el.msRequestFullScreen;
+
+    if (requestMethod) {
+
+        // Native full screen.
+        requestMethod.call(el);
+
+    } else if (typeof window.ActiveXObject !== "undefined") {
+
+        // Older IE.
+        var wscript = new ActiveXObject("WScript.Shell");
+
+        if (wscript !== null) {
+            wscript.SendKeys("{F11}");
+        }
+    }
+}
+
+function gnlogin_out(){
+
+	if(validar_cierre){
+        bootbox.confirm({
+            title: "Salir del Sistema",
+            message: "Esta seguro de salir del sistema.",
+            size:"small",
+            buttons: {
+                cancel: {
+                    label: '<i class="fa fa-times"></i> Cancelar'
+                },
+                confirm: {
+                    label: '<i class="fa fa-check"></i> Aceptar'
+                }
+            },
+            callback: function (result) {
+
+                if(result){
+
+                    SenderAjax(
+                        "modules/applications/src/login/",
+                        "fn_login_out.php",
+                        null,
+                        "div_general",
+                        "POST",
+                        "{opc:0}"
+                    );
+
+                }
+            }
+        });
+    }else{
+        SenderAjax(
+            "modules/applications/src/login/",
+            "fn_login_out.php",
+            null,
+            "div_general",
+            "POST",
+            "{opc:0}"
+        );
+
+    }
+
+
+}
+
+function jsRemoveWindowLoad() {
+    // eliminamos el div que bloquea pantalla
+    $("#WindowLoad").remove();
+
+}
+
+function jsShowWindowLoad(mensaje) {
+    //eliminamos si existe un div ya bloqueando
+    jsRemoveWindowLoad();
+
+    //si no enviamos mensaje se pondra este por defecto
+    if (mensaje === undefined) mensaje = " ";
+
+    //centrar imagen gif
+    height = 20;//El div del titulo, para que se vea mas arriba (H)
+    var ancho = 0;
+    var alto = 0;
+
+    //obtenemos el ancho y alto de la ventana de nuestro navegador, compatible con todos los navegadores
+    if (window.innerWidth == undefined) ancho = window.screen.width;
+    else ancho = window.innerWidth;
+    if (window.innerHeight == undefined) alto = window.screen.height;
+    else alto = window.innerHeight;
+
+    //operación necesaria para centrar el div que muestra el mensaje
+    var heightdivsito = alto/2 - parseInt(height)/2;//Se utiliza en el margen superior, para centrar
+
+    //imagen que aparece mientras nuestro div es mostrado y da apariencia de cargando
+    imgCentro = "<div style='text-align:center;height:" + alto + "px;'><div class='text-white text-bold'  style='margin-top:" + heightdivsito + "px; font-size:20px;'>" +
+        "<div class='preloader pl-size-l'><div class='spinner-layer pl-teal'><div class='circle-clipper left'><div class='circle'></div> </div><div class='circle-clipper right'><div class='circle'></div> </div></div></div></div></div>";
+
+    //creamos el div que bloquea grande------------------------------------------
+    div = document.createElement("div");
+    div.id = "WindowLoad";
+    div.style.width = ancho + "px";
+    div.style.height = alto + "px";
+    $("body").append(div);
+
+    //creamos un input text para que el foco se plasme en este y el usuario no pueda escribir en nada de atras
+    input = document.createElement("input");
+    input.id = "focusInput";
+    input.type = "text"
+
+    //asignamos el div que bloquea
+    $("#WindowLoad").append(input);
+
+    //asignamos el foco y ocultamos el input text
+    $("#focusInput").focus();
+    $("#focusInput").hide();
+
+    //centramos el div del texto
+    $("#WindowLoad").html(imgCentro);
+
+}
+
+function fnloadSpinner(opc){
+
+
+    switch (opc){
+        // mostrar fa-Spinner
+        case 1:
+            jsShowWindowLoad();
+            break;
+        case 2:
+            // Ocultar fa-Spinner
+            jsRemoveWindowLoad();
+            break;
+        default :
+            MyAlert("error no se encontro la opci&oacute;n solicitada","error");
+            break;
+    }
+}
+
+function MyConfirm(){
+    bootbox.confirm({
+        title: "Destroy planet?",
+        message: "Do you want to activate the Deathstar now? This cannot be undone.",
+        buttons: {
+            cancel: {
+                label: '<i class="fa fa-times"></i> Cancel'
+            },
+            confirm: {
+                label: '<i class="fa fa-check"></i> Confirm'
+            }
+        },
+        callback: function (result) {
+
+            if(result){
+                return true ;
+            }
+        }
+    });
+}
+
+function MyAlert(message,isType){
+
+    bootbox.dialog({
+        title:"Alerta",
+        message:message,
+        size:"small",
+        buttons:{
+            ok:{
+                label:"Aceptar",
+                className:"btn-primary btn-sm"
+            }
+        }
+    });
+
+}
+
+function setPush(mensaje){
+    Push.create(mensaje);
+}
+
+function getMessage (messages,pTitle,typemsg,timer){
+
+    if(timer){
+        timer = 3500;
+    }
+
+    switch (typemsg){
+
+        case "notice":
+            PNotify.prototype.options.delay = timer;
+            new PNotify({
+                title: pTitle,
+                text: messages,
+                type: typemsg
+            });
+            break;
+        case "info":
+            PNotify.prototype.options.styling = "jqueryui";
+            PNotify.prototype.options.delay = timer;
+            new PNotify({
+                title: pTitle,
+                text: messages
+            });
+            break;
+        case "success":
+            PNotify.prototype.options.delay = timer;
+            new PNotify({
+                title: pTitle,
+                text: messages,
+                type: typemsg
+            });
+            break;
+        case "error":
+            PNotify.prototype.options.delay = timer;
+            new PNotify({
+                title: pTitle,
+                text: messages,
+                type: typemsg
+            });
+            break;
+        case null:
+            PNotify.prototype.options.delay = timer;
+            PNotify.prototype.options.styling = "jqueryui";
+            new PNotify(messages);
+            break;
+        default :
+            PNotify.prototype.options.delay = timer;
+            PNotify.prototype.options.styling = "jqueryui";
+            new PNotify(messages);
+            break;
+    }
+}
+
+function showalert(message,alerttype) {
+
+    $('#alert').append('<div id="alertdiv" role="alert" class="alert ' +  alerttype + '"><a class="close" data-dismiss="alert">×</a><span>'+message+'</span></div>')
+
+    setTimeout(function() { // this will automatically close the alert and remove this if the users doesnt close it in 5 secs
+
+
+        $("#alertdiv").remove();
+
+    }, 5000);
+}
+
+function SenderAjax(urlPhp,nameView,params,idDiv,is_type,stringData){
+    if(params == null){
+        params = "";
+    }else{
+    	params = "?" + params ;
+    }
+
+    $.ajax({
+        url:urlPhp + nameView + params,
+        cache:false,
+        data:stringData,
+        beforeSend:function(){
+            fnloadSpinner(1);
+        },
+        timeout:300000, //5 minutos de espera
+        type:is_type
+    }).done(function(data){
+
+
+        $("#"+idDiv).html(data);
+        fnloadSpinner(2);
+
+    }).fail(function(jqHR,textEstatus,errno){
+        fnloadSpinner(2);
+
+        if(console && console.log){
+            if(textEstatus == 'timeout')
+            {
+                MyAlert('EL tiempo de la solicitud a sido agotado','alert');
+                //do something. Try again perhaps?
+
+            }else{
+            	 MyAlert(
+                "Error al realizar la carga de la vista: <br>" +
+                "{<br> url=>"+urlPhp +"  <br> " +
+                "view => "+nameView +", <br>"+
+                textEstatus+ " =>  "+
+                errno +"<br> "+
+                jqHR+ "<br>" +
+                "}"
+            );
+            }
+           
+        }
+
+
+    });
+}
