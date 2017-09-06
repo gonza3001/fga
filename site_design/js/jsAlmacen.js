@@ -2,7 +2,59 @@
  * Created by alejandro.gomez on 22/05/2017.
  */
 
+function CargarTableroAlmacen(opc,idempresa,idalmacen){
 
+    $.ajax({
+        url:"modules/almacen/src/almacen/fnCargarTableroAlmacen.php",
+        type:"post",
+        dataType:"json",
+        data:{opc:opc,idempresa:idempresa,idalmacen:idalmacen},
+        beforeSend:function () {
+            fnloadSpinner(1);
+        }
+    }).done(function (response) {
+        fnloadSpinner(2);
+
+        if(response.result){
+
+            $('#IndicadorInventario').html('<span class="info-box-text">'+response.data.indicadores.Inventario.titulo+'</span><span class="info-box-number">'+response.data.indicadores.Inventario.total+'</span>');
+            $('#IndicadorTraspasos').html('<span class="info-box-text">'+response.data.indicadores.Traspasos.titulo+'</span><span class="info-box-number">'+response.data.indicadores.Traspasos.total+'</span>')
+            $('#IndicadorExisBajas').html('<span class="info-box-text">'+response.data.indicadores.Existencias.titulo+'</span><span class="info-box-number">'+response.data.indicadores.Existencias.total+'</span>')
+            $('#IndicadorSinExistencias').html('<span class="info-box-text">'+response.data.indicadores.SinExistencias.titulo+'</span><span class="info-box-number">'+response.data.indicadores.SinExistencias.total+'</span>')
+
+            if(response.data.datalist.existenciasBajas.length > 0){
+
+                var listaStockMinimo = '';
+
+                for(i=0;i< response.data.datalist.existenciasBajas.length;i++){
+
+                    listaStockMinimo = listaStockMinimo + "<tr><td>"+response.data.datalist.existenciasBajas[i]['nombre_articulo']+"</td><td>"+response.data.datalist.existenciasBajas[i]['Existencias']+"</td></tr>"
+                }
+
+                $("#listaStockMinimo").html(listaStockMinimo);
+
+            }
+
+
+        }else{
+            MyAlert(response.message,"alert");
+        }
+
+    }).fail(function (jqH,textStatus,errno) {
+        fnloadSpinner(2);
+
+        if(console && console.log){
+            if(textStatus == 'timeout')
+            {
+                MyAlert("Tiempo de Espera Agotado","alert");
+
+            }else{
+                MyAlert("Error al llamer el fnCargarTableroAlmacen: "+textStatus,"alert");
+            }
+        }
+
+    });
+}
 
 function setRealizarTraspaso(opc,openReport,idestado){
 

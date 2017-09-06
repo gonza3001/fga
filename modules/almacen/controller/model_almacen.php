@@ -26,27 +26,12 @@ class model_almacen extends \core\seguridad
         }else{
 
 
-            switch ($tipo_producto){
-                case 'ART':
-
-                    $this->_query = "SELECT 0,a.idempresa,a.idalmacen,c.nombre_almacen,a.tipo_articulo,a.idarticulo,b.nombre_articulo,a.existencias 
+            $this->_query = "SELECT 0,a.idempresa,a.idalmacen,c.nombre_almacen,a.tipo_articulo,a.idarticulo,b.nombre_articulo,a.existencias 
                     FROM almacen_articulos as a 
                     LEFT JOIN articulos as b 
                     ON a.idarticulo = b.idarticulo 
                     LEFT JOIN almacen as c 
                     ON a.idalmacen = c.idalmacen WHERE a.tipo_articulo = '$tipo_producto' AND a.idempresa = '$idempresa' AND a.idalmacen = $idalmacen  ";
-
-                    break;
-                case 'MAT':
-
-                    $this->_query = "SELECT 0,a.idempresa,a.idalmacen,c.nombre_almacen,a.tipo_articulo,a.idarticulo,b.nombre_material,a.existencias 
-                    FROM almacen_articulos as a 
-                    LEFT JOIN materiales as b 
-                    ON a.idarticulo = b.idmateriales 
-                    LEFT JOIN almacen as c 
-                    ON a.idalmacen = c.idalmacen WHERE a.tipo_articulo = '$tipo_producto' AND a.idempresa = '$idempresa' AND a.idalmacen = $idalmacen  ";
-                    break;
-            }
 
 
 

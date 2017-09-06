@@ -21,6 +21,9 @@ include "../../../../core/seguridad.class.php";
 $connect = new \core\seguridad();
 $connect->valida_session_id();
 
+$idEmpresa = $_SESSION['data_home']['idempresa'];
+$idAlmacen = $_SESSION['data_home']['almacen'];
+
 /**@@ Vacriar Variable el cual contiene los datos de la ultima exportacion de
  **   Cualquier reporte
  **/
@@ -29,6 +32,7 @@ unset($_SESSION['EXPORT']);
 <script src="<?=\core\core::ROOT_APP()?>site_design/js/jsAlmacen.js"></script>
 <script>
     $(".info-box").css('box-shadow','3px 4px 4px #a3a3a3');
+    CargarTableroAlmacen(1,<?=$idEmpresa?>,<?=$idAlmacen?>);
 </script>
 <div class="box box-success animated fadeInDown">
     <div class="box-header">
@@ -86,15 +90,14 @@ unset($_SESSION['EXPORT']);
 
 
     </div>
+
     <div id="lista_traspasos" class="box-body">
 
-        <div class="row">
+        <div class="row row-sm">
             <div class="col-md-3 col-sm-6 col-xs-12">
                 <div class="info-box">
                     <span class="info-box-icon bg-green"><i class="fa fa-list-ol"></i></span>
-                    <div class="info-box-content">
-                        <span class="info-box-text">Inventario general</span>
-                        <span class="info-box-number">0<small>%</small></span>
+                    <div class="info-box-content" id="IndicadorInventario">
                     </div><!-- /.info-box-content -->
                 </div><!-- /.info-box -->
             </div><!-- /.col -->
@@ -102,9 +105,7 @@ unset($_SESSION['EXPORT']);
             <div class="col-md-3 col-sm-6 col-xs-12">
                 <div class="info-box shadow" >
                     <span class="info-box-icon bg-aqua"><i class="fa fa-truck"></i></span>
-                    <div class="info-box-content">
-                        <span class="info-box-text">Traspasos</span>
-                        <span class="info-box-number">0<small>%</small></span>
+                    <div class="info-box-content" id="IndicadorTraspasos">
                     </div><!-- /.info-box-content -->
                 </div><!-- /.info-box -->
             </div><!-- /.col -->
@@ -112,9 +113,7 @@ unset($_SESSION['EXPORT']);
             <div class="col-md-3 col-sm-6 col-xs-12">
                 <div class="info-box">
                     <span class="info-box-icon bg-orange"><i class="fa fa-minus"></i></span>
-                    <div class="info-box-content">
-                        <span class="info-box-text">Existencias Bajas</span>
-                        <span class="info-box-number">0<small>%</small></span>
+                    <div class="info-box-content" id="IndicadorExisBajas">
                     </div><!-- /.info-box-content -->
                 </div><!-- /.info-box -->
             </div><!-- /.col -->
@@ -122,33 +121,23 @@ unset($_SESSION['EXPORT']);
             <div class="col-md-3 col-sm-6 col-xs-12">
                 <div class="info-box">
                     <span class="info-box-icon bg-red"><i class="fa fa-angle-double-left"></i></span>
-                    <div class="info-box-content">
-                        <span class="info-box-text">Sin Existencias</span>
-                        <span class="info-box-number">0<small>%</small></span>
+                    <div class="info-box-content" id="IndicadorSinExistencias">
                     </div><!-- /.info-box-content -->
                 </div><!-- /.info-box -->
             </div><!-- /.col -->
         </div>
 
-        <div class="row">
-            <div class="col-md-3">
-                <div class="box box-success">
-                    <div class="box-header">
-                        <h3 class="box-title">Total productos</h3>
-                    </div>
-                    <div class="box-body">
-
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-3">
+        <div class="row row-sm">
+            <div class="col-md-6">
                 <div class="box box-info">
                     <div class="box-header">
-                        <h3 class="box-title">Total materiales</h3>
+                        <h3 class="box-title">Ultimos Traspasos</h3>
                     </div>
-                    <div class="box-body">
-
+                    <div class="box-body table-responsive" >
+                        <table class="table table-condensed table-striped table-hover">
+                            <thead id="listaTraspasos">
+                            </thead>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -158,8 +147,11 @@ unset($_SESSION['EXPORT']);
                     <div class="box-header">
                         <h3 class="box-title">Productos con stock minimo</h3>
                     </div>
-                    <div class="box-body">
-
+                    <div class="box-body table-responsive">
+                        <table class="table table-condensed table-striped table-hover">
+                            <thead id="listaStockMinimo">
+                            </thead>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -169,8 +161,11 @@ unset($_SESSION['EXPORT']);
                     <div class="box-header">
                         <h3 class="box-title">Productos sin stock</h3>
                     </div>
-                    <div class="box-body">
-
+                    <div class="box-body table-responsive">
+                        <table class="table table-condensed table-striped table-hover">
+                            <thead id="listaSinStock">
+                            </thead>
+                        </table>
                     </div>
                 </div>
             </div>
