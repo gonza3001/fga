@@ -60,6 +60,7 @@ if($_SESSION['data_login']['idperfil'] == 1){
     //Perfil de Administrador
 
     //Cantidad de Articulos en todos los almacenes
+    $connect->_query = "SELECT ifnull(cast(sum(existencias) as SIGNED),0)as total FROM almacen_articulos where idempresa = $idEmpresa and tipo_articulo = 'ART' ";
     $connect->get_result_query();
     $TotalInventario = $connect->_rows[0][0];
 
