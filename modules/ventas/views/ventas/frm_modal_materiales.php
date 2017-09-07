@@ -175,7 +175,7 @@ $idAlmacen = $_SESSION['data_home']['almacen'];
                             </div>
                             <div class="col-md-12 margin-bottom">
                                 <div class="input-group">
-                                    <input disabled class="form-control  input-lg text-center" id="txtCantidad" value="0" type="text">
+                                    <input disabled class="form-control  input-lg text-center" id="txtCantidad" value="100" type="text">
                                     <span class="input-group-addon text-bold" id="basic-addon2">%</span>
                                 </div>
                             </div>

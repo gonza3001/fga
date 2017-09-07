@@ -55,12 +55,12 @@ $idEmpresa = $_SESSION['data_home']['idempresa'];
 $idAlmacen = $_SESSION['data_home']['almacen'];
 $NombreMaterial = $_POST['textSearch'];
 
-$connect->_query = "SELECT a.idarticulo,b.nombre_material,c.nombre_catalogo as ColorMaterial FROM almacen_articulos as a
-LEFT JOIN materiales as b
-ON a.idarticulo = b.idmateriales
+$connect->_query = "SELECT a.idarticulo,b.nombre_articulo,c.nombre_catalogo as ColorMaterial FROM almacen_articulos as a
+LEFT JOIN articulos as b
+ON a.idarticulo = b.idarticulo
 LEFT JOIN catalogo_general as c
 ON b.idcolor = c.opc_catalogo AND c.idcatalogo = 4
-WHERE a.tipo_articulo = 'MAT' AND a.idalmacen = $idAlmacen AND b.nombre_material like '%$NombreMaterial%'  AND a.existencias > 0 ORDER BY b.nombre_material ASC ";
+WHERE a.tipo_articulo = 'MAT' AND a.idalmacen = $idAlmacen AND b.nombre_articulo like '%$NombreMaterial%'  AND a.existencias > 0 ORDER BY b.nombre_articulo ASC ";
 $connect->get_result_query();
 $lista = $connect->_rows;
 
@@ -71,7 +71,7 @@ if(count($lista) > 0 ){
         $ColorMaterial = $lista[$i][2];
         $valor = $lista[$i][0]."-".$lista[$i][1];
         $nombre_articulo = $lista[$i][1];
-        echo "<div class='col-md-4'><button style='background: ".$ColorMaterial."' onclick='$(\"#material\").val(\"".$valor."\");$(\"#title_cantida\").text(\"Material: ".$nombre_articulo."\");$(\"#content02\").removeClass(\"hidden\");$(\"#content01\").addClass(\"hidden\");$(\"#txtCantidad\").val(0);'  class='btn btn-app btn-block'>".$lista[$i][1]."</button></div>";
+        echo "<div class='col-md-4'><button style='background: ".$ColorMaterial."' onclick='$(\"#material\").val(\"".$valor."\");$(\"#title_cantida\").text(\"Material: ".$nombre_articulo."\");$(\"#content02\").removeClass(\"hidden\");$(\"#content01\").addClass(\"hidden\");$(\"#txtCantidad\").val(100);'  class='btn btn-app btn-block'>".$lista[$i][1]."</button></div>";
     }
 }else{
     echo "<div class='col-md-12 ' style='margin-top: -19px;'><h4 class='text-danger'>No se encontro el Material</h4></div>";

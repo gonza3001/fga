@@ -62,24 +62,12 @@ $Descripcion = $_POST['descripcion'];
 $Cantidad = $_POST['idcantidad'];
 $TipoProducto  = $_POST['tipo_producto'];
 
-switch ($TipoProducto){
-    case 'ART':
-        $connect->_query = "
+$connect->_query = "
         select a.idarticulo,b.nombre_articulo,b.codigo,b.precio_venta,b.precio_mayoreo,b.cantidad_mayoreo,a.existencias FROM almacen_articulos as a
         LEFT JOIN articulos as b
         ON a.idarticulo = b.idarticulo
-        WHERE  a.idarticulo = $idArticulo AND a.tipo_articulo = 'ART' AND a.idempresa = $idEmpresa AND a.idalmacen = $idAlmacen AND a.existencias > $Cantidad ;
+        WHERE  a.idarticulo = $idArticulo AND a.idempresa = $idEmpresa AND a.idalmacen = $idAlmacen AND a.existencias > $Cantidad ;
         ";
-        break;
-    case 'MAT':
-        $connect->_query = "
-        SELECT a.idarticulo,b.nombre_material,'00'as Codigo,b.precio_venta,3 as mayoreo,3 as cantidadMayoreo,a.existencias FROM almacen_articulos as a
-        LEFT JOIN materiales as b
-        ON a.idarticulo = b.idmateriales
-        WHERE a.idarticulo = $idArticulo AND a.tipo_articulo = 'MAT' AND a.idempresa = $idEmpresa AND a.idalmacen = $idAlmacen AND a.existencias > $Cantidad
-        ";
-        break;
-}
 $connect->get_result_query();
 
 $data_producto = $connect->_rows[0];
