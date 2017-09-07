@@ -15,12 +15,33 @@ function CargarTableroAlmacen(opc,idempresa,idalmacen){
     }).done(function (response) {
         fnloadSpinner(2);
 
+        console.log(response);
+
         if(response.result){
 
             $('#IndicadorInventario').html('<span class="info-box-text">'+response.data.indicadores.Inventario.titulo+'</span><span class="info-box-number">'+response.data.indicadores.Inventario.total+'</span>');
             $('#IndicadorTraspasos').html('<span class="info-box-text">'+response.data.indicadores.Traspasos.titulo+'</span><span class="info-box-number">'+response.data.indicadores.Traspasos.total+'</span>')
             $('#IndicadorExisBajas').html('<span class="info-box-text">'+response.data.indicadores.Existencias.titulo+'</span><span class="info-box-number">'+response.data.indicadores.Existencias.total+'</span>')
             $('#IndicadorSinExistencias').html('<span class="info-box-text">'+response.data.indicadores.SinExistencias.titulo+'</span><span class="info-box-number">'+response.data.indicadores.SinExistencias.total+'</span>')
+
+
+            //Lista para los ultimos 10 Traspasos
+            if( response.data.datalist.traspasos.length > 0 ){
+
+                var listaTraspasos = "";
+
+                for(i=0;i < response.data.datalist.traspasos.length;i++){
+
+                    listaTraspasos = listaTraspasos + "<tr><td>"+response.data.datalist.traspasos[i]['FolioTraspaso']+"</td><td>"+response.data.datalist.traspasos[i]['almacen_origen']+"</td><td>"+response.data.datalist.traspasos[i]['almacen_destino']+"</td><td>"+response.data.datalist.traspasos[i]['fecha_alta']+"</td></tr>"
+
+                }
+
+                $("#listaTraspasos").html(listaTraspasos);
+
+            }
+
+
+            //Lista para el Stock Minimo
 
             if(response.data.datalist.existenciasBajas.length > 0){
 
@@ -71,8 +92,6 @@ function setRealizarTraspaso(opc,openReport,idestado){
         }
     }).done(function(dataResult){
 
-        console.log(dataResult);
-
         fnloadSpinner(2);
         if(dataResult.result == "ok"){
 
@@ -94,7 +113,6 @@ function setRealizarTraspaso(opc,openReport,idestado){
 
 function eliminar_carrito_traspasos(idarticulo){
 
-    console.log(idarticulo);
 
     $.ajax({
         url:"modules/almacen/src/traspasos/fn_elimina_producto.php",
@@ -127,7 +145,7 @@ function eliminar_carrito_traspasos(idarticulo){
     })
 
 }
-function agregar_carrito_traspasos(idarticulo,nombre_articulo,tipo_articulo,cantidad,existencias,datos) {
+function agregar_carrito_traspasos(idarticulo,nombre_articulo,tipo_articulo,cantidad,existencias,datos,e) {
 
     //alert(idarticulo + "-" + nombre_articulo + "-" +tipo_articulo +"-"+cantidad +"-" + existencias +"--"+ datos);
 
@@ -135,21 +153,25 @@ function agregar_carrito_traspasos(idarticulo,nombre_articulo,tipo_articulo,cant
         MyAlert("No cuenta con suficientes articulos en el almacen origen","alert");
     }else{
 
-        SenderAjax(
-            "modules/almacen/src/traspasos/",
-            "fn_agregar_carrito_traspaso.php",
-            null,"list_cart_traspasos","post",
-            {
-                opc:1,
-                idarticulo:idarticulo,
-                tipo_articulo:tipo_articulo,
-                nombre_articulo:nombre_articulo,
-                cantidad:cantidad,
-                existencias:existencias,
-                datos:datos
-            }
-        );
-
+        if(cantidad > 0 ){
+            SenderAjax(
+                "modules/almacen/src/traspasos/",
+                "fn_agregar_carrito_traspaso.php",
+                null,"list_cart_traspasos","post",
+                {
+                    opc:1,
+                    idarticulo:idarticulo,
+                    tipo_articulo:tipo_articulo,
+                    nombre_articulo:nombre_articulo,
+                    cantidad:cantidad,
+                    existencias:existencias,
+                    datos:datos
+                }
+            );
+            $(e).closest("tr").remove();
+        }else{
+            MyAlert("La cantidad debe ser mayor a 0","error");
+        }
     }
 
 
@@ -230,9 +252,6 @@ function compras_nuevo_traspaso(opc){
             MyAlert("Error no se encontro la opcion","error");
             break;
     }
-
-
-
 }
 
 function listar_inventarios(opc,tipo_producto,idalmacen,str){

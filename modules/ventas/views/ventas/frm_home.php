@@ -59,7 +59,7 @@ unset($_SESSION['cart_venta']);
 <script>
 
     //Validar cierre del dia anterior
-    fnVentaCierreCaja(1);
+    //fnVentaCierreCaja(1);
 
     $(".select2").select2();
     $("#idcliente").click(function(){
@@ -86,7 +86,6 @@ unset($_SESSION['cart_venta']);
         //Cobrar Caja
         fnVentaCobrarVenta(1);
     });
-
 </script>
 <div class="box box-info animated fadeInDown">
 

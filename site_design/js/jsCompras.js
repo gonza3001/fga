@@ -203,7 +203,7 @@ function CargarIndicadoresCompras(opc) {
     }).done(function(response){
 
         fnloadSpinner(2);
-        console.log(response);
+
         if(response.result){
 
             var autorizar,realizado,cancelado;

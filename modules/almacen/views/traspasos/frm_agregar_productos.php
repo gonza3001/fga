@@ -24,11 +24,12 @@ $idalmacen_origen = $_POST['idalmacen_origen'];
 $idalmacen_destino = $_POST['idalmacen_destino'];
 $idusuario_solicita = $_POST['idusuario_solicita'];
 
-$connect->_query = "
-SELECT nombre_almacen as AlmacenOrigen FROM almacen where idempresa = 1 AND idalmacen = $idalmacen_origen UNION 
-SELECT nombre_almacen as AlmacenDestino FROM almacen where idempresa = 1 AND idalmacen = $idalmacen_destino ;
-";
+$idEmpresa = $_SESSION['data_home']['idempresa'];
 
+$connect->_query = "
+SELECT nombre_almacen as AlmacenOrigen FROM almacen where idempresa = $idEmpresa AND idalmacen = $idalmacen_origen UNION 
+SELECT nombre_almacen as AlmacenDestino FROM almacen where idempresa = $idEmpresa AND idalmacen = $idalmacen_destino ;
+";
 $connect->get_result_query();
 
 $AlmacenOrigen = $connect->_rows[0][0];
@@ -44,6 +45,7 @@ $AlmacenDestino = $connect->_rows[1][0];
             $("#btnBuscarProducto").click();
         }
     });
+    //$(e).closest("tr").remove();
 
 </script>
 <div class="modal fade" id="modal_buscar_producto">
@@ -61,8 +63,9 @@ $AlmacenDestino = $connect->_rows[1][0];
                         </div>
                         <div class="col-md-2">
                             <select id="tipo_producto" class="form-control">
-                                <option value="ART">Productos</option>
-                                <option value="MAT">Materiales</option>
+                                <option value="0">Todos</option>
+                                <option value="1">Productos</option>
+                                <option value="2">Materiales</option>
                             </select>
                         </div>
                         <div class="col-md-2">

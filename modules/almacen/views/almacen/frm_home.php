@@ -48,16 +48,16 @@ unset($_SESSION['EXPORT']);
                 <i class="fa fa-list-ol"></i> Inventario <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
-                <li><a href="#" onclick="listar_inventarios(1,'ART',1,0)">Almacen General</a></li>
+                <li><a href="#" onclick="listar_inventarios(1,'ART',1,'Almacen General')">Almacen General</a></li>
                 <?php
                 $connect->_query = "SELECT idalmacen,nombre_almacen from almacen WHERE idalmacen <> ".$_SESSION['sys_config']['almacen']." AND idempresa = ".$_SESSION['data_home']['idempresa']." ";
                 $connect->get_result_query();
                 for($i=0;$i < count($connect->_rows);$i++){
-                    echo "<li><a href='#' onclick='listar_inventarios(1,\"ART\",".$connect->_rows[$i][0].",0)' >".$connect->_rows[$i][1]."</a></li>";
+                    echo "<li><a href='#' onclick='listar_inventarios(1,\"ART\",".$connect->_rows[$i][0].",\"".$connect->_rows[$i][1]. "\")' >".$connect->_rows[$i][1]."</a></li>";
                 }
                 ?>
                 <li class="divider"></li>
-                <li><a href="#" onclick="listar_inventarios(1,'ART',999,0)">Todos</a></li>
+                <li><a href="#" onclick="listar_inventarios(1,'ART',999,'Todos los Almacenes')">Todos</a></li>
             </ul>
         </div>
 
@@ -75,7 +75,6 @@ unset($_SESSION['EXPORT']);
                 <li><a href="#" onclick="compras_nuevo_traspaso(1)" >Nuevo Traspaso</a></li>
             </ul>
         </div>
-
 
         <div class="btn-group">
             <button class="btn btn-default btn-sm dropdown-toggle"
@@ -131,10 +130,18 @@ unset($_SESSION['EXPORT']);
             <div class="col-md-6">
                 <div class="box box-info">
                     <div class="box-header">
-                        <h3 class="box-title">Ultimos Traspasos</h3>
+                        <h3 class="box-title">Ultimos 10 Traspasos</h3>
                     </div>
                     <div class="box-body table-responsive" >
                         <table class="table table-condensed table-striped table-hover">
+                            <thead>
+                            <tr>
+                                <th>Folio</th>
+                                <th>Almacen Origen</th>
+                                <th>Almacen Destino</th>
+                                <th>Fecha</th>
+                            </tr>
+                            </thead>
                             <thead id="listaTraspasos">
                             </thead>
                         </table>
@@ -173,4 +180,6 @@ unset($_SESSION['EXPORT']);
 
 
     </div>
+
+
 </div>

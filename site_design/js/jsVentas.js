@@ -47,7 +47,6 @@ function fnVentaServicios() {
             MyAlert("<span class='text-bold' ><i class='fa fa-exclamation-triangle'></i>"+response.message+"</span>","alert");
 
         }
-        console.log(response);
 
     }).fail(function (jqh,textStatus) {
 
@@ -127,8 +126,6 @@ function fnVentaCierreCaja(opcion){
                 data:{opc:opcion},
                 dataType:"JSON"
             }).done(function(response){
-
-                console.log(response);
 
                 if(response.result == "success"){
 
@@ -227,8 +224,6 @@ function fnVentaAperturaCaja(opcion) {
                 data:{opc:opcion,SaldoInicial:SaldoInicial},
                 dataType:"JSON"
             }).done(function(data){
-
-                console.log(data);
 
                 if(data.result == "ok"){
                     gn_menu_principal(9,9);
@@ -375,7 +370,6 @@ function fnVentaHistorialCliente(data){
             );
             break;
         case 4: //Mostrar detalles y pagos del folio de venta seleccionado
-            console.log(data);
             SenderAjax(
                 "modules/ventas/views/clientes/",
                 "frm_detalle_venta_cliente.php",

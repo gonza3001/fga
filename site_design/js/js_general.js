@@ -250,7 +250,6 @@ nueva_orden_compra = function(opc,idorden){
                 }).done( function(data) {
 
                     fnloadSpinner(2);
-                    console.log(data);
                     if(data.confirm == "ok"){
 
                         getMessage(data.mensaje,'Compra realizada correctamente','success');

@@ -64,9 +64,13 @@ for($i=0;$i < count($lista_existencias);$i++){
 ?>
 <script>
     $('#tabla_inventarios').DataTable({
+        "dom": 'T<"clear">lfrtip',
+        "tableTools": {
+            "aButtons": [ "xls", "pdf" ]
+        },
         "bRetrieve":true,
         "paging": true,
-        "lengthChange": false,
+        "lengthChange": true,
         "searching": false,
         "language": {
             "lengthMenu": "Mostrar  _MENU_ registros",

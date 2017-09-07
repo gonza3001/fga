@@ -1140,7 +1140,6 @@ function nuevo_material(opc,idmaterial){
                     url:"modules/applications/src/catalogos/fn_registra_material.php"
                 }).done( function(data) {
 
-                    //console.log(data);
                     if(data.confirm == "ok"){
 
                       menu_catalogos(8,8);
@@ -1219,7 +1218,6 @@ function editar_material(opc,idmaterial){
                     url:"modules/applications/src/catalogos/fn_editar_material.php"
                 }).done( function(data) {
 
-                    console.log(data);
                     if(data.confirm == "ok"){
 
                         menu_catalogos(8,8);
@@ -1314,7 +1312,6 @@ function nuevo_departamento(opc,iddepartamento){
                 }).done( function(data) {
 
                     fnloadSpinner(2);
-                    console.log(data);
                     if(data.confirm == "ok"){
 
                         getMessage(data.mensaje);
@@ -1390,7 +1387,6 @@ function nuevo_departamento(opc,iddepartamento){
                 }).done( function(data) {
 
                     fnloadSpinner(2);
-                    console.log(data);
                     if(data.confirm == "ok"){
 
                         getMessage(data.mensaje);

@@ -62,9 +62,9 @@ $NombreProducto = $_POST['nombre_producto'];
 $idalmacen_origen = $_POST['datos']['idalmacen_origen'];
 $idalmacen_destino = $_POST['datos']['idalmacen_destino'];
 $idusuario_solicita = $_POST['datos']['idusuario_solicita'];
+$TipoProducto = $_POST['tipo_producto'];
 
-
-if($_POST['tipo_producto'] == 'ART'){
+if($_POST['tipo_producto'] == 0){
 
     $articulos->_query = "SELECT 
 	a.idalmacen,a.idarticulo,b.nombre_articulo,a.tipo_articulo,a.existencias,b.stock_minimo 
@@ -75,26 +75,24 @@ if($_POST['tipo_producto'] == 'ART'){
     WHERE 
         a.idempresa = 1 AND
         a.existencias > 0 AND
-        a.tipo_articulo = 'ART' AND 
         a.idalmacen = $idalmacen_origen AND 
         b.nombre_articulo LIKE '%$NombreProducto%'";
 
 
-}else if($_POST['tipo_producto'] == 'MAT'){
+}else{
 
     $articulos->_query = "SELECT 
-    a.idalmacen,a.idarticulo,b.nombre_material,a.tipo_articulo,a.existencias,b.stock_minimo 
+	a.idalmacen,a.idarticulo,b.nombre_articulo,a.tipo_articulo,a.existencias,b.stock_minimo 
     FROM 
         almacen_articulos as a 
-    LEFT JOIN materiales as b 
-    ON a.idarticulo = b.idmateriales
+    LEFT JOIN articulos as b 
+    ON a.idarticulo = b.idarticulo
     WHERE 
         a.idempresa = 1 AND
         a.existencias > 0 AND
-        a.tipo_articulo = 'MAT' AND 
+        a.tipo_articulo = $TipoProducto AND 
         a.idalmacen = $idalmacen_origen AND 
-        b.nombre_material LIKE '%$NombreProducto%'";
-
+        b.nombre_articulo LIKE '%$NombreProducto%'";
 }
 
 $articulos->get_result_query();
@@ -118,10 +116,10 @@ for($i=0; $i < count($lista_articulos); $i++){
             <td>".$nombre."</td>
             <td class='text-center'>$existencias</td>
             <td>
-                <input class='form-control text-center' id='cantidad-$idarticulo' value='1' />
+                <input class='form-control text-center' id='cantidad-$idarticulo' value='0' />
             </td>
             <td  class='text-center'>$tipo_articulo</td>
-            <td><button class='btn btn-success' onclick='agregar_carrito_traspasos($idarticulo,\"".$nombre."\",\"".$tipo_articulo."\",$(\"#cantidad-".$idarticulo."\").val(),$existencias,$data)'><i class='fa fa-plus'></i></button></td>
+            <td><button class='btn btn-success' onclick='agregar_carrito_traspasos($idarticulo,\"".$nombre."\",\"".$tipo_articulo."\",$(\"#cantidad-".$idarticulo."\").val(),$existencias,$data,this)'><i class='fa fa-plus'></i></button></td>
     </tr>";
 }
 ?>

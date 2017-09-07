@@ -67,7 +67,6 @@ $almacen = new model_almacen();
 
 </script>
 
-
 <div class="row">
     <div class="col-md-12">
 
@@ -92,7 +91,8 @@ $almacen = new model_almacen();
 <br>
 <div class="row">
     <div class="col-md-12">
-        <table id="tabla_inventarios" class="table table-condensed table-hover">
+        <h3 class="text-center"><?=$_POST['str']?></h3>
+        <table id="tabla_inventarios" style="margin-top: -10px" class="table table-condensed table-hover">
             <thead>
             <tr>
                 <th>#</th>
