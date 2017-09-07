@@ -28,19 +28,9 @@ $connect->_query = "SELECT
                       detalle_venta as a
                       LEFT JOIN articulos as b
                       ON a.idarticulo = b.idarticulo
-                    where a.idventa = $FolioVenta AND a.tipo_articulo = 'ART' ";
+                    where a.idventa = $FolioVenta";
 $connect->get_result_query();
 $DetalleART = $connect->_rows;
-
-$connect->_query = "SELECT 
-                      a.iddetalle_venta,a.idalmacen,a.idventa,a.tipo_articulo,b.nombre_material,a.cantidad,a.precio_compra,a.descripcion 
-                    FROM 
-                      detalle_venta as a 
-                      LEFT JOIN materiales as b
-                      ON a.idarticulo = b.idmateriales
-                    where a.idventa = $FolioVenta AND a.tipo_articulo = 'MAT' ";
-$connect->get_result_query();
-$DetalleMAT = $connect->_rows;
 
 
 //Numeros de pagos
