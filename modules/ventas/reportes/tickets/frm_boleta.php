@@ -38,40 +38,48 @@ $DomicilioSucursal = "Calle avenida sendero division norte # 135 Local 123";
 $TelefonoSucursal = "81 2132-356 - 044 81 2134-4567";
 ?>
 <script>
-    // set portrait orientation
-    jsPrintSetup.setOption('orientation', jsPrintSetup.kPortraitOrientation);
-    // set top margins in millimeters
-    jsPrintSetup.setOption('marginTop', 5);
-    jsPrintSetup.setOption('marginBottom', 5);
-    jsPrintSetup.setOption('marginLeft', 5);
-    jsPrintSetup.setOption('marginRight', 5);
 
-    jsPrintSetup.setPrinter('Microsoft XPS Document Writer');
-    jsPrintSetup.setSilentPrint(1);
+    if(typeof jsPrintSetup === 'jsPrintSetup') {
 
-    // set page header
-    jsPrintSetup.setOption('headerStrLeft', '');
-    jsPrintSetup.setOption('headerStrCenter', '');
-    jsPrintSetup.setOption('headerStrRight', '');
-    // set empty page footer
-    jsPrintSetup.setOption('footerStrLeft', '');
-    jsPrintSetup.setOption('footerStrCenter', '');
-    jsPrintSetup.setOption('footerStrRight', '');
+        // set portrait orientation
+        jsPrintSetup.setOption('orientation', jsPrintSetup.kPortraitOrientation);
+        // set top margins in millimeters
+        jsPrintSetup.setOption('marginTop', 5);
+        jsPrintSetup.setOption('marginBottom', 5);
+        jsPrintSetup.setOption('marginLeft', 5);
+        jsPrintSetup.setOption('marginRight', 5);
 
+        jsPrintSetup.setPrinter('Microsoft XPS Document Writer');
+        jsPrintSetup.setSilentPrint(1);
 
-
-    jsPrintSetup.setOption('printRange',jsPrintSetup.kRangeSpecifiedPageRange);
-    jsPrintSetup.setOption('startPageRange', 1);
-    jsPrintSetup.setOption('endPageRange', 1);
+        // set page header
+        jsPrintSetup.setOption('headerStrLeft', '');
+        jsPrintSetup.setOption('headerStrCenter', '');
+        jsPrintSetup.setOption('headerStrRight', '');
+        // set empty page footer
+        jsPrintSetup.setOption('footerStrLeft', '');
+        jsPrintSetup.setOption('footerStrCenter', '');
+        jsPrintSetup.setOption('footerStrRight', '');
 
 
 
-    setTimeout(function () {
-        jsPrintSetup.printWindow(window);
-        // print desired frame
-        //    jsPrintSetup.printWindow(window.frames[0]);
-        jsPrintSetup.setSilentPrint(0);
-    },500);
+        jsPrintSetup.setOption('printRange',jsPrintSetup.kRangeSpecifiedPageRange);
+        jsPrintSetup.setOption('startPageRange', 1);
+        jsPrintSetup.setOption('endPageRange', 1);
+
+
+
+        setTimeout(function () {
+            jsPrintSetup.printWindow(window);
+            // print desired frame
+            //    jsPrintSetup.printWindow(window.frames[0]);
+            jsPrintSetup.setSilentPrint(0);
+        },500);
+
+    }else{
+        MyAlert("No se encontro el complemeto para la impresora","alert");
+    }
+
 </script>
 
 <body>

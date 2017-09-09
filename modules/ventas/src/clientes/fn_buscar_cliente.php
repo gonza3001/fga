@@ -68,5 +68,4 @@ for($i=0;$i < count($connect->_rows);$i++){
     );
 
 }
-
 echo json_encode($data);

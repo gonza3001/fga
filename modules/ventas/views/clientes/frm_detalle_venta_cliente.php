@@ -60,6 +60,7 @@ $a=1;
         </thead>
         <tbody>
         <?php
+        $SubTotalART=0;
         for($i=0;$i < count($DetalleART);$i++){
 
             $PrecioSubtotal = $DetalleART[$i][6] * $DetalleART[$i][5];
@@ -69,22 +70,10 @@ $a=1;
                     <td class='currency'>".$DetalleART[$i][6]."</td>
                     <td class='currency text-right'>".$PrecioSubtotal."</td>
                     </tr>";
-            $SubTotalART = $SubTotalART + $DetalleART[$i][6];
+            $SubTotalART = $SubTotalART + $PrecioSubtotal;
         }
-        $Total = $PrecioSubtotal;
-        $PrecioSubtotal=0;
-        for($i=0;$i < count($DetalleMAT);$i++){
 
-            $PrecioSubtotal = $DetalleMAT[$i][6] * $DetalleMAT[$i][5];
-            echo "<tr><td>".$a++."</td>
-                    <td>".$DetalleMAT[$i][4]."</td>
-                    <td>".$DetalleMAT[$i][5]."</td>
-                    <td class='currency'>".$DetalleMAT[$i][6]."</td>
-                    <td class='currency text-right'>".$PrecioSubtotal."</td>
-                    </tr>";
-            $SubTotalMat = $SubTotalMat + $DetalleMAT[$i][6];
-        }
-        $Total = $Total + $PrecioSubtotal + $_SESSION['sys_config']['costo_trabajo_cp'];
+        $Total = $SubTotalART + $_SESSION['sys_config']['costo_trabajo_cp'];
         ?>
         <tr><td><?=$a++?></td><td>Costo trabajo</td><td>0</td><td class="currency"><?=$_SESSION['sys_config']['costo_trabajo_cp']?></td><td class="currency text-right"><?=$_SESSION['sys_config']['costo_trabajo_cp']?></td></tr>
         </tbody>
@@ -120,18 +109,21 @@ $a=1;
                     <td class='currency' >".$DetallePagos[$i][3]."</td>
                     <td>".$DetallePagos[$i][4]."</td>
                     </tr>";
-            $Total = $Total + $DetallePagos[$i][3];
+
+            $Importe = $DetallePagos[0][2];
+            $Pagos = $Pagos + $DetallePagos[$i][3];
+
         }
+        $Total = $Importe - $Pagos;
         ?>
         </tbody>
         <tfoot>
         <tr>
-            <td class="text-bold">Total: </td>
-            <td class="text-bold currency"><?=$DetallePagos[0][2]?></td>
+            <td colspan="2" class="text-bold text-right">Pendiente: </td>
             <td class="text-bold currency"><?=$Total?></td>
             <td>
                 <?php
-                if($Total <  $DetallePagos[0][2]){
+                if(!$Total <  $DetallePagos[0][2]){
                     echo "<span class='label label-warning'> Nota Pendiente</span>";
                 }else{
                     echo "<span class='label label-success'> Nota Terminada</span>";

@@ -194,11 +194,62 @@ unset($_SESSION['cart_venta']);
                 <div class="col-md-6">
                     <div class="box box-primary">
                         <div class="box-body">
-                            <br>
 
-                            <div class="row">
-                                <div class="col-md-12">
+                            <div class="row row-sm">
 
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="input-group">
+                                          <span class="input-group-btn">
+                                            <button class="btn btn-warning"  onclick="fnVentaOpenModal({'opc':1})"  type="button"><i class="fa fa-search"></i> Producto&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+                                          </span>
+                                                <input type="text" readonly  ondblclick="fnVentaOpenModal({'opc':1})"   class="form-control" placeholder="Seleccione un producto">
+                                                <div id="precio_producto" class="input-group-addon">$ 00</div>
+                                            </div><!-- /input-group -->
+                                        </div>
+                                    </div><br>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="input-group">
+                                          <span class="input-group-btn">
+                                            <button class="btn btn-default" onclick="fnVentaOpenModal({'opc':3})" type="button">Selec. Material</button>
+                                          </span>
+                                                <input type="text" disabled class="form-control" placeholder="...">
+
+                                            </div><!-- /input-group -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row row-sm">
+
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="input-group">
+                                          <span class="input-group-btn">
+                                            <button class="btn btn-default" onclick="nuevo_cliente(1,1)" disabled type="button"><i class="fa fa-file-photo-o"></i> Tipo Trabajo</button>
+                                          </span>
+                                                <select id="idcliente" class="form-control select2" style="width: 100%">
+                                                    <option value="0">-- Seleccionar cliente --</option>
+                                                    <?php
+                                                    $connect->_query = "SELECT idcliente,nombre_completo FROM clientes where idestado = 1 ORDER BY nombre_completo ASC";
+                                                    $connect->get_result_query();
+                                                    for($i=0;$i <count($connect->_rows);$i++){
+                                                        echo "<option value='".$connect->_rows[$i][0]."'>".$connect->_rows[$i][1]."</option>";
+                                                    }
+                                                    ?>
+                                                </select>
+                                            </div><!-- /input-group -->
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="input-group">
@@ -217,23 +268,12 @@ unset($_SESSION['cart_venta']);
                                                 </select>
                                             </div><!-- /input-group -->
                                         </div>
-                                    </div><br>
+                                    </div>
                                 </div>
 
-                                <div class="col-md-12">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="input-group">
-                                          <span class="input-group-btn">
-                                            <button class="btn btn-warning"  onclick="fnVentaOpenModal({'opc':1})"  type="button"><i class="fa fa-search"></i> Producto&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
-                                          </span>
-                                                <input type="text" readonly  ondblclick="fnVentaOpenModal({'opc':1})"   class="form-control" placeholder="Seleccione un producto">
-                                                <div id="precio_producto" class="input-group-addon">$ 00</div>
-                                            </div><!-- /input-group -->
-                                        </div>
-                                    </div><br>
-                                </div>
-
+                            </div>
+                            <br>
+                            <div class="row row-sm">
                                 <div class="col-md-12">
                                     <div class="row">
                                         <div class="col-md-12">
@@ -241,17 +281,9 @@ unset($_SESSION['cart_venta']);
                                         </div>
                                     </div><br>
                                 </div>
-
-                                <div class="col-md-12">
-                                    <div class="input-group">
-                                          <span class="input-group-btn">
-                                            <button class="btn btn-default" onclick="fnVentaOpenModal({'opc':3})" type="button">Selec. Material</button>
-                                          </span>
-                                        <input type="text" disabled class="form-control" placeholder="...">
-
-                                    </div><!-- /input-group -->
-                                </div>
                             </div>
+
+
 
                         </div>
                     </div>

@@ -22,27 +22,31 @@ $TelefonoSucursal = "81 2132-356 - 044 81 2134-4567";
 $Vendedor = $_SESSION['data_login']['nick_name'];
 ?>
 <script>
-    // set portrait orientation
-    jsPrintSetup.setOption('orientation', jsPrintSetup.kPortraitOrientation);
-    // set top margins in millimeters
-    jsPrintSetup.setOption('marginTop', -20);
-    jsPrintSetup.setOption('marginBottom', 0);
-    jsPrintSetup.setOption('marginLeft', -12);
-    jsPrintSetup.setOption('marginRight', 0);
 
-    jsPrintSetup.setPrinter('Microsoft XPS Document Writer');
-    jsPrintSetup.setSilentPrint(1);
+    if(typeof jsPrintSetup === 'jsPrintSetup') {
+
+        //Es seguro ejecutar la función
+        jsPrintSetup.setOption('orientation', jsPrintSetup.kPortraitOrientation);
+        // set top margins in millimeters
+        jsPrintSetup.setOption('marginTop', -20);
+        jsPrintSetup.setOption('marginBottom', 0);
+        jsPrintSetup.setOption('marginLeft', -12);
+        jsPrintSetup.setOption('marginRight', 0);
+
+        jsPrintSetup.setPrinter('Microsoft XPS Document Writer');
+        jsPrintSetup.setSilentPrint(1);
 
 
+        setTimeout(function () {
+            jsPrintSetup.printWindow(window);
+            // print desired frame
+            //    jsPrintSetup.printWindow(window.frames[0]);
+            jsPrintSetup.setSilentPrint(0);
+        },500);
+    }else{
+        MyAlert("No se encontro el complemeto para la impresora","alert");
+    }
 
-
-
-    setTimeout(function () {
-        jsPrintSetup.printWindow(window);
-        // print desired frame
-        //    jsPrintSetup.printWindow(window.frames[0]);
-        jsPrintSetup.setSilentPrint(0);
-    },500);
 </script>
 <div id="isPrinter" class="row">
     <div class="col-md-12">
