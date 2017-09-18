@@ -77,7 +77,11 @@ if($connect->_confirm){
 
     if($importe_pagado >= $importe_venta){
         \core\core::MyAlert("El cliente ya saldo la cuenta","alert");
-        exit();
+        $Hide= "hide";
+        $activetab = "active";
+    }else{
+        $Hide="";
+        $activetab = "";
     }
 
 }else{
@@ -98,13 +102,13 @@ if($connect->_confirm){
 <div class="col-md-12">
     <div class="nav-tabs-custom">
         <ul class="nav nav-tabs">
-            <li class="active"><a href="#tab_1" data-toggle="tab">Datos Generales</a></li>
-            <li><a href="#tab_2" data-toggle="tab">Detalle de venta</a></li>
-            <li><a href="#tab_3" data-toggle="tab">Pagos</a></li>
+            <li class="active <?=$Hide?>"><a href="#tab_1" data-toggle="tab">Datos Generales</a></li>
+            <li class="hide"><a href="#tab_2" data-toggle="tab">Detalle de venta</a></li>
+            <li class="<?=$activetab?>" ><a href="#tab_3" data-toggle="tab">Pagos</a></li>
         </ul>
         <div class="tab-content">
 
-            <div class="tab-pane active" id="tab_1">
+            <div class="tab-pane active <?=$Hide?>" id="tab_1">
                 <div class="row">
                     <div class="col-md-12 hidden">
                         <div class="form-group">
@@ -138,7 +142,7 @@ if($connect->_confirm){
 
             </div>
 
-            <div class="tab-pane no-padding" id="tab_3">
+            <div class="tab-pane <?=$activetab?> no-padding" id="tab_3">
 
                 <table class="table table-hover table-condensed">
                     <thead>

@@ -39,7 +39,6 @@ $TelefonoSucursal = "81 2132-356 - 044 81 2134-4567";
 ?>
 <script>
 
-    if(typeof jsPrintSetup === 'jsPrintSetup') {
 
         // set portrait orientation
         jsPrintSetup.setOption('orientation', jsPrintSetup.kPortraitOrientation);
@@ -49,7 +48,7 @@ $TelefonoSucursal = "81 2132-356 - 044 81 2134-4567";
         jsPrintSetup.setOption('marginLeft', 5);
         jsPrintSetup.setOption('marginRight', 5);
 
-        jsPrintSetup.setPrinter('Microsoft XPS Document Writer');
+        jsPrintSetup.setPrinter('<?=$_SESSION['myPrint']?>');
         jsPrintSetup.setSilentPrint(1);
 
         // set page header
@@ -76,9 +75,6 @@ $TelefonoSucursal = "81 2132-356 - 044 81 2134-4567";
             jsPrintSetup.setSilentPrint(0);
         },500);
 
-    }else{
-        MyAlert("No se encontro el complemeto para la impresora","alert");
-    }
 
 </script>
 

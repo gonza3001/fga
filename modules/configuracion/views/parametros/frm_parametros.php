@@ -12,8 +12,7 @@ include "../../../../core/seguridad.class.php";
 
 $connect = new \core\seguridad();
 $connect->valida_session_id();
-
-
+$idEmpresa = $_SESSION['data_home']['idempresa'];
 
 ?>
 <script src="<?=\core\core::ROOT_APP()?>site_design/js/js_formato_moneda.js"></script>
@@ -22,6 +21,10 @@ $connect->valida_session_id();
     $("input").focus(function(){
         this.select();
     });
+
+    fnGnListarCostoTrabajo(1);
+    fnGnListarImpresoras(1);
+
 </script>
 <div class="box box-warning animated fadeIn">
     <div class="box-header">
@@ -37,8 +40,6 @@ $connect->valida_session_id();
                 <li class="active"><a href="#tab_1" data-toggle="tab">Datos Generales</a></li>
                 <li><a href="#tab_2" data-toggle="tab">Servicios</a></li>
                 <li><a href="#tab_3" data-toggle="tab">Credito y Costos</a></li>
-                <li><a href="#tab_8" data-toggle="tab">Iva</a></li>
-                <li><a href="#tab_4" data-toggle="tab">Costos por trabajo</a></li>
                 <li><a href="#tab_9" data-toggle="tab">Impresoras</a></li>
                 <li><a href="#tab_5" data-toggle="tab">Notificaciones</a></li>
                 <li><a href="#tab_6" data-toggle="tab">Alertas</a></li>
@@ -47,50 +48,71 @@ $connect->valida_session_id();
             </ul>
             <div class="tab-content">
 
-                <!--## IVA -->
-                <div class="tab-pane " id="tab_8">
-
-                </div>
-
                 <!-- Impresoras -->
-                <!--## IVA -->
                 <div class="tab-pane " id="tab_9">
                     <div class="row">
 
-                        <div class="col-md-2">
-                            <div class="form-group">
-                                <label>Localidad</label>
-                                <select class="form-control input-sm">
-                                    <option value="0">Seleccione una Localidad</option>
-                                </select>
+                        <form id="formImpresoras">
+                            <div class="col-md-2">
+                                <div class="form-group">
+                                    <label>Localidad</label>
+                                    <select id="idsucursal" class="form-control input-sm">
+                                        <option value="0">Seleccione una Localidad</option>
+                                        <?php
+                                        $connect->_query = "SELECT iddepartamento,nombre_departamento FROM departamentos where idestado = 1 AND tipo = 'S' AND idempresa = $idEmpresa order by nombre_departamento asc";
+                                        $connect->get_result_query();
+                                        for($i=0;$i < count($connect->_rows);$i++){
+                                            echo "<option value='".$connect->_rows[$i][0]."'>".$connect->_rows[$i][1]."</option>";
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label>Alias de la Impresora</label>
-                                <input class="form-control input-sm" />
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Alias de la Impresora</label>
+                                    <input id="aliasImpresora" placeholder="Alias de Impresora" class="form-control input-sm" />
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label>Nombre de la Impresora</label>
-                                <input class="form-control input-sm" />
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Nombre de la Impresora</label>
+                                    <input id="nombreImpresora" placeholder="Nombre de la impresora" class="form-control input-sm" />
+                                </div>
                             </div>
-                        </div>
+                        </form>
 
                         <div class="col-md-2">
                             <div class="form-group">
                                 <label>Agregar</label><br>
-                                <button class="btn btn-block btn-primary btn-sm"><i class="fa fa-check"></i></button>
+                                <button class="btn btn-block btn-primary btn-sm" onclick="fnGnAgregarImpresora(1)"><i class="fa fa-check"></i></button>
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table table-hover table-condensed">
+                                <thead>
+                                <tr>
+                                    <th>Sucursal</th>
+                                    <th>Alias</th>
+                                    <th>Nombre</th>
+                                    <th>Funciones</th>
+                                </tr>
+                                </thead>
+                                <tbody id="listarImpresoras">
+                                <tr>
 
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
 
-
+                <!-- Datos Generales -->
                 <div class="tab-pane active" id="tab_1">
 
                     <div class="row">
@@ -173,38 +195,6 @@ $connect->valida_session_id();
                                     </div>
                                 </div>
 
-                                <!-- CREDITOS -->
-                                <div class="col-md-3">
-                                    <div class="title-parametros">Credito</div>
-                                    <div class="form-group">
-                                        % Pago inicial:
-                                        <div class="input-group">
-                                            <span class="input-group-addon">%</span>
-                                            <input type="number" id="pago_minimo_credito" value="<?=$_SESSION['sys_config']['pago_inicial']?>" class="form-control input-sm">
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        Monto Maximo:
-                                        <div class="input-group">
-                                            <span class="input-group-addon">$</span>
-                                            <input type="text" id="credito_maximo" value="" class="form-control currency input-sm">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        Aplicar a:
-                                        <div class="input-group">
-                                            <span class="input-group-addon">$</span>
-                                            <select id="tipo_cliente_credito" class="form-control input-sm">
-                                                <option>Todos los clientes</option>
-                                                <option>Clientes frecuentes</option>
-                                                <option>Ninguno</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <!-- END CREDITOS -->
                             </div>
 
                         </div>
@@ -216,8 +206,8 @@ $connect->valida_session_id();
                     <h3>Servicio no contratado</h3>
                 </div>
 
+                <!-- Creditos y Costos -->
                 <div class="tab-pane" id="tab_3">
-
                     <div class="row">
                         <!-- PORCENTAJES IVA % -->
                         <div class="col-md-4">
@@ -229,83 +219,51 @@ $connect->valida_session_id();
                                 <li class="list-group-item"><input id="medioPagoEfectivo" class="hidden" value="0"> Pago en Efectivo <button class="btn btn-default pull-right btn-toggle" onc><i class="fa fa-toggle-on fa-2x text-green"></i></button></li>
                                 <li class="list-group-item"><input id="medioPagoTarjeta" class="hidden" value="0"> Pago con Tarjeta <button class="btn btn-default pull-right btn-toggle"><i class="fa fa-toggle-off fa-2x" ></i></button></li>
                             </ul>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="tab-pane" id="tab_4">
-                    <!-- Porcentajes -->
-                    <div class="row">
-
-                        <div class="col-md-4">
-                            <div class="title-parametros">Costos con Productos</div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        Costo por trabajo
-                                        <div class="input-group">
-                                            <span class="input-group-addon">$</span>
-                                            <input id="costo_trabajo_cp" value="<?=$_SESSION['sys_config']['costo_trabajo_cp']?>" type="text" class="form-control currency " aria-label="...">
-                                        </div><!-- /input-group -->
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        Cantidad Mayoreo
-                                        <div class="input-group">
-                                            <span class="input-group-addon" id="basic-addon1">#</span>
-                                            <input type="text" id="cantidad_mayoreo_costo_trabajo_cp" value="<?=$_SESSION['sys_config']['cantidad_mayoreo_cp']?>" class="form-control" placeholder="" aria-describedby="basic-addon1">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        Costo por trabajo mayoreo
-                                        <div class="input-group">
-                                            <span class="input-group-addon">$</span>
-                                            <input type="text" id="costo_trabajo_mayoreo_cp" value="<?=$_SESSION['sys_config']['costo_trabajo_mayoreo_cp']?>" class="form-control currency" aria-label="...">
-                                        </div><!-- /input-group -->
-                                    </div>
+                            <div class="title-parametros">Credito</div>
+                            <div class="form-group">
+                                % Pago inicial:
+                                <div class="input-group">
+                                    <span class="input-group-addon">%</span>
+                                    <input type="number" id="pago_minimo_credito" value="<?=$_SESSION['sys_config']['pago_inicial']?>" class="form-control input-sm">
                                 </div>
                             </div>
                         </div>
 
-                        <div class="col-md-4">
-                            <div class="title-parametros">Costos sin Productos</div>
+                        <div class="col-md-8">
+
                             <div class="row">
                                 <div class="col-md-12">
-                                    <div class="form-group">
-                                        Costo por trabajo
-                                        <div class="input-group">
-                                      <span class="input-group-addon">$</span>
-                                            <input type="text" value="<?=$_SESSION['sys_config']['costo_trabajo_sp']?>" id="costo_trabajo_sp" class="form-control currency" aria-label="...">
-                                        </div><!-- /input-group -->
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        Cantidad Mayoreo
-                                        <div class="input-group">
-                                            <span class="input-group-addon" id="basic-addon1">#</span>
-                                            <input type="text" value="<?=$_SESSION['sys_config']['cantidad_mayoreo_sp']?>" id="cantidad_mayoreo_costo_trabajo_sp" class="form-control" placeholder="" aria-describedby="basic-addon1">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        Costo por trabajo mayoreo
-                                        <div class="input-group">
-                                            <span class="input-group-addon">$</span>
-                                            <input type="text" value="<?=$_SESSION['sys_config']['costo_trabajo_mayoreo_sp']?>" id="costo_trabajo_mayoreo_sp" class="form-control currency" aria-label="...">
-                                        </div><!-- /input-group -->
-                                    </div>
+                                    <table class="table no-border table-hover table-condensed">
+                                        <thead>
+                                        <tr>
+                                            <th colspan="3" class="text-center">Costos de Trabajos</th>
+                                        </tr>
+                                        <tr style="border-bottom:1px solid #383838">
+                                            <th>
+                                                Nombre
+                                            </th>
+                                            <th colspan="2">
+                                                Precio
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th><input id="nombreCostoTrabajo" class="form-control input-sm" placeholder="Nombre"/> </th>
+                                            <th width="160"><input id="precioCostoTrabajo" class="form-control currency text-right input-sm" placeholder="Precio"/> </th>
+                                            <th width="100"><button class="btn btn-sm btn-success" onclick="fnGnGuardarCostoTRabajo(1)"><i class="fa fa-plus"></i> Argegar</button></th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="listaCostoTrabajos"></tbody>
+                                    </table>
                                 </div>
                             </div>
+
+
                         </div>
+
                     </div>
-                    <!-- END Porcentajes -->
+
                 </div>
+
                 <div class="tab-pane" id="tab_5"></div>
                 <div class="tab-pane" id="tab_6"></div>
                 <div class="tab-pane" id="tab_7"></div>

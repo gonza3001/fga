@@ -459,6 +459,43 @@ function fnVentaTipoVenta(valor) {
 
 }
 
+function fnAgregarTipoDiseno(idDiseno){
+
+    if(idDiseno > 0){
+        $.ajax({
+            url:"modules/ventas/src/ventas/fnAgregarTipoDiseno.php",
+            type:"post",
+            dataType:"json",
+            data:{idDiseno:idDiseno}
+        }).done(function(response){
+
+            console.log(response);
+
+            if(response.result){
+
+                fnVentaShowCartProducto(1);
+
+            }else{
+                MyAlert(response.message);
+            }
+
+        }).fail(function(jqhR,textStatus,errno){
+
+            if(console && console.log){
+
+                if(textStatus == "timeout"){
+                    MyAlert("Tiempo de espera agotado");
+                }else{
+                    MyAlert("Error al cargar la vista");
+                }
+
+            }
+
+        })
+    }
+
+}
+
 function fnVentaCobrarVenta(opc) {
 
     switch (opc){
@@ -466,10 +503,13 @@ function fnVentaCobrarVenta(opc) {
         case 1:
 
             var idcliente = $('#idcliente').val();
+            var tipodiseno = $("#costotrabajo").val();
 
             if(idcliente == 0){
                 MyAlert("Seleccione un cliente, antes de realizar el cobro","alert");
-            }else {
+            }else if(tipodiseno == 0) {
+                MyAlert("Seleccione el tipo de diseño","alert");
+            }else{
 
                 SenderAjax(
                     "modules/ventas/views/ventas/",

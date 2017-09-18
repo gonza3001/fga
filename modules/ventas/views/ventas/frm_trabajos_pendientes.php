@@ -23,8 +23,7 @@ $Vendedor = $_SESSION['data_login']['nick_name'];
 ?>
 <script>
 
-    if(typeof jsPrintSetup === 'jsPrintSetup') {
-
+    if ( jsPrintSetup ) {
         //Es seguro ejecutar la función
         jsPrintSetup.setOption('orientation', jsPrintSetup.kPortraitOrientation);
         // set top margins in millimeters
@@ -33,7 +32,7 @@ $Vendedor = $_SESSION['data_login']['nick_name'];
         jsPrintSetup.setOption('marginLeft', -12);
         jsPrintSetup.setOption('marginRight', 0);
 
-        jsPrintSetup.setPrinter('Microsoft XPS Document Writer');
+        jsPrintSetup.setPrinter('<?=$_SESSION['myPrint']?>');
         jsPrintSetup.setSilentPrint(1);
 
 
@@ -43,8 +42,10 @@ $Vendedor = $_SESSION['data_login']['nick_name'];
             //    jsPrintSetup.printWindow(window.frames[0]);
             jsPrintSetup.setSilentPrint(0);
         },500);
-    }else{
-        MyAlert("No se encontro el complemeto para la impresora","alert");
+    }
+    else {
+        ///alert('JS Print Setup Extension is NOT installed');
+        MyAlert("No se ecnontro el componente, ","error");
     }
 
 </script>

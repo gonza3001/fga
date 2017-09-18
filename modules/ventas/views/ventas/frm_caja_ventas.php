@@ -40,6 +40,7 @@ $Total = $Total + $_SESSION['sys_config']['costo_trabajo_cp'];
 
 $PagoInicial = round(($Total *  $_SESSION['sys_config']['pago_inicial']) / 100);
 ?>
+<script src="<?=\core\core::ROOT_APP()?>site_design/js/jsCalendario.js"></script>
 <script src="<?=\core\core::ROOT_APP()?>site_design/js/js_formato_moneda.js"></script>
 <script>
     setOpenModal("dml_caja_ventas");
@@ -96,6 +97,53 @@ $PagoInicial = round(($Total *  $_SESSION['sys_config']['pago_inicial']) / 100);
                                     <option value="1">Efectivo</option>
                                     <option value="2">Tarjerta</option>
                                     <option value="3">Combinado</option>
+                                </select>
+                            </div>
+                        </div>
+
+
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                Fecha Entrega
+                                <input readonly id="FechaEntrega" class="form-control text-center text-bold datepicker input-lg" />
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                Hora
+                                <select id="HoraEntrega" style="padding: 3px" class="form-control input-lg">
+                                    <option value="<?=date("h")?>"><?=date("h")?></option>
+                                    <?php
+                                    for($i=1;$i <= 12;$i++){
+                                        if($i <= 9){$i = "0".$i ;}
+                                        echo "<option>".$i."</option>";
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-2 ">
+                            <div class="form-group">
+                                Minuto
+                                <select id="MinutoEntrega" style="padding: 3px" class="form-control input-lg">
+                                    <option value="<?=date("i")?>"><?=date("i")?></option>
+                                    <?php
+                                    for($i=1;$i < 60;$i++){
+                                        if($i <= 9){$i = "0".$i ;}
+                                        echo "<option>".$i."</option>";
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                Hora
+                                <select id="FormatoHora" style="padding: 3px" class="form-control input-lg">
+                                    <option value="<?=date("A")?>"><?=date("A")?></option>
+                                    <option value="am">AM</option>
+                                    <option value="pm">PM</option>
                                 </select>
                             </div>
                         </div>

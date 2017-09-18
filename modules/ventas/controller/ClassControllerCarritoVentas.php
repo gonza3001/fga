@@ -31,11 +31,13 @@ class ClassControllerCarritoVentas
 
     }
 
-    public function elimina_producto($linea){
+    public function elimina_producto($linea,$array_splicer = true){
 
         unset($_SESSION['cart_venta'][$linea]);
 
-        array_splice($_SESSION['cart_venta'],$linea,1);
+        if($array_splicer){
+            array_splice($_SESSION['cart_venta'],$linea,1);
+        }
 
 
 

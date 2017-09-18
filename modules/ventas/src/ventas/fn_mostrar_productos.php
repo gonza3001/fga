@@ -78,7 +78,8 @@ for($i=0;$i < count($lista_carrito); $i++){
 }
 
 if(count($lista_carrito)>=1){
-    echo "<tr><td>".$a."</td><td>Costo de trabajo</td><td class='currency' >".$_SESSION['sys_config']['costo_trabajo_cp']."</td><td>1</td><td>".$_SESSION['sys_config']['costo_trabajo_cp']."</td><td></td><td></td></tr>";
+    $_SESSION['sys_config']['costo_trabajo_cp'] = $_SESSION['cart_costo_trabajo']['precio'];
+    echo "<tr><td>".$a."</td><td>Diseño ".$_SESSION['cart_costo_trabajo']['nombre']."</td><td class='currency' >".$_SESSION['cart_costo_trabajo']['precio']."</td><td>1</td><td>".$_SESSION['cart_costo_trabajo']['precio']."</td><td></td><td></td></tr>";
     $Total = $Total + $_SESSION['sys_config']['costo_trabajo_cp'];
 
 }else{

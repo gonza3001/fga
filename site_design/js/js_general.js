@@ -6,6 +6,224 @@
 
 var validar_cierre = false;
 
+function fnGnEliminarImpresora(idImpresora,idSucursal){
+    $.ajax({
+        url:"modules/configuracion/src/parametros/fnEliminarImpresora.php",
+        type:"post",
+        dataType:"json",
+        data:{
+            idImpresora:idImpresora,
+            idSucursal:idSucursal
+        },
+        beforeSend:function () {
+            fnloadSpinner(1);
+        }
+    }).done(function (response) {
+        fnloadSpinner(2);
+
+        if(response.result){
+            getMessage(response.message,"","success",1500);
+            fnGnListarImpresoras(1);
+        }else{
+            MyAlert(response.message);
+        }
+
+    }).fail(function (jqhR,textStatus,errno) {
+
+        fnloadSpinner(2);
+        if(console && console.log){
+
+            if(textStatus == "timeout"){
+                MyAlert("Tiempo de espera agotado para esta soliciutd");
+            }else{
+                MyAlert("Error al cargar la vista");
+            }
+
+        }
+
+    });
+
+}
+function fnGnListarImpresoras(opc){
+    $.ajax({
+        url:"modules/configuracion/src/parametros/fnListarImpresoras.php",
+        type:"post",
+        data:{opc:opc}
+    }).done(function (data) {
+        $("#listarImpresoras").html(data);
+    }).fail(function (jqhR,textStatus,errno) {
+        MyAlert("Error al mostrar la lista de costos de trabajo");
+    });
+}
+function fnGnAgregarImpresora(opc){
+
+    var idsucursal = $("#idsucursal"),alias = $("#aliasImpresora"),nombre = $("#nombreImpresora");
+
+    if(idsucursal.val() == 0){
+        MyAlert("Seleccione la sucursal donde se encuentra la impresora","alert");
+    }else if($.trim(alias.val()) == ""){
+        MyAlert("El alias de la impresora no debe estar vacio","alert");
+    }else if($.trim(nombre.val()) == ""){
+        MyAlert("EL Nombre de la impresora no debe estar vacio","alert");
+    }else {
+
+        $.ajax({
+            url: "modules/configuracion/src/parametros/fnRegistraImpresra.php",
+            type: "post",
+            dataType: "json",
+            data: {
+                opc: opc,
+                nombre: nombre.val(),
+                alias: alias.val(),
+                idsucursal: idsucursal.val()
+            },
+            beforeSend: function () {
+                fnloadSpinner(1);
+            }
+        }).done(function (response) {
+            fnloadSpinner(2);
+
+            if (response.result) {
+
+                fnGnListarImpresoras(1);
+                getMessage(response.message, "", "success", 1500);
+                $('#idsucursal option[value='+0+' ]').prop('selected', true).change();
+                nombre.val("");
+                alias.val("");
+                nombre.focus();
+
+            } else {
+                MyAlert(response.message);
+            }
+
+        }).fail(function (jqhR, textStatus, errno) {
+
+            fnloadSpinner(2);
+            if (console && console.log) {
+
+                if (textStatus == "timeout") {
+                    MyAlert("Tiempo de espera agotado para esta soliciutd");
+                } else {
+                    MyAlert("Error al cargar la vista");
+                }
+
+            }
+
+        });
+    }
+
+}
+
+function fnGnListarCostoTrabajo(opc){
+
+    $.ajax({
+        url:"modules/configuracion/src/parametros/fnListarCostosTrabajo.php",
+        type:"post",
+        data:{opc:opc}
+    }).done(function (data) {
+        $("#listaCostoTrabajos").html(data);
+    }).fail(function (jqhR,textStatus,errno) {
+        MyAlert("Error al mostrar la lista de costos de trabajo");
+    });
+
+}
+function fnGnEliminarCostoTrabajo(idCosto){
+
+    $.ajax({
+        url:"modules/configuracion/src/parametros/fnEliminarCostoTrabajo.php",
+        type:"post",
+        dataType:"json",
+        data:{
+            idCosto:idCosto
+        },
+        beforeSend:function () {
+            fnloadSpinner(1);
+        }
+    }).done(function (response) {
+        fnloadSpinner(2);
+
+        if(response.result){
+            getMessage(response.message,"","success",1500);
+            fnGnListarCostoTrabajo(1);
+        }else{
+            MyAlert(response.message);
+        }
+
+    }).fail(function (jqhR,textStatus,errno) {
+
+        fnloadSpinner(2);
+        if(console && console.log){
+
+            if(textStatus == "timeout"){
+                MyAlert("Tiempo de espera agotado para esta soliciutd");
+            }else{
+                MyAlert("Error al cargar la vista");
+            }
+
+        }
+
+    });
+
+}
+function fnGnGuardarCostoTRabajo(opc){
+
+    var nombre = $("#nombreCostoTrabajo"),precio = $("#precioCostoTrabajo");
+
+    precio = setFormatoMoneda(1,precio.val());
+
+    if($.trim(nombre.val()) == ""){
+        MyAlert("El nombre del costo no debe estar vacio","alert");
+    }else if(nombre.val().lenght <= 3 ){
+        MyAlert("El nombre del costo es demasiado corto","alert");
+    }else{
+
+        $.ajax({
+            url:"modules/configuracion/src/parametros/fnRegistrarCostoTrabajo.php",
+            type:"post",
+            dataType:"json",
+            data:{
+                opc:opc,
+                nombre:nombre.val(),
+                precio:precio
+            },
+            beforeSend:function () {
+                fnloadSpinner(1);
+            }
+        }).done(function (response) {
+            fnloadSpinner(2);
+
+            if(response.result){
+                getMessage(response.message,"","success",1500);
+                fnGnListarCostoTrabajo(1);
+                nombre.val('');
+                $("#precioCostoTrabajo").val('0');
+                nombre.focus();
+
+            }else{
+                MyAlert(response.message);
+            }
+
+        }).fail(function (jqhR,textStatus,errno) {
+
+            fnloadSpinner(2);
+            if(console && console.log){
+
+                if(textStatus == "timeout"){
+                    MyAlert("Tiempo de espera agotado para esta soliciutd");
+                }else{
+                    MyAlert("Error al cargar la vista");
+                }
+
+            }
+
+        });
+
+    }
+
+
+}
+
+
 function GuardarParametros(){
 
     var costo_trabajo_cp = $("#costo_trabajo_cp").val(),
@@ -68,8 +286,8 @@ function fnVentaImprimirTicket(opc){
                 data:{opc:opc,folio_venta:folio_venta}
             }).done(function(data){
 
-                $("#form_caja").html(data);
-                $(".modal").modal('toggle');
+                $("#cashOpen").html(data);
+                $("#mdl_programaciones").modal('toggle');
 
             }).fail(function(jqh,textEstatus){
 

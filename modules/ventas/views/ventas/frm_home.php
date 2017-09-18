@@ -52,12 +52,41 @@ $connect->valida_session_id();
  **   Cualquier reporte
  **/
 unset($_SESSION['cart_venta']);
+unset($_SESSION['cart_costo_trabajo']);
+
+if($_SESSION['myPrint'] ==""){
+ $valPrint = 0;
+}
+$idEmpresa = $_SESSION['data_home']['iddepartamento'];
 ?>
 <script src="<?=\core\core::ROOT_APP()?>site_design/js/jsVentas.js"></script>
 <script src="<?=\core\core::ROOT_APP()?>site_design/js/jsCatalogos.js"></script>
 
 <script>
 
+    function mdlSeleccionarImpresora(opc,nameprinter){
+        if(opc==0){
+            setOpenModal("mdlSeleccionarImpresora");
+        }
+
+        if(opc==2){
+
+            //alert(opc + "_"+nameprinter);
+            $.ajax({
+               url:"modules/configuracion/src/parametros/fnCambiarImpresora.php",
+                type:"post",
+                data:{nameprinter:nameprinter}
+            });
+
+            $("#btnCloseModalChangePrinter").click();
+            gn_menu_principal(9,9);
+
+
+
+        }
+    }
+
+    mdlSeleccionarImpresora(<?=$valPrint?>);
     //Validar cierre del dia anterior
     //fnVentaCierreCaja(1);
 
@@ -87,6 +116,30 @@ unset($_SESSION['cart_venta']);
         fnVentaCobrarVenta(1);
     });
 </script>
+<div class="modal fade" id="mdlSeleccionarImpresora" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                Seleccionar Impresora <?=$idEmpresa?>
+            </div>
+            <div class="modal-body">
+                <table class="table">
+                    <?php
+                    $connect->_query = "select opc_catalogo,nombre_catalogo,descripcion_catalogo from catalogo_general WHERE idcatalogo = 8 and opc_catalogo2 = $idEmpresa and idestado = 1";
+                    $connect->get_result_query();
+                    for($i=0;$i<count($connect->_rows);$i++){
+                        echo '<tr><td><a href="#" onclick="mdlSeleccionarImpresora(2,\''.$connect->_rows[$i][2].'\')">'.$connect->_rows[$i][2].'</a> </td></tr>';
+                    }
+                    ?>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button id="btnCloseModalChangePrinter" class="btn btn-danger btn-sm " data-dismiss="modal"><i class="fa fa-close"></i> Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+</div>
 <div class="box box-info animated fadeInDown">
 
     <div class="box-header">
@@ -189,9 +242,8 @@ unset($_SESSION['cart_venta']);
     <div id="form_caja" class="box-body">
 
         <div id="cashOpen" class="">
-            <div class="row">
-
-                <div class="col-md-6">
+            <div class="row row-sm">
+                <div class="col-md-7">
                     <div class="box box-primary">
                         <div class="box-body">
 
@@ -232,12 +284,12 @@ unset($_SESSION['cart_venta']);
                                         <div class="col-md-12">
                                             <div class="input-group">
                                           <span class="input-group-btn">
-                                            <button class="btn btn-default" onclick="nuevo_cliente(1,1)" disabled type="button"><i class="fa fa-file-photo-o"></i> Tipo Trabajo</button>
+                                            <button class="btn btn-default" onclick="nuevo_cliente(1,1)" disabled type="button"><i class="fa fa-file-photo-o"></i> Tipo Diseño</button>
                                           </span>
-                                                <select id="idcliente" class="form-control select2" style="width: 100%">
-                                                    <option value="0">-- Seleccionar cliente --</option>
+                                                <select id="costotrabajo" onchange="fnAgregarTipoDiseno(this.value)" class="form-control select2" style="width: 100%">
+                                                    <option value="0">-- Tipo Diseño --</option>
                                                     <?php
-                                                    $connect->_query = "SELECT idcliente,nombre_completo FROM clientes where idestado = 1 ORDER BY nombre_completo ASC";
+                                                    $connect->_query = "SELECT opc_catalogo,nombre_catalogo FROM catalogo_general where idestado = 1 AND idcatalogo = 7 ORDER BY nombre_catalogo ASC";
                                                     $connect->get_result_query();
                                                     for($i=0;$i <count($connect->_rows);$i++){
                                                         echo "<option value='".$connect->_rows[$i][0]."'>".$connect->_rows[$i][1]."</option>";
@@ -257,7 +309,6 @@ unset($_SESSION['cart_venta']);
                                             <button class="btn btn-default" onclick="nuevo_cliente(1,1)" type="button"><i class="fa fa-user"></i> Clinte Nuevo</button>
                                           </span>
                                                 <select id="idcliente" class="form-control select2" style="width: 100%">
-                                                    <option value="0">-- Seleccionar cliente --</option>
                                                     <?php
                                                     $connect->_query = "SELECT idcliente,nombre_completo FROM clientes where idestado = 1 ORDER BY nombre_completo ASC";
                                                     $connect->get_result_query();
@@ -288,8 +339,7 @@ unset($_SESSION['cart_venta']);
                         </div>
                     </div>
                 </div>
-
-                <div class="col-md-6">
+                <div class="col-md-5">
                     <div class="box box-success">
                         <div class="box-body">
                             <div class="bg-black currency text-center" id="ledcaja" style="padding: 6px;margin: 2px;height: 70px;font-size: 38px;"> $0.00</div>
