@@ -80,7 +80,7 @@ unset($_SESSION['EXPORT']);
                 <br/>
                 <div class="row">
                     <div class="col-md-12">
-                        <button class="pull-right btn btn-warning btn-sm"><i class="fa fa-check"></i> Agregar Todo</button>
+                        <button class="pull-right hidden btn btn-warning btn-sm"><i class="fa fa-check"></i> Agregar Todo</button>
                         <table id="example" class="table table-condensed table-bordered table-striped table-hover">
                             <thead>
                             <tr>

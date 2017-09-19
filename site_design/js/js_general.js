@@ -286,7 +286,7 @@ function fnVentaImprimirTicket(opc){
                 data:{opc:opc,folio_venta:folio_venta}
             }).done(function(data){
 
-                $("#cashOpen").html(data);
+                $("#form_caja").html(data);
                 $("#mdl_programaciones").modal('toggle');
 
             }).fail(function(jqh,textEstatus){

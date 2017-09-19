@@ -79,7 +79,9 @@ $idEmpresa = $_SESSION['data_home']['iddepartamento'];
             });
 
             $("#btnCloseModalChangePrinter").click();
-            gn_menu_principal(9,9);
+            setTimeout(function () {
+                gn_menu_principal(9,9);
+            },500);
 
 
 

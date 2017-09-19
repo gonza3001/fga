@@ -16,31 +16,77 @@ $connect->valida_session_id();
 $FolioVenta = $_POST['folio_venta'];
 
 $connect->_query = "SELECT 
-	a.idventa,a.iddepartamento,a.idcliente,a.idusuario,b.idarticulo,b.tipo_articulo,
-    a.costo_trabajo_cp,b.precio_compra,b.cantidad,b.descripcion,a.fecha_venta 
-FROM 
-	venta AS a 
-LEFT JOIN detalle_venta as b 
-ON a.idventa = b.idventa
-WHERE a.idventa = $FolioVenta";
+	a.idventa,
+	lpad(a.idventa,4,'0'),
+	g.nombre_departamento,
+	e.nick_name,
+	f.nombre_completo,
+	b.cantidad,
+	d.nombre_articulo,
+	c.descripcion_general,
+	b.descripcion,
+	b.precio_compra,
+	c.costo_trabajo_cp,
+	c.fecha_venta,
+	a.importe_pagado
+FROM movimientos_caja as a 
+left join detalle_venta as b 
+on a.idventa = b.idventa 
+left join venta as c 
+on a.idventa = c.idventa 
+left join articulos as d 
+on b.idarticulo= d.idarticulo
+left join perfil_usuarios as e 
+on c.idusuario = e.idusuario 
+left join clientes as f 
+on c.idcliente = f.idcliente 
+left join departamentos as g 
+on c.iddepartamento = g.iddepartamento
+where a.idventa = $FolioVenta";
 
 $connect->get_result_query();
 $ListaVenta = $connect->_rows;
 
-$NombreSucursal = $ListaVenta[0][1];
-$FechaVenta = $ListaVenta[0]['fecha_venta'];
+$FolioVenta = $ListaVenta[0][1];
+$NombreSucursal = $ListaVenta[0][2];
+$FechaVenta = $ListaVenta[0][11];
 $Vendedor = $ListaVenta[0][3];
-$ClienteVenta = $ListaVenta[0][2];
+$ClienteVenta = $ListaVenta[0][4];
+$Importe
 
 $Titulo = "FGA Servicios de Impresion";
 
 $DomicilioSucursal = "Calle avenida sendero division norte # 135 Local 123";
 $TelefonoSucursal = "81 2132-356 - 044 81 2134-4567";
+var_dump($_SESSION);
 ?>
 <script>
+    if ( jsPrintSetup ) {
+        //Es seguro ejecutar la función
+        jsPrintSetup.setOption('orientation', jsPrintSetup.kPortraitOrientation);
+        // set top margins in millimeters
+        jsPrintSetup.setOption('marginTop', -20);
+        jsPrintSetup.setOption('marginBottom', 0);
+        jsPrintSetup.setOption('marginLeft', -12);
+        jsPrintSetup.setOption('marginRight', 0);
+
+        jsPrintSetup.setPrinter('<?=$_SESSION['myPrint']?>');
+        jsPrintSetup.setSilentPrint(1);
 
 
-        // set portrait orientation
+        setTimeout(function () {
+            jsPrintSetup.printWindow(window);
+            // print desired frame
+            //    jsPrintSetup.printWindow(window.frames[0]);
+            jsPrintSetup.setSilentPrint(0);
+        },500);
+    }
+    else {
+        ///alert('JS Print Setup Extension is NOT installed');
+        MyAlert("No se ecnontro el componente, ","error");
+    }
+
+       /* // set portrait orientation
         jsPrintSetup.setOption('orientation', jsPrintSetup.kPortraitOrientation);
         // set top margins in millimeters
         jsPrintSetup.setOption('marginTop', 5);
@@ -48,7 +94,7 @@ $TelefonoSucursal = "81 2132-356 - 044 81 2134-4567";
         jsPrintSetup.setOption('marginLeft', 5);
         jsPrintSetup.setOption('marginRight', 5);
 
-        jsPrintSetup.setPrinter('<?=$_SESSION['myPrint']?>');
+        jsPrintSetup.setPrinter('');
         jsPrintSetup.setSilentPrint(1);
 
         // set page header
@@ -74,15 +120,14 @@ $TelefonoSucursal = "81 2132-356 - 044 81 2134-4567";
             //    jsPrintSetup.printWindow(window.frames[0]);
             jsPrintSetup.setSilentPrint(0);
         },500);
-
+*/
 
 </script>
-
 <body>
 <div class="row">
     <div class="col-md-12">
 
-        <div style="width: 950px !important;">
+        <div style="width: 980px !important;">
             <table class="table table-bordered table-condensed no-margin" >
                 <thead>
                 <tr>
