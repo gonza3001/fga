@@ -16,36 +16,46 @@ $connect->valida_session_id();
 $FolioVenta = $_POST['folio_venta'];
 
 $connect->_query = "SELECT 
-	a.idventa,
-	lpad(a.idventa,4,'0'),
+	b.idventa,
+	lpad(b.idventa,4,'0'),
 	g.nombre_departamento,
 	e.nick_name,
 	f.nombre_completo,
-	b.cantidad,
 	d.nombre_articulo,
-	c.descripcion_general,
-	b.descripcion,
-	b.precio_compra,
-	c.costo_trabajo_cp,
-	c.fecha_venta,
-	a.importe_pagado
-FROM movimientos_caja as a 
-left join detalle_venta as b 
-on a.idventa = b.idventa 
-left join venta as c 
-on a.idventa = c.idventa 
+    b.cantidad,
+    b.precio_compra,
+    b.tipo_articulo,
+    b.descripcion,
+    a.costo_trabajo_cp,
+    a.idcliente,
+    a.iddepartamento,
+    a.idusuario,
+    a.descripcion_general,
+    a.idtipo_venta
+FROM detalle_venta as b 
+left join venta as a 
+on b.idventa = a.idventa
 left join articulos as d 
 on b.idarticulo= d.idarticulo
 left join perfil_usuarios as e 
-on c.idusuario = e.idusuario 
+on a.idusuario = e.idusuario 
 left join clientes as f 
-on c.idcliente = f.idcliente 
+on a.idcliente = f.idcliente 
 left join departamentos as g 
-on c.iddepartamento = g.iddepartamento
-where a.idventa = $FolioVenta";
+on a.iddepartamento = g.iddepartamento
+where b.idventa = $FolioVenta";
 
 $connect->get_result_query();
 $ListaVenta = $connect->_rows;
+
+$connect->_query = "SELECT 
+	a.fecha_registro,
+    a.importe_pagado
+FROM movimientos_caja as a
+where a.idventa = $FolioVenta";
+
+$connect->get_result_query();
+$ListaPagos = $connect->_rows;
 
 $FolioVenta = $ListaVenta[0][1];
 $NombreSucursal = $ListaVenta[0][2];
@@ -58,9 +68,10 @@ $Titulo = "FGA Servicios de Impresion";
 
 $DomicilioSucursal = "Calle avenida sendero division norte # 135 Local 123";
 $TelefonoSucursal = "81 2132-356 - 044 81 2134-4567";
-var_dump($_SESSION);
 ?>
+<script src="<?=\core\core::ROOT_APP()?>site_design/js/js_formato_moneda.js"></script>
 <script>
+    $('.currency').numeric({prefix:'$ ', cents: true});
     if ( jsPrintSetup ) {
         //Es seguro ejecutar la función
         jsPrintSetup.setOption('orientation', jsPrintSetup.kPortraitOrientation);
@@ -156,55 +167,58 @@ var_dump($_SESSION);
                 <thead>
                 <tr>
                     <th width="100">Cantidad</th>
-                    <th>Descripción</th>
-                    <th width="100">Precio U.</th>
-                    <th width="100">Importe</th>
+                    <th colspan="3">Descripción</th>
+                    <th class="hidden" width="100">Precio U.</th>
+                    <th class="hidden" width="100">Importe</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td class="text-center" style="vertical-align: text-top;" rowspan="2">1</td>
-                    <td>Playera Blanca Talla ch </td>
-                    <td class="text-center" style="vertical-align: text-top;" rowspan="2">$ 170.00</td>
-                    <td class="text-center" style="vertical-align: text-top;" rowspan="2">$ 170.00</td>
-                </tr>
-                <tr>
-                    <td>Descripcion de la imagen que va en la parte de abajo de la camisa Descripcion de la imagen que va en la parte de abajo de la camisa Descripcion de la imagen que va en la parte de abajo de la camisa Descripcion de la imagen que va en la parte de abajo de la camisa</td>
-                </tr>
+                <?php
+                for($i=0;$i<count($ListaVenta);$i++){
 
-                <tr>
-                    <td style="vertical-align: text-top;" rowspan="2">&nbsp;</td>
-                    <td>&nbsp;</td>
-                    <td style="vertical-align: text-top;" rowspan="2">&nbsp;</td>
-                    <td style="vertical-align: text-top;" rowspan="2">&nbsp;</td>
-                </tr>
-                <tr>
-                    <td>&nbsp;</td>
-                </tr>
+                    if($ListaVenta[$i][8] == "ART"){
+                        echo "<tr>
+                    <td rowspan='2' >".$ListaVenta[$i][6]."</td>
+                    <td colspan='3'>".$ListaVenta[$i][5]."</td>
+                    </tr>";
+                        echo '<tr>
+                    <td colspan="3">'.$ListaVenta[$i][9].'</td>
+                    </tr>';
+                    }
 
-
+                    $TotalImporte = ($ListaVenta[$i][7] * $ListaVenta[$i][6]) + $TotalImporte;
+                }
+                $TotalImporte = $TotalImporte + $ListaVenta[0][10];
+                ?>
                 <tr>
                     <td colspan="4">
                         <b>Descripción General</b><br>
-                        padpaspdpasdppsadpaspdsdp apdpadspasdpasd asd asdppasda pads sda aspdpadspapsdpasdp asdp  apsdp pp
+                        <?=$ListaVenta[0][14]?>
                     </td>
                 </tr>
 
                 <tr>
                     <td colspan="3" class="text-right text-bold" >Total: </td>
-                    <td class="text-center text-bold" >$ 1,234.00</td>
+                    <td class="text-center currency text-bold" ><?=$TotalImporte?></td>
                 </tr>
-                <tr>
-                    <td colspan="1"></td>
-                    <td class="text-bold text-right" >Fecha: <?=$FechaVenta?></td>
-                    <td class="text-bold text-right">Pago # 1:</td>
-                    <td></td>
-                </tr>
-
+                <?php
+                if(count($ListaPagos)>0){
+                    $TotalPagos = 0;
+                    for($i=0;$i < count($ListaPagos); $i++){
+                        echo "<tr>
+                    <td colspan='1'></td>
+                    <td class=' text-right' >".$ListaPagos[$i][0]."</td>
+                    <td class='text-right'>Pago # $i: </td>
+                    <td class='text-center currency'>".$ListaPagos[$i][1]."</td>
+                    </tr>";
+                        $TotalPagos = $TotalPagos + $ListaPagos[$i][1] ;
+                    }
+                }
+                ?>
                 <tr>
                     <td colspan="1"></td>
                     <td colspan="2" class="text-bold text-right">Saldo Pendiente:</td>
-                    <td>$.0.00</td>
+                    <td class="text-bold text-center currency"><?=($TotalImporte - $TotalPagos)?></td>
                 </tr>
                 </tbody>
             </table>

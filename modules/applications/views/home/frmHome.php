@@ -180,7 +180,7 @@ $core = new \core\core();
         <!-- /.content -->
 
         </div>
-
+        <?php include "modules/applications/layout/pie_de_pagina.inc"?>
         <?php include "modules/applications/layout/menu_right.inc"?>
     </div>
 <?php
