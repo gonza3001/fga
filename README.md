@@ -4,8 +4,8 @@ Punto de Venta
 Configuracion del Sistema.
 
 Para la operacion correcta se requieren los Siguientes Complemetos
-+ Firefox Actualizado
-+ Complemento JS Print Setup
++ Firefox Actualizado: https://www.mozilla.org/es-MX/firefox/new/?scene=2
++ Complemento JS Print Setup: https://addons.mozilla.org/es/firefox/addon/js-print-setup/
 
  Nota:
 	====
