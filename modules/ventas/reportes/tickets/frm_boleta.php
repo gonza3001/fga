@@ -52,7 +52,7 @@ $NombreSucursal = $ListaVenta[0][2];
 $FechaVenta = $ListaVenta[0][11];
 $Vendedor = $ListaVenta[0][3];
 $ClienteVenta = $ListaVenta[0][4];
-$Importe
+
 
 $Titulo = "FGA Servicios de Impresion";
 
