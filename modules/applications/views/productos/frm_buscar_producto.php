@@ -50,6 +50,27 @@ unset($_SESSION['EXPORT']);
 ?>
 <script>
     setOpenModal("modal_buscar_producto");
+    $('#tbexample').DataTable({
+        "bRetrieve":true,
+        "paging": true,
+        "lengthChange": true,
+        "searching": false,
+        "order": [],
+        "language": {
+            "lengthMenu": "Mostrar  _MENU_ registros",
+            "zeroRecords": "Nothing found - sorry",
+            "info": " Página _PAGE_ de _PAGES_",
+            "infoEmpty": "No records available",
+            "infoFiltered": "(filtered from _MAX_ total records)",
+            "sSearch":        "Buscar:",
+            "paginate": {
+                "next":       "Siguiente",
+                "previous":   "Anterior"
+            }
+        },
+        "autoWidth": true
+    });
+
 </script>
 <div class="modal fade" id="modal_buscar_producto">
     <div class="modal-dialog modal-lg">
@@ -81,7 +102,7 @@ unset($_SESSION['EXPORT']);
                 <div class="row">
                     <div class="col-md-12">
                         <button class="pull-right hidden btn btn-warning btn-sm"><i class="fa fa-check"></i> Agregar Todo</button>
-                        <table id="example" class="table table-condensed table-bordered table-striped table-hover">
+                        <table id="tbexample" class="table table-condensed table-bordered table-striped table-hover">
                             <thead>
                             <tr>
                                 <th class="bg-bareylev" width="5">No</th>
