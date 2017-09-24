@@ -149,9 +149,9 @@ $idEmpresa = $_SESSION['data_home']['iddepartamento'];
 
         <button class="btn btn-sm btn-success" onclick="gn_menu_principal(9,9)" ><i class="fa fa-home"></i> Nueva venta </button>
 
-        <button class="btn btn-sm btn-default" onclick="fnVentaTrabajosPendientes(1)" > Trabajos Pendientes</button>
+        <button class="btn btn-sm btn-default" > Trabajos Pendientes</button>
 
-        <button class="btn btn-sm btn-info" onclick="gn_menu_principal(15,15)" ><i class="fa fa-dollar"></i> Servicios </button>
+        <button class="btn btn-sm btn-info hidden" onclick="gn_menu_principal(15,15)" ><i class="fa fa-dollar"></i> Servicios </button>
 
         <button class="btn btn-sm btn-default" onclick="setVentaPagos({'opc':1,'folio':0})"><i class="fa fa-dollar"></i> Pagos </button>
 
@@ -166,6 +166,7 @@ $idEmpresa = $_SESSION['data_home']['iddepartamento'];
                 <li><a href="#"  onclick="fnVentaOpenModal({'opc':6})">Cierre</a></li>
             </ul>
         </div>
+
         <button class="btn btn-sm btn-primary" onclick="fnVentaHistorialCliente({'opc':1})" ><i class="fa fa-list"></i> Historial Cliente </button>
 
 
@@ -175,10 +176,10 @@ $idEmpresa = $_SESSION['data_home']['iddepartamento'];
                 Re Impresiones <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
-                <li><a href="#">Folio de Venta</a></li>
-                <li><a href="#">Folio de Pago</a></li>
-                <li><a href="#">Cancelaciones</a></li>
-                <li class="dropdown-submenu">
+                <li><a href="#" onclick="setVentaPagos({'opc':3,'folio':0})">Folio de Venta</a></li>
+                <li class="hidden"><a href="#">Folio de Pago</a></li>
+                <li class="hidden"><a href="#">Cancelaciones</a></li>
+                <li class="hidden dropdown-submenu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown</a>
                     <ul class="dropdown-menu">
                         <li><a href="#">Action</a></li>
@@ -213,8 +214,7 @@ $idEmpresa = $_SESSION['data_home']['iddepartamento'];
                 Cancelaciones <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
-                <li><a href="#" onclick="fnVentaCorteDiario(1)" >Folio de Venta</a></li>
-                <li><a href="#" onclick="fnVentaCorteDiario(1)" >Folio de Pago</a></li>
+                <li><a href="#" onclick="setVentaPagos({'opc':5,'folio':0})" >Folio de Venta</a></li>
                 <li class="divider"></li>
                 <li><a href="#">Entradas</a></li>
                 <li><a href="#">Salidas</a></li>
@@ -245,7 +245,7 @@ $idEmpresa = $_SESSION['data_home']['iddepartamento'];
 
         <div id="cashOpen" class="">
             <div class="row row-sm">
-                <div class="col-md-7">
+                <div class="col-md-8">
                     <div class="box box-primary">
                         <div class="box-body">
 
@@ -341,7 +341,7 @@ $idEmpresa = $_SESSION['data_home']['iddepartamento'];
                         </div>
                     </div>
                 </div>
-                <div class="col-md-5">
+                <div class="col-md-4">
                     <div class="box box-success">
                         <div class="box-body">
                             <div class="bg-black currency text-center" id="ledcaja" style="padding: 6px;margin: 2px;height: 70px;font-size: 38px;"> $0.00</div>

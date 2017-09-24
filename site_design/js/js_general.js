@@ -326,6 +326,188 @@ function setVentaPagos(data){
                 }
             );
             break;
+        case 3: //Mostrar Frm para REimprimir Folio de Venta con pagos
+            var folio = data.folio;
+            SenderAjax(
+                "modules/ventas/views/ventas/",
+                "FrmReimprimirFolio.php",
+                null,"show_modal","post",{
+                    opc:opcion,
+                    folio:folio
+                }
+            );
+            break;
+        case 4: //Llamar Funcion paraREimprimir Folio de Venta con pagos
+
+            var folio = data.folio;
+
+            $.ajax({
+                url:"modules/ventas/src/ventas/fnReimprimirFolio.php",
+                data:{
+                    opc:opcion,
+                    folio:folio
+                },
+                type:"post",
+                dataType:"json",
+            }).done(function (response) {
+
+                if(response.result){
+
+                    $("#detalle_pago").removeClass("hidden");
+
+                    $("#txtimporte").val(response.data.importe);
+                    $("#txtSaldo").val(response.data.saldo);
+
+                    $("#result_pago").removeClass("hidden");
+
+                    $(".currency").numeric({prefix:'$ ', cents: true});
+
+                }else{
+                    MyAlert(response.message,"error");
+                }
+
+
+            }).fail(function (jqhR,textStatus,errno) {
+                if(console && console.log){
+
+                    if(textStatus == "timeout"){
+                        //Tiempo de espera agotado
+                        MyAlert("Tiempo de espera agotado","error");
+                    }else{
+                        MyAlert("Error al cargar la vista","error")
+                    }
+
+                }
+            });
+
+            break;
+        case 5: //Mostrar Frm para Cancelar Folio de Venta o pagos
+            var folio = data.folio;
+            SenderAjax(
+                "modules/ventas/views/ventas/",
+                "FrmCancelarFolio.php",
+                null,"show_modal","post",{
+                    opc:opcion,
+                    folio:folio
+                }
+            );
+            break;
+        case 6: //Mostrar Lista de Pagos
+
+            var folio = data.folio;
+            $.ajax({
+                url:"modules/ventas/src/ventas/fnCancelarFolio.php",
+                data:{
+                    opc:opcion,
+                    folio:folio
+                },
+                type:"post",
+                dataType:"json",
+            }).done(function (response) {
+
+                if(response.result){
+
+                    var tr="",idmovimiento;
+                    var rows = response.data,btnDisabled="";
+
+                    //setVentaPagos({'opc':6,'folio':this.value});
+
+                    for(i=0;i<rows.length;i++){
+
+                        btnDisabled = "";
+                        idmovimiento = rows[i]["idMovimiento"];
+
+                        if(rows[i]["Estatus"] == "C"){
+                            btnDisabled = "disabled";
+                        }
+
+
+                        tr = tr + "<tr><td>"+rows[i]["NoPago"]+"</td>" +
+                            "<td class='currency' >"+rows[i]["ImporteVenta"]+"</td>" +
+                            "<td class='currency'>"+rows[i]["ImportePagado"]+"</td>" +
+                            "<td>"+rows[i]["Estatus"]+"</td>" +
+                            "<td>"+rows[i]["FechaRegistro"]+"</td>" +
+                            "<td><button "+btnDisabled+" onclick='setVentaPagos({opc:7,folio:"+folio+",pago:"+idmovimiento+"})' class='btn btn-xs btn-danger'><i class='fa fa-close'></i></button></td>" +
+                            "</tr>";
+                    }
+
+                    $("#tableListaPagos").html(tr);
+                    $(".currency").numeric({prefix:'$ ', cents: true});
+
+                }else{
+                    MyAlert(response.message,"error");
+                }
+
+
+            }).fail(function (jqhR,textStatus,errno) {
+                if(console && console.log){
+
+                    if(textStatus == "timeout"){
+                        //Tiempo de espera agotado
+                        MyAlert("Tiempo de espera agotado","error");
+                    }else{
+                        MyAlert("Error al cargar la vista","error")
+                    }
+
+                }
+            });
+
+            break;
+        case 7: //Cancelar Nota de Pago
+
+            bootbox.confirm({
+                title:"Cancelar No Pago",
+                size:"small",
+                message:"Esta seguro de cancelar el pago ?",
+                buttons: {
+                    cancel: {
+                        label: '<i class="fa fa-times"></i> Cancelar'
+                    },
+                    confirm: {
+                        label: '<i class="fa fa-check"></i> Aceptar'
+                    }
+                },
+                callback: function (result){
+
+                    $.ajax({
+                        url:"modules/ventas/src/ventas/fnCancelarFolio.php",
+                        data:{
+                            opc:opcion,
+                            folio:folio,
+                            pago:data.pago
+                        },
+                        type:"post",
+                        dataType:"json",
+                    }).done(function (response) {
+
+                        console.log();
+
+                        if(response.result){
+
+                            setVentaPagos({'opc':6,'folio':folio});
+
+                        }else{
+                            MyAlert(response.message,"error");
+                        }
+
+
+                    }).fail(function (jqhR,textStatus,errno) {
+                        if(console && console.log){
+
+                            if(textStatus == "timeout"){
+                                //Tiempo de espera agotado
+                                MyAlert("Tiempo de espera agotado","error");
+                            }else{
+                                MyAlert("Error al cargar la vista","error")
+                            }
+
+                        }
+                    });
+
+                }
+            });
+
+            break;
     }
 
 

@@ -67,7 +67,10 @@ if($connect->_confirm){
     for($i=0;$i<count($connect->_rows);$i++){
 
         $importe_venta = $connect->_rows[0][4];
-        $importe_pagado = ($importe_pagado + $connect->_rows[$i][5]);
+        if($connect->_rows[$i]['idestatus'] == "A"){
+
+            $importe_pagado = ($importe_pagado + $connect->_rows[$i][5]);
+        }
 
 
     }
@@ -150,6 +153,7 @@ if($connect->_confirm){
                         <th>Num. Pago</th>
                         <th>Importe</th>
                         <th>Pago</th>
+                        <th>Estatus</th>
                         <th>Fecha</th>
                     </tr>
                     </thead>
@@ -158,13 +162,18 @@ if($connect->_confirm){
                     for($i=0;$i<count($connect->_rows);$i++){
 
                         $importe_venta = $connect->_rows[0][4];
-                        $importe_pagado = ($importe_pagado + $connect->_rows[$i][5]);
+                        if($connect->_rows[$i]['idestatus'] == "A"){
+
+                            $importe_pagado = ($importe_pagado + $connect->_rows[$i][5]);
 
 
+
+                        }
                         echo "<tr>
                                 <td>".$connect->getFormatFolio($connect->_rows[$i][3],4)."</td>
                                 <td class='currency' >".$connect->_rows[$i][4]."</td>
                                 <td class='currency' >".$connect->_rows[$i][5]."</td>
+                                <td>".$connect->_rows[$i]['idestatus']."</td>
                                 <td>".$connect->_rows[$i][11]."</td>
                              </tr>";
 

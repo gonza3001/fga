@@ -18,8 +18,8 @@ class ClassControllerVentas extends \core\seguridad
         if($idFolio != ""){
 
             $this->_query = "
-            SELECT idmovimiento,tipo_venta,idventa,NoPago,importe_venta,importe_pagado,importe_recibido,tipo_pago,pago_efectivo,pago_voucher,idestatus,fecha_registro
-            FROM movimientos_caja WHERE idventa = $idFolio ORDER BY NoPago ASC;
+            SELECT idmovimiento,tipo_venta,idventa,NoPago,importe_venta,importe_pagado,importe_recibido,tipo_pago,pago_efectivo,pago_voucher,idestatus,fecha_registro,idestatus
+            FROM movimientos_caja WHERE idventa = $idFolio ORDER BY NoPago DESC;
             ";
 
             $this->get_result_query();

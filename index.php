@@ -7,15 +7,11 @@
  * Time: 10:38 AM
  */
 namespace applicacion ;
-
-
-
 use core\sesiones;
 use core\views;
 
 class SistemIkro
 {
-
 
     public static function init(){
 
@@ -47,7 +43,6 @@ class SistemIkro
             );
         }
     }
-
 }
 
 SistemIkro::init();

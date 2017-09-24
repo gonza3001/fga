@@ -35,7 +35,7 @@ $DetalleART = $connect->_rows;
 
 //Numeros de pagos
 $connect->_query = "
-SELECT idmovimiento,NoPago,importe_venta,importe_pagado,fecha_movimiento FROM movimientos_caja WHERE idventa = $FolioVenta ORDER BY NoPago DESC
+SELECT idmovimiento,NoPago,importe_venta,importe_pagado,fecha_movimiento,idestatus FROM movimientos_caja WHERE idventa = $FolioVenta ORDER BY NoPago DESC
 ";
 $connect->get_result_query();
 $DetallePagos = $connect->_rows;
@@ -95,6 +95,7 @@ $a=1;
             <th>No Pago</th>
             <th>Importe</th>
             <th>Pago</th>
+            <th>Estatus</th>
             <th>Fecha</th>
         </tr>
         </thead>
@@ -107,11 +108,15 @@ $a=1;
                     <td>".$DetallePagos[$i][1]."</td>
                     <td class='currency' >".$DetallePagos[$i][2]."</td>
                     <td class='currency' >".$DetallePagos[$i][3]."</td>
+                    <td>".$DetallePagos[$i]['idestatus']."</td>
                     <td>".$DetallePagos[$i][4]."</td>
                     </tr>";
 
             $Importe = $DetallePagos[0][2];
-            $Pagos = $Pagos + $DetallePagos[$i][3];
+
+            if($DetallePagos[$i]["idestatus"]=="A"){
+                $Pagos = $Pagos + $DetallePagos[$i][3];
+            }
 
         }
         $Total = $Importe - $Pagos;

@@ -50,7 +50,9 @@ $ListaVenta = $connect->_rows;
 
 $connect->_query = "SELECT 
 	a.fecha_registro,
-    a.importe_pagado
+    a.importe_pagado,
+    a.idestatus,
+    a.NoPago
 FROM movimientos_caja as a
 where a.idventa = $FolioVenta";
 
@@ -205,13 +207,21 @@ $TelefonoSucursal = "81 2132-356 - 044 81 2134-4567";
                 if(count($ListaPagos)>0){
                     $TotalPagos = 0;
                     for($i=0;$i < count($ListaPagos); $i++){
+
+
+                        $SignoPago = "-";
+                        if($ListaPagos[$i][2] == "A"){
+                            $TotalPagos = $TotalPagos + $ListaPagos[$i][1] ;
+                            $SignoPago = "+";
+                        }
+
                         echo "<tr>
-                    <td colspan='1'></td>
-                    <td class=' text-right' >".$ListaPagos[$i][0]."</td>
-                    <td class='text-right'>Pago # $i: </td>
-                    <td class='text-center currency'>".$ListaPagos[$i][1]."</td>
-                    </tr>";
-                        $TotalPagos = $TotalPagos + $ListaPagos[$i][1] ;
+                                <td colspan='1'></td>
+                                <td class=' text-right' >".$ListaPagos[$i][0]."</td>
+                                <td class='text-right'>Pago ".$ListaPagos[$i][2]." # ".$ListaPagos[$i][3].": </td>
+                                <td class='text-center'> ".$SignoPago." <span class=' currency'>".$ListaPagos[$i][1]."</span></td>
+                                </tr>";
+
                     }
                 }
                 ?>
