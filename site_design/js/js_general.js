@@ -484,7 +484,9 @@ function setVentaPagos(data){
 
                         if(response.result){
 
-                            setVentaPagos({'opc':6,'folio':folio});
+                            var FolioVenta = $("#folio_venta").val();
+
+                            setVentaPagos({opc:6,folio:FolioVenta});
 
                         }else{
                             MyAlert(response.message,"error");
