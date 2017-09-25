@@ -28,7 +28,7 @@ $core = new \core\core();
     $core::includeCSS("plugins/datatables/extensions/TableTools/css/dataTables.tableTools.css",false);
 
     // Nombre de la pagina
-    ?><title>Sistema 12</title></head><body class="skin-blue-light fixed sidebar-collapse sidebar-mini">
+    ?><title>Sistema 12</title></head><body class="skin-green fixed sidebar-collapse sidebar-mini">
     <div class="wrapper">
         <?php include "modules/applications/layout/header.inc";
          include "modules/applications/layout/menu_principal.inc";?>
@@ -186,18 +186,17 @@ $core = new \core\core();
 <?php
     $core::includeJS("plugins/jQuery/",true);
     $core::includeJS("plugins/bootstrap/js/bootstrap.js",false);
+    //$core::includeJS("plugins/slimScroll/jquery.slimscroll.min.js",false);
 
     $core::includeJS("plugins/datatables/jquery.dataTables.js",false);
     $core::includeJS("plugins/datatables/dataTables.bootstrap.js",false);
     $core::includeJS("plugins/datatables/extensions/TableTools/js/dataTables.tableTools.js",false);
 
-
-$core::includeJS("plugins/pnotify/pnotify.custom.min.js",false);
+    $core::includeJS("plugins/pnotify/pnotify.custom.min.js",false);
     $core::includeJS("plugins/pnotify/push.min.js",false);
 
     $core::includeJS("plugins/bootstrap/js/bootbox.min.js",false);
     $core::includeJS("plugins/jQueryUI/jquery-ui.min.js",false);
-    $core::includeJS("plugins/slimScroll/jquery.slimscroll.min.js",false);
 
     $core::includeJS("plugins/Highcharts-5.0.10/code/highcharts.js",false);
     $core::includeJS("plugins/Highcharts-5.0.10/code/highcharts-3d.js",false);
@@ -207,7 +206,8 @@ $core::includeJS("plugins/pnotify/pnotify.custom.min.js",false);
     $core::includeJS("site_design/js/iKroAnimate.js",false);
     $core::includeJS("site_design/js/app.js",false);
 
-    $core::includeJS("site_design/js/js_general.js",false);?>
+    $core::includeJS("site_design/js/js_general.js",false);
+    ?>
     <script language="JavaScript">
         $(document).ready(function(){
 

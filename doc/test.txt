@@ -4,3 +4,8 @@ Usuario: bareylev
 Contraseña: 6r6Fda4U9j
 
 http://cpanel.bareylev.com/cpsess1321175204/3rdparty/phpMyAdmin/db_sql.php?db=bareylev_bdpvt&login=1&post_login=33481208870988
+
+
+Desactivar Location Mozilla
+(Para Esconder la URL en los reportes )
+dom.disable_window_open_feature.location = false

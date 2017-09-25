@@ -129,14 +129,17 @@ function AutorizarFacturaCompra(opc,idcompra){
 
 function VerFacturaDeCompra(opc,idcompra) {
 
-   SenderAjax(
-     "modules/compras/views/compras/",
-     "FrmVerFactura.php",
+
+   window.open("modules/compras/reportes/PDFOrdenCompra-01.php?id="+idcompra+"","","location=no,width=700,height=800,scrollbars=NO,menubar=NO,titlebar=NO,toolbar=NO");
+
+   /*SenderAjax(
+     "modules/compras/reportes/",
+     "PDFOrdenCompra-01.php",
      null,
      "idgeneral",
      "post",
        {opc:opc,idcompra:idcompra}
-   );
+   );*/
 
 }
 
@@ -162,7 +165,7 @@ function ListarComprasPorAutorizar(opc) {
             for(i=0;i< response.data.length;i++){
 
 
-                fila = fila  + '<li><a href="#">'+ response.data[i]['FolioCompra'] +' - '+ response.data[i]['nombre_proveedor'] +' <span class="pull-right"><button class="btn btn-sm btn-default" title="Ver" onclick="VerFacturaDeCompra(1,'+response.data[i]['idcompra']+')" ><i class="fa fa-eye"></i></button> <button class="btn btn-sm btn-default" title="Editar"><i class="fa fa-edit"></i></button> <button class="btn btn-sm btn-success" onclick="AutorizarFacturaCompra(1,'+response.data[i]['idcompra']+')" title="Autorizar '+response.data[i]['idcompra']+'"><i class="fa fa-check"></i></button> <button class="btn btn-sm btn-danger" onclick="CancelarFacturaCompra(1,'+response.data[i]['idcompra']+')"  title="Cancelar"><i class="fa fa-close"></i></button></span><span class="pull-right">'+response.data[i]['fecha_alta']+'&nbsp;&nbsp;&nbsp;</span></a></li>';
+                fila = fila  + '<li><a href="#">'+ response.data[i]['FolioCompra'] +' - '+ response.data[i]['nombre_proveedor'] +' <span class="pull-right"><button class="btn btn-sm btn-default" title="Imprimir" onclick="VerFacturaDeCompra(1,'+response.data[i]['idcompra']+')" ><i class="fa fa-print"></i></button> <button class="btn btn-sm btn-default" title="Editar"><i class="fa fa-edit"></i></button> <button class="btn btn-sm btn-success" onclick="AutorizarFacturaCompra(1,'+response.data[i]['idcompra']+')" title="Dar Entrada "><i class="fa fa-upload"></i></button> <button class="btn btn-sm btn-danger" onclick="CancelarFacturaCompra(1,'+response.data[i]['idcompra']+')"  title="Cancelar"><i class="fa fa-close"></i></button></span><span class="pull-right">'+response.data[i]['fecha_alta']+'&nbsp;&nbsp;&nbsp;</span></a></li>';
 
                 $("#listaComprasPorAutorizar").html(fila);
 

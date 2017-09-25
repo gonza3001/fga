@@ -66,7 +66,7 @@ unset($_SESSION['EXPORT']);
     </div>
     <div class="toolbars">
 
-        <button class="btn btn-sm btn-primary" onclick="gn_menu_principal(6,6)"> <i class="fa fa-refresh"></i> Actualizar</button>
+        <button class="btn btn-sm btn-primary" onclick="gn_menu_principal(6,6)"> <i class="fa fa-home"></i> Inicio</button>
 
         <button class="btn btn-default btn-sm " onclick="nueva_orden_compra(1,2)" type="button"><i class="fa fa-dollar"></i> Nueva Comprar </button>
 
