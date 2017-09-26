@@ -29,7 +29,7 @@ switch ($idEstado){
     case 1:
         break;
     case 2:
-        $Botones = "<button class='btn btn-sm btn-default'><i class='fa fa-eye'></i></button> <button class='btn btn-sm btn-success'><i class='fa fa-print'></i></button>";
+        $Botones = "<button class='btn btn-sm btn-default'><i class='fa fa-eye'></i></button> <button class='btn btn-sm btn-success' title='Impimir'><i class='fa fa-print'></i></button>";
         break;
     case 3:
         break;
@@ -58,15 +58,15 @@ for($i=0;$i <count($connect->_rows);$i++){
     if($idEstado == 1){
         $Botones =
             "
-            <button class='btn btn-sm btn-default' onclick='VerFacturaDeCompra(1,".$idCompra.")'><i class='fa fa-eye'></i></button> 
-            <button class='btn btn-sm btn-default' ><i class='fa fa-edit'></i></button> 
-            <button class='btn btn-sm btn-success' onclick='AutorizarFacturaCompra(2,".$idCompra.")'><i class='fa fa-check'></i></button> 
-            <button class='btn btn-sm btn-danger' onclick='CancelarFacturaCompra(1,".$idCompra.")'><i class='fa fa-close'></i></button>
+            <button class='btn btn-sm btn-default' title='Imprimir' onclick='VerFacturaDeCompra(1,".$idCompra.")'><i class='fa fa-print'></i></button> 
+            <button class='btn btn-sm btn-default' title='Editar' ><i class='fa fa-edit'></i></button> 
+            <button class='btn btn-sm btn-success' title='Dar Entrada' onclick='AutorizarFacturaCompra(2,".$idCompra.")'><i class='fa fa-upload'></i></button> 
+            <button class='btn btn-sm btn-danger' title='Cancelar' onclick='CancelarFacturaCompra(1,".$idCompra.")'><i class='fa fa-close'></i></button>
             ";
     }else{
         $Botones =
             "
-            <button class='btn btn-sm btn-default' onclick='VerFacturaDeCompra(1,".$idCompra.")'><i class='fa fa-eye'></i></button> 
+            <button class='btn btn-sm btn-default' title='Imprimir' onclick='VerFacturaDeCompra(1,".$idCompra.")'><i class='fa fa-print'></i></button> 
             ";
     }
 

@@ -595,8 +595,6 @@ nueva_orden_compra = function(opc,idorden){
                 }
             );
 
-
-
             break;
         case 2:
             //Abrir modal para agreagr productos a la compra
@@ -656,6 +654,8 @@ nueva_orden_compra = function(opc,idorden){
 
                         getMessage(data.mensaje,'Compra realizada correctamente','success');
                         nueva_orden_compra(1,2);
+                        VerFacturaDeCompra(1,data.data.idcompra);
+
 
 
                     }else{

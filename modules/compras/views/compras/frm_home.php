@@ -76,7 +76,7 @@ unset($_SESSION['EXPORT']);
                 <i class="fa fa-list"></i> Lista de compras <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
-                <li><a href="#" onclick="lista_compras_realizadas(1)" >Compra por Autorizar</a></li>
+                <li><a href="#" onclick="lista_compras_realizadas(1)" >Compra por dar Entrada</a></li>
                 <li><a href="#" onclick="lista_compras_realizadas(2)" >Compras Realizadas</a></li>
                 <li><a href="#" onclick="lista_compras_realizadas(3)" >Compras Canceladas</a></li>
             </ul>

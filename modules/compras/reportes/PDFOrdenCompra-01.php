@@ -6,102 +6,108 @@
  * Time: 11:28 AM
  */
 
+include "../../../core/core.class.php";
+include "../../../core/sesiones.class.php";
+include "../controllers/ControllerCompras.php";
+
 require_once '../../../plugins/html2pdf/html2pdf.class.php';
+
+$connect = new ControllerCompras();
+
+$Background = "#F3F3F3";
+
+$RowsCompras = $connect->getListaCompra(array("idcompra"=>$_REQUEST['id'],"idempresa"=>$_SESSION['data_home']['idempresa']));
+
 
 ob_start();
 ?>
 
-    <page backtop="10mm" backbottom="10mm" backleft="20mm" backright="20mm">
+    <page backtop="20mm" backbottom="10mm" backleft="2mm" backright="2mm">
         <page_header>
-            <table style="width: 100%; border: solid 1px black;">
+            <table style="width: 100%; border-bottom: solid 1px black;">
                 <tr>
-                    <td style="text-align: left;    width: 33%">html2pdf</td>
-                    <td style="text-align: center;    width: 34%">Test d'header</td>
-                    <td style="text-align: right;    width: 33%"><?php echo date('d/m/Y'); ?></td>
+                    <td style="text-align: left;width: 25%">
+                        <img width="140" src="../../../site_design/img/logos/logo_200px.jpg">
+                    </td>
+                    <td style="text-align: center;    width: 50%"><h3>Orden de compra</h3></td>
+                    <td style="text-align: right;    width: 25%"> <?=date("d/m/Y")?> </td>
                 </tr>
             </table>
         </page_header>
         <page_footer>
-            <table style="width: 100%; border: solid 1px black;">
+            <table style="width: 100%; border-bottom: solid 1px black;">
                 <tr>
-                    <td style="text-align: left;    width: 50%">html2pdf.fr</td>
-                    <td style="text-align: right;    width: 50%">page [[page_cu]]/[[page_nb]]</td>
+                    <td style="text-align: left;    width: 50%"><?=$_SESSION['data_home']['nombre_empresa']?></td>
+                    <td style="text-align: right;    width: 50%">Pagina [[page_cu]] de [[page_nb]]</td>
                 </tr>
             </table>
         </page_footer>
-        <span style="font-size: 20px; font-weight: bold">Démonstration des retour à la ligne automatique, ainsi que des sauts de page automatique</span><br>
+
         <br>
+        <table style="width: 100%;border: solid 1px #000; border-collapse: collapse" align="center">
+            <tr>
+                <td style="width: 15%;border: solid 1px #000;background: <?=$Background?> ;padding: 5px; text-align: left;"><b>Proveedor:</b></td>
+                <td style="width: 15%;border: solid 1px #000;padding: 5px; text-align: left;"><?=$RowsCompras[0][11]?></td>
+                <td style="width: 45%;border-right: solid 1px #000;padding: 5px; text-align: left;"></td>
+                <td style="width: 10%;border: solid 1px #000;background: <?=$Background?>;padding: 5px; text-align: left;"><b>Folio:</b></td>
+                <td style="width: 15%;border: solid 1px #000;padding: 5px; text-align: left;"><?=$RowsCompras[0][3]?></td>
+            </tr>
+            <tr>
+                <td style="width: 15%;border: solid 1px #000;background: <?=$Background?> ;padding: 5px; text-align: left;"><b>Telefono:</b></td>
+                <td style="width: 15%;border: solid 1px #000;padding: 5px; text-align: left;"><?=$RowsCompras[0][12]?></td>
+                <td style="width: 45%;border-right: solid 1px #000;padding: 5px; text-align: left;"></td>
+                <td style="width: 10%;border: solid 1px #000;background: <?=$Background?> ;padding: 5px; text-align: left;"><b>Fecha:</b></td>
+                <td style="width: 15%;border: solid 1px #000;padding: 5px; text-align: left;"><?=$RowsCompras[0][13]?></td>
+            </tr>
+        </table>
+
         <br>
-        <table style="width: 80%;border: solid 1px #5544DD; border-collapse: collapse" align="center">
+        <table style="width: 100%;border: solid 1px #000; border-collapse: collapse" align="center">
             <thead>
             <tr>
-                <th style="width: 30%; text-align: left; border: solid 1px #337722; background: #CCFFCC">Header 1</th>
-                <th style="width: 30%; text-align: left; border: solid 1px #337722; background: #CCFFCC">Header 2</th>
+                <th colspan="5" style="width: 100%;padding: 8px; text-align: center; border: solid 1px #000; background: <?=$Background?>">
+                    Detalle
+                </th>
+            </tr>
+            <tr>
+                <th style="width: 15%;padding: 8px; text-align: left; border: solid 1px #000; background: <?=$Background?>">Codigo</th>
+                <th style="width: 10%;padding: 8px; text-align: left; border: solid 1px #000; background: <?=$Background?>">Cantidad</th>
+                <th style="width: 45%;padding: 8px; text-align: left; border: solid 1px #000; background: <?=$Background?>">Descripción</th>
+                <th style="width: 15%;padding: 8px; text-align: center; border: solid 1px #000; background: <?=$Background?>">Precio U</th>
+                <th style="width: 15%;padding: 8px; text-align: center; border: solid 1px #000; background: <?=$Background?>">Importe</th>
             </tr>
             </thead>
             <tbody>
             <?php
-            for ($k=0; $k<13; $k++) {
-                ?>
-                <tr>
-                    <td style="width: 30%; text-align: left; border: solid 1px #55DD44">
-                        test de texte assez long pour engendrer des retours à la ligne automatique...
-                        a b c d e f g h i j k l m n o p q r s t u v w x y z
-                        a b c d e f g h i j k l m n o p q r s t u v w x y z
-                    </td>
-                    <td style="width: 70%; text-align: left; border: solid 1px #55DD44">
-                        test de texte assez long pour engendrer des retours à la ligne automatique...
-                        a b c d e f g h i j k l m n o p q r s t u v w x y z
-                        a b c d e f g h i j k l m n o p q r s t u v w x y z
+            if(count($RowsCompras)>0){
 
-                    </td>
-                </tr>
-                <?php
+                for($i=0;$i<count($RowsCompras);$i++){
+
+                    $importe = ($RowsCompras[$i][7] * $RowsCompras[$i][8]);
+                    $TotalImporte = ( $TotalImporte + $importe );
+                    echo "
+                    <tr>
+                    <td style='width: 15%;padding: 5px; text-align: left; border: solid 1px #000;'>".$RowsCompras[$i][0]."</td>
+                    <td style='width: 10%;padding: 5px; text-align: left; border: solid 1px #000;'>".$RowsCompras[$i][7]."</td>
+                    <td style='width: 45%;padding: 5px; text-align: left; border: solid 1px #000;'>".$RowsCompras[$i][6]."</td>
+                    <td style='width: 15%;padding: 5px; text-align: right; border: solid 1px #000;'>$ ".$RowsCompras[$i][8]."</td>
+                    <td style='width: 15%;padding: 5px; text-align: right; border: solid 1px #000;'>$ ".$importe."</td>
+                    </tr>
+                    ";
+                }
+                echo "<tr><td style='width: 70%;padding: 5px; text-align: right; border-right: solid 1px #000;' colspan='3'></td>
+                        <td style='width: 15%;padding: 5px; text-align: right; border: solid 1px #000;background: ".$Background.";'><b>Total:</b></td>
+                        <td style='width: 15%;padding: 5px; text-align: right; border: solid 1px #000;'>$ ".$TotalImporte."</td></tr>";
             }
             ?>
             </tbody>
-            <tfoot>
-            <tr>
-                <th style="width: 30%; text-align: left; border: solid 1px #337722; background: #CCFFCC">Footer 1</th>
-                <th style="width: 30%; text-align: left; border: solid 1px #337722; background: #CCFFCC">Footer 2</th>
-            </tr>
-            </tfoot>
         </table>
-        <br>
-        Ca marche !!!<br>
-        refaisons un test : <br>
-        <table style="width: 80%;border: solid 1px #5544DD">
-            <?php
-            for ($k=0; $k<12; $k++) {
-                ?>
-                <tr>
-                    <td style="width: 30%; text-align: left; border: solid 1px #55DD44">
-                        test de texte assez long pour engendrer des retours à la ligne automatique...
-                        a b c d e f g h i j k l m n o p q r s t u v w x y z
-                        a b c d e f g h i j k l m n o p q r s t u v w x y z
-                    </td>
-                    <td style="width: 70%; text-align: left; border: solid 1px #55DD44">
-                        test de texte assez long pour engendrer des retours à la ligne automatique...
-                        a b c d e f g h i j k l m n o p q r s t u v w x y z
-                        a b c d e f g h i j k l m n o p q r s t u v w x y z
 
-                    </td>
-                </tr>
-                <?php
-            }
-            ?>
-        </table>
-        <br>
-        Ca marche toujours !<br>
-        De plus, vous pouvez faire des sauts de page manuellement en utilisant les balises &lt;page&gt; &lt;/page&gt;, comme ici par exemple :
-    </page>
-    <page pageset="old">
-        Nouvelle page !!!!
-    </page>
 
+    </page>
 <?php
 $content = ob_get_clean();
-$pdf = new HTML2PDF('P','A4','fr','UTF-8');
+$pdf = new HTML2PDF('P','A4','es','UTF-8');
 $pdf->writeHTML($content);
 $pdf->pdf->IncludeJS('print(TRUE)');
 $pdf->output('Reporte.pdf');

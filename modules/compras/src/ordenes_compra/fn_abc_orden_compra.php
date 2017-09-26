@@ -131,7 +131,7 @@ switch ($opc){
 
                 }
 
-                echo json_encode(array("confirm"=>"ok","mensaje"=>" Compra realizada correctamente "));
+                echo json_encode(array("confirm"=>"ok","mensaje"=>" Compra realizada correctamente ","data"=>array("idcompra"=>$idCompra)));
 
             }else{
                 //Error al registrar la compra

@@ -39,6 +39,7 @@ unset($_SESSION['EXPORT']);
 ?>
 <script>
     $("th").addClass("bg-bareylev");
+
     var lista = function(){
 
         var table = $('#example').DataTable({
@@ -83,6 +84,7 @@ unset($_SESSION['EXPORT']);
         });
     }
     lista();
+
 </script>
 
 <div class="row">
