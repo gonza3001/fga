@@ -17,7 +17,8 @@ $connect = new ControllerCompras();
 $Background = "#F3F3F3";
 
 $RowsCompras = $connect->getListaCompra(array("idcompra"=>$_REQUEST['id'],"idempresa"=>$_SESSION['data_home']['idempresa']));
-
+$DomicilioSucursal = "Calle avenida sendero division norte # 135 Local 123";
+$TelefonoSucursal = "81 2132-356 - 044 81 2134-4567";
 
 ob_start();
 ?>
@@ -29,8 +30,8 @@ ob_start();
                     <td style="text-align: left;width: 25%">
                         <img width="140" src="../../../site_design/img/logos/logo_200px.jpg">
                     </td>
-                    <td style="text-align: center;    width: 50%"><h3>Orden de compra</h3></td>
-                    <td style="text-align: right;    width: 25%"> <?=date("d/m/Y")?> </td>
+                    <td style="text-align: center;    width: 50%"></td>
+                    <td style="text-align: right;    width: 25%"> Orden de Compra </td>
                 </tr>
             </table>
         </page_header>
@@ -42,6 +43,15 @@ ob_start();
                 </tr>
             </table>
         </page_footer>
+        <table style="width: 100%;border: solid 1px #000; border-collapse: collapse" align="center">
+            <tr>
+                <td style="width: 100%;text-align: center">
+                    <h3><?=$_SESSION['data_home']['nombre_empresa']?></h3>
+                    <?=$DomicilioSucursal?><br>
+                    <?=$TelefonoSucursal?>
+                </td>
+            </tr>
+        </table>
 
         <br>
         <table style="width: 100%;border: solid 1px #000; border-collapse: collapse" align="center">
@@ -50,14 +60,14 @@ ob_start();
                 <td style="width: 15%;border: solid 1px #000;padding: 5px; text-align: left;"><?=$RowsCompras[0][11]?></td>
                 <td style="width: 45%;border-right: solid 1px #000;padding: 5px; text-align: left;"></td>
                 <td style="width: 10%;border: solid 1px #000;background: <?=$Background?>;padding: 5px; text-align: left;"><b>Folio:</b></td>
-                <td style="width: 15%;border: solid 1px #000;padding: 5px; text-align: left;"><?=$RowsCompras[0][3]?></td>
+                <td style="width: 15%;border: solid 1px #000;padding: 5px; text-align: center;"><b><?=$RowsCompras[0][3]?></b></td>
             </tr>
             <tr>
                 <td style="width: 15%;border: solid 1px #000;background: <?=$Background?> ;padding: 5px; text-align: left;"><b>Telefono:</b></td>
                 <td style="width: 15%;border: solid 1px #000;padding: 5px; text-align: left;"><?=$RowsCompras[0][12]?></td>
                 <td style="width: 45%;border-right: solid 1px #000;padding: 5px; text-align: left;"></td>
                 <td style="width: 10%;border: solid 1px #000;background: <?=$Background?> ;padding: 5px; text-align: left;"><b>Fecha:</b></td>
-                <td style="width: 15%;border: solid 1px #000;padding: 5px; text-align: left;"><?=$RowsCompras[0][13]?></td>
+                <td style="width: 15%;border: solid 1px #000;padding: 5px; text-align: left;"><?=date("d/m/Y")?></td>
             </tr>
         </table>
 
@@ -65,13 +75,12 @@ ob_start();
         <table style="width: 100%;border: solid 1px #000; border-collapse: collapse" align="center">
             <thead>
             <tr>
-                <th colspan="5" style="width: 100%;padding: 8px; text-align: center; border: solid 1px #000; background: <?=$Background?>">
+                <th colspan="4" style="width: 100%;padding: 8px; text-align: center; border: solid 1px #000; background: <?=$Background?>">
                     Detalle
                 </th>
             </tr>
             <tr>
-                <th style="width: 15%;padding: 8px; text-align: left; border: solid 1px #000; background: <?=$Background?>">Codigo</th>
-                <th style="width: 10%;padding: 8px; text-align: left; border: solid 1px #000; background: <?=$Background?>">Cantidad</th>
+                <th style="width: 10%;padding: 8px; text-align: center; border: solid 1px #000; background: <?=$Background?>">Cantidad</th>
                 <th style="width: 45%;padding: 8px; text-align: left; border: solid 1px #000; background: <?=$Background?>">Descripción</th>
                 <th style="width: 15%;padding: 8px; text-align: center; border: solid 1px #000; background: <?=$Background?>">Precio U</th>
                 <th style="width: 15%;padding: 8px; text-align: center; border: solid 1px #000; background: <?=$Background?>">Importe</th>
@@ -87,20 +96,46 @@ ob_start();
                     $TotalImporte = ( $TotalImporte + $importe );
                     echo "
                     <tr>
-                    <td style='width: 15%;padding: 5px; text-align: left; border: solid 1px #000;'>".$RowsCompras[$i][0]."</td>
-                    <td style='width: 10%;padding: 5px; text-align: left; border: solid 1px #000;'>".$RowsCompras[$i][7]."</td>
-                    <td style='width: 45%;padding: 5px; text-align: left; border: solid 1px #000;'>".$RowsCompras[$i][6]."</td>
+                    <td style='width: 10%;padding: 5px; text-align: center; border: solid 1px #000;'>".$RowsCompras[$i][7]."</td>
+                    <td style='width: 60%;padding: 5px; text-align: left; border: solid 1px #000;'>".$RowsCompras[$i][6]."</td>
                     <td style='width: 15%;padding: 5px; text-align: right; border: solid 1px #000;'>$ ".$RowsCompras[$i][8]."</td>
                     <td style='width: 15%;padding: 5px; text-align: right; border: solid 1px #000;'>$ ".$importe."</td>
                     </tr>
                     ";
                 }
-                echo "<tr><td style='width: 70%;padding: 5px; text-align: right; border-right: solid 1px #000;' colspan='3'></td>
+            }
+
+            if(count($RowsCompras) <= 5){
+
+                for($i=0;$i<(7 -count($RowsCompras)) ;$i++){
+
+
+                    echo "
+                    <tr>
+                    <td style='width: 10%;padding: 5px; text-align: left; border: solid 1px #000;'>&nbsp;</td>
+                    <td style='width: 60%;padding: 5px; text-align: left; border: solid 1px #000;'>&nbsp;</td>
+                    <td style='width: 15%;padding: 5px; text-align: right; border: solid 1px #000;'>&nbsp;</td>
+                    <td style='width: 15%;padding: 5px; text-align: right; border: solid 1px #000;'>&nbsp;</td>
+                    </tr>
+                    ";
+                }
+            }
+            echo "<tr><td style='width: 70%;padding: 5px; text-align: right; border-right: solid 1px #000;' colspan='2'></td>
                         <td style='width: 15%;padding: 5px; text-align: right; border: solid 1px #000;background: ".$Background.";'><b>Total:</b></td>
                         <td style='width: 15%;padding: 5px; text-align: right; border: solid 1px #000;'>$ ".$TotalImporte."</td></tr>";
-            }
             ?>
             </tbody>
+        </table>
+        <br>
+        <table style="width: 100%;border: solid 1px #000; border-collapse: collapse" align="center">
+            <tr>
+                <td  style='width: 100%;padding: 5px; text-align: left; border: solid 1px #000;background: <?=$Background?>'>Observaciones</td>
+            </tr>
+            <tr>
+                <td style='width: 100%;padding: 5px; text-align: left; border: solid 1px #000;'>
+                    &nbsp;<br><br><br><br><br><br>
+                </td>
+            </tr>
         </table>
 
 
