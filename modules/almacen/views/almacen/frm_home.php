@@ -40,7 +40,7 @@ unset($_SESSION['EXPORT']);
     </div>
     <div class="toolbars">
 
-        <button class="btn btn-sm btn-primary" onclick="gn_menu_principal(5,5)"> <i class="fa fa-refresh"></i> Actualizar</button>
+        <button class="btn btn-sm btn-primary" onclick="gn_menu_principal(5,5)"> <i class="fa fa-home"></i> Inicio</button>
 
         <div class="btn-group">
             <button class="btn btn-default btn-sm dropdown-toggle"
@@ -67,10 +67,16 @@ unset($_SESSION['EXPORT']);
                 <i class="fa fa-truck"></i> Traspasos <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
-                <li><a href="#">Autorizar traspaso</a></li>
-                <li><a href="#">Almacen Sendero</a></li>
-                <li><a href="#">Almacen Interplaza</a></li>
+                <?php
+                $connect->_query = "SELECT idalmacen,nombre_almacen FROM almacen WHERE idestado = 1 AND idempresa = '$idEmpresa'";
+                $connect->get_result_query();
+                for($i=0;$i<count($connect->_rows);$i++){
+                    echo '<li><a href="#" onclick="fnListarTraspasos(2,'.$connect->_rows[$i][0].',\''.$connect->_rows[$i][1].'\')">'.$connect->_rows[$i][1].'</a></li>';
+                }
+                ?>
+                <li><a href="#" onclick="fnListarTraspasos(2,0)"> Todos</a></li>
                 <li class="divider"></li>
+                <li><a href="#" onclick="fnListarTraspasos(3,0)"> Traspasos por autorizar</a></li>
                 <li><a href="#">Solicitar Traspaso</a></li>
                 <li><a href="#" onclick="compras_nuevo_traspaso(1)" >Nuevo Traspaso</a></li>
             </ul>

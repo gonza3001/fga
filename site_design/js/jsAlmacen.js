@@ -2,6 +2,25 @@
  * Created by alejandro.gomez on 22/05/2017.
  */
 
+function fnImprimirTraspaso(idtraspaso) {
+
+    window.open("modules/almacen/reportes/PDFReporteTraspasos-01.php?id="+idtraspaso+"","","location=no,width=700,height=800,scrollbars=NO,menubar=NO,titlebar=NO,toolbar=NO");
+
+}
+
+function fnListarTraspasos(opc,idalmacen,nombre_almacen){
+
+    SenderAjax(
+        "modules/almacen/views/traspasos/",
+        "FrmListarTraspasos.php",
+        null,
+        "lista_traspasos",
+        "post",
+        {opc:opc,idalmacen:idalmacen,nombre_almacen:nombre_almacen}
+    );
+
+}
+
 function CargarTableroAlmacen(opc,idempresa,idalmacen){
 
     $.ajax({
@@ -110,7 +129,6 @@ function setRealizarTraspaso(opc,openReport,idestado){
 
 }
 
-
 function eliminar_carrito_traspasos(idarticulo){
 
 
@@ -145,6 +163,7 @@ function eliminar_carrito_traspasos(idarticulo){
     })
 
 }
+
 function agregar_carrito_traspasos(idarticulo,nombre_articulo,tipo_articulo,cantidad,existencias,datos,e) {
 
     //alert(idarticulo + "-" + nombre_articulo + "-" +tipo_articulo +"-"+cantidad +"-" + existencias +"--"+ datos);
@@ -193,7 +212,6 @@ function agregar_producto_traspaso(opc,datos) {
     $("#idalmacen_origen").attr('disabled','disabled'),
     $("#idalmacen_destino").attr('disabled','disabled');
 }
-
 
 function buscar_producto_almacen(){
 
@@ -296,7 +314,6 @@ function listar_inventarios(opc,tipo_producto,idalmacen,str){
             MyAlert("La opcio no existe","error");
     }
 }
-
 
 var listar_inventario3 = function(tipo_articulo,idalmacen,idempresa){
 
