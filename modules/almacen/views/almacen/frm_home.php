@@ -53,11 +53,11 @@ unset($_SESSION['EXPORT']);
                 $connect->_query = "SELECT idalmacen,nombre_almacen from almacen WHERE idalmacen <> ".$_SESSION['sys_config']['almacen']." AND idempresa = ".$_SESSION['data_home']['idempresa']." ";
                 $connect->get_result_query();
                 for($i=0;$i < count($connect->_rows);$i++){
-                    echo "<li><a href='#' onclick='listar_inventarios(1,\"ART\",".$connect->_rows[$i][0].",\"".$connect->_rows[$i][1]. "\")' >".$connect->_rows[$i][1]."</a></li>";
+                    echo "<li><a href='#' onclick='listar_inventarios(1,\"ART\",".$connect->_rows[$i][0].",\"".$connect->_rows[$i][1]. "\")' ><i class='fa fa-list-alt'></i> ".$connect->_rows[$i][1]."</a></li>";
                 }
                 ?>
                 <li class="divider"></li>
-                <li><a href="#" onclick="listar_inventarios(1,'ART',999,'Todos los Almacenes')">Todos</a></li>
+                <li><a href="#" onclick="listar_inventarios(1,'ART',999,'Todos los Almacenes')"><i class="fa fa-list-alt"></i> Todos</a></li>
             </ul>
         </div>
 
@@ -71,14 +71,14 @@ unset($_SESSION['EXPORT']);
                 $connect->_query = "SELECT idalmacen,nombre_almacen FROM almacen WHERE idestado = 1 AND idempresa = '$idEmpresa'";
                 $connect->get_result_query();
                 for($i=0;$i<count($connect->_rows);$i++){
-                    echo '<li><a href="#" onclick="fnListarTraspasos(2,'.$connect->_rows[$i][0].',\''.$connect->_rows[$i][1].'\')">'.$connect->_rows[$i][1].'</a></li>';
+                    echo '<li><a href="#" onclick="fnListarTraspasos(1,'.$connect->_rows[$i][0].',\''.$connect->_rows[$i][1].'\')"><i class="fa fa-list-alt"></i> '.$connect->_rows[$i][1].'</a></li>';
                 }
                 ?>
-                <li><a href="#" onclick="fnListarTraspasos(2,0)"> Todos</a></li>
+                <li><a href="#" onclick="fnListarTraspasos(2,0)"><i class="fa fa-list-alt"></i> Todos</a></li>
                 <li class="divider"></li>
-                <li><a href="#" onclick="fnListarTraspasos(3,0)"> Traspasos por autorizar</a></li>
-                <li><a href="#">Solicitar Traspaso</a></li>
-                <li><a href="#" onclick="compras_nuevo_traspaso(1)" >Nuevo Traspaso</a></li>
+                <li><a href="#" onclick="fnListarTraspasos(3,0)"><i class="fa fa-check"></i> Traspasos por autorizar</a></li>
+                <li><a href="#" onclick="compras_nuevo_traspaso(2)" ><i class="fa fa-edit"></i> Solicitar Traspaso</a></li>
+                <li><a href="#" onclick="compras_nuevo_traspaso(1)" ><i class="fa fa-file"></i> Nuevo Traspaso</a></li>
             </ul>
         </div>
 
@@ -88,10 +88,12 @@ unset($_SESSION['EXPORT']);
                 <i class="fa fa-print"></i> Reportes <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
-                <li><a href="#">Inventario</a></li>
-                <li><a href="#">Traspasos</a></li>
+                <li><a href="#"><i class="fa fa-list"></i> Inventario</a></li>
+                <li><a href="#"><i class="fa fa-truck"></i> Traspasos</a></li>
             </ul>
         </div>
+
+        <button class="btn btn-warning active btn-sm"><i class="fa fa-area-chart"></i> Indicadores</button>
 
 
     </div>

@@ -114,7 +114,7 @@ function setRealizarTraspaso(opc,openReport,idestado){
         fnloadSpinner(2);
         if(dataResult.result == "ok"){
 
-            getMessage(dataResult.mensaje,'Traspaso realizado correctamente','success',5000);
+            getMessage(dataResult.mensaje,'Traspaso','success',700);
             gn_menu_principal(5,5);
         }
 
@@ -264,7 +264,19 @@ function compras_nuevo_traspaso(opc){
                     opc:opc
                 }
             );
+            break;
+        case 2:
 
+            SenderAjax(
+                "modules/almacen/views/traspasos/",
+                "FrmSolicitarTraspaso.php",
+                null,
+                "lista_traspasos",
+                "post",
+                {
+                    opc:opc
+                }
+            );
             break;
         default:
             MyAlert("Error no se encontro la opcion","error");

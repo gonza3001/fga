@@ -74,7 +74,7 @@ $ListaAlmacenes = $connect->_rows;
 
 <div class="box box-info">
     <div class="box-header">
-        <h3 class="box-title">Nuevo traspaso</h3>
+        <h3 class="box-title">Solicitud de traspaso</h3>
     </div>
     <div class="box-body">
 
@@ -83,15 +83,8 @@ $ListaAlmacenes = $connect->_rows;
 
                 <div class="form-group">
                     <label>Usuario Solicititante</label>
-                    <select class="form-control select2" id="idusuario_solicita">
-                        <option value="0">-- --</option>
-                        <?php
-
-                        for($i=0;$i<count($ListaEmpleados);$i++){
-                            echo "<option value='".$ListaEmpleados[$i][0]."'>".$ListaEmpleados[$i][1]."</option>";
-                        }
-
-                        ?>
+                    <select disabled class="form-control select2" id="idusuario_solicita">
+                        <option value="<?=$_SESSION['data_login']['idusuario']?>"><?=$_SESSION['data_login']['nick_name']?></option>
                     </select>
                 </div>
 
@@ -100,15 +93,8 @@ $ListaAlmacenes = $connect->_rows;
 
                 <div class="form-group">
                     <label>Almacen Origen</label>
-                    <select class="form-control select2" id="idalmacen_origen">
-                        <option value="0">-- --</option>
-                        <?php
-
-                        for($i=0;$i<count($ListaAlmacenes);$i++){
-                            echo "<option value='".$ListaAlmacenes[$i][0]."'>".$ListaAlmacenes[$i][1]."</option>";
-                        }
-
-                        ?>
+                    <select disabled class="form-control select2" id="idalmacen_origen">
+                        <option value="<?=$_SESSION['data_home']['almacen']?>"><?=$_SESSION['data_home']['nombre_almacen']?></option>
                     </select>
                 </div>
 
@@ -117,15 +103,9 @@ $ListaAlmacenes = $connect->_rows;
 
                 <div class="form-group">
                     <label>Almacen Destino</label>
-                    <select class="form-control select2" id="idalmacen_destino">
-                        <option value="0">-- --</option>
-                        <?php
+                    <select disabled class="form-control select2" id="idalmacen_destino">
+                        <option value="1">Almacen General</option>
 
-                        for($i=0;$i<count($ListaAlmacenes);$i++){
-                            echo "<option value='".$ListaAlmacenes[$i][0]."'>".$ListaAlmacenes[$i][1]."</option>";
-                        }
-
-                        ?>
                     </select>
                 </div>
 
@@ -161,8 +141,8 @@ $ListaAlmacenes = $connect->_rows;
                     <tr>
                         <td colspan="3"></td>
                         <td class="text-right" width="300">
-                            <button id="btnNuevoTraspaso02" onclick="compras_nuevo_traspaso(2)" class="btn  btn-danger btn-sm" > <i class="fa fa-trash"></i> Cancelar</button>
-                            <button id="btnNuevoTraspaso01" onclick="setRealizarTraspaso(1,0,1)" class="btn  btn-success btn-sm" > <i class="fa fa-save"></i> Guardar  </button>
+                            <button id="btnNuevoTraspaso01" onclick="compras_nuevo_traspaso(2)" class="btn  btn-danger btn-sm" > <i class="fa fa-trash"></i> Cancelar</button>
+                            <button id="btnNuevoTraspaso01" onclick="setRealizarTraspaso(1,0,2)" class="btn  btn-success btn-sm" > <i class="fa fa-save"></i> Guardar  </button>
                         </td>
                     </tr>
                     </tfoot>

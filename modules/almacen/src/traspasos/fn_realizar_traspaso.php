@@ -128,8 +128,6 @@ if(count($lista) > 0){
         )";
 
         $connect->get_result_query();
-
-
     }
 
     echo json_encode(

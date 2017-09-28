@@ -111,13 +111,13 @@ if($_SESSION['data_login']['idperfil'] == 1){
 
     //Ultimos 10 Traspasos
     $connect->_query = "
-    SELECT LPAD(a.idtraspaso,6,'0')as FolioTraspaso,a.idtraspaso,b.nombre_almacen as almacen_origen,c.nombre_almacen as almacen_destino,a.idestado,date(a.fecha_alta)as fecha_alta 
+    SELECT LPAD(a.idtraspaso,6,'0')as FolioTraspaso,a.idtraspaso,b.nombre_almacen as almacen_origen,c.nombre_almacen as almacen_destino,a.idestado,date(a.fecha_alta)as fecha_alta,a.fecha_alta as FechaHora 
     FROM traspasos as a 
     left join almacen as b 
     on a.idalmacen_origen = b.idalmacen 
     left join almacen as c 
     on a.idalmacen_destino = c.idalmacen
-    where a.idempresa = $idEmpresa limit 0,10
+    where a.idempresa = $idEmpresa ORDER BY a.fecha_alta DESC limit 0,10 
     ";
     $connect->get_result_query(true);
     $ListaTraspasos = $connect->_rows;

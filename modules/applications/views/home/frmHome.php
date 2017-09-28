@@ -50,7 +50,7 @@ $core = new \core\core();
                         <div class="icon">
                             <i class="fa fa-truck"></i>
                         </div>
-                        <a href="#" class="small-box-footer">Mas Información <i class="fa fa-arrow-circle-right"></i></a>
+                        <a href="#" data-toggle="tooltip" data-target="top" title="Prueba" class="small-box-footer">Mas Información <i class="fa fa-arrow-circle-right"></i></a>
                     </div>
                 </div><!-- ./col -->
 
@@ -185,27 +185,24 @@ $core = new \core\core();
     </div>
 <?php
     $core::includeJS("plugins/jQuery/",true);
+    $core::includeJS("site_design/js/app.js",false);
+    $core::includeJS("plugins/jQueryUI/jQuery-ui.js",false);
     $core::includeJS("plugins/bootstrap/js/bootstrap.js",false);
+    $core::includeJS("plugins/bootstrap/js/bootbox.min.js",false);
     //$core::includeJS("plugins/slimScroll/jquery.slimscroll.min.js",false);
 
     $core::includeJS("plugins/datatables/jquery.dataTables.js",false);
     $core::includeJS("plugins/datatables/dataTables.bootstrap.js",false);
     $core::includeJS("plugins/datatables/extensions/TableTools/js/dataTables.tableTools.js",false);
 
-    $core::includeJS("plugins/pnotify/pnotify.custom.min.js",false);
-    $core::includeJS("plugins/pnotify/push.min.js",false);
-
-    $core::includeJS("plugins/bootstrap/js/bootbox.min.js",false);
-    $core::includeJS("plugins/jQueryUI/jquery-ui.min.js",false);
-
     $core::includeJS("plugins/Highcharts-5.0.10/code/highcharts.js",false);
     $core::includeJS("plugins/Highcharts-5.0.10/code/highcharts-3d.js",false);
     $core::includeJS("plugins/Highcharts-5.0.10/js/modules/exporting.js",false);
 
     $core::includeJS("plugins/select2/select2.full.min.js",false);
-    $core::includeJS("site_design/js/iKroAnimate.js",false);
-    $core::includeJS("site_design/js/app.js",false);
+    $core::includeJS("plugins/pnotify/pnotify.custom.min.js",false);
 
+    $core::includeJS("site_design/js/iKroAnimate.js",false);
     $core::includeJS("site_design/js/js_general.js",false);
     ?>
     <script language="JavaScript">

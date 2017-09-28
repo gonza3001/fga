@@ -21,14 +21,19 @@ $HiddenBtn = "hidden";
 if($_POST['opc']==3){
     //Si el lista es para mostrar los traspasos por autorizar
     $HiddenBtn = "";
-    $Where = " WHERE a.idempresa = $idEmpresa AND a.idestado = 0 ";
+    $Titulo = "Traspasos por Autorizar";
+    $Where = " WHERE a.idempresa = $idEmpresa AND a.idestado = 2 ";
 }
 
 if($_POST['opc'] == 2){
-    $Where = " WHERE a.idempresa = $idEmpresa AND a.idestado = 1 AND a.idalmacen_destino = $idAlmacen ";
+    //Todos los traspasos
+    $Titulo = 'Todos los Traspasos';
+    $Where = " WHERE a.idempresa = $idEmpresa AND a.idestado = 1 ";
 
 }else if($_POST['opc']==1){
-    $Where = " WHERE a.idempresa = $idEmpresa AND a.idestado = 1 ";
+    //Traspasos por almacen seleccionado
+    $Titulo = 'Lista de Traspasos <br>'.$_POST['nombre_almacen'];
+    $Where = " WHERE a.idempresa = $idEmpresa AND a.idestado = 1 AND a.idalmacen_destino = $idAlmacen ";
 
 }
 
@@ -49,7 +54,7 @@ $connect->get_result_query();
     $("th").addClass("bg-bareylev");
     $("#ttindicador").text('<?=$connect->getFormatFolio(count($connect->_rows),4)?>');
 </script>
-<h4 class="text-center">Lista de Traspasos <br> <?=$_POST['nombre_almacen']?></h4>
+<h4 class="text-center"><?=$Titulo?></h4>
 <table class="table table-condensed table-striper table-hover">
     <thead>
     <tr>
@@ -69,9 +74,9 @@ $connect->get_result_query();
         <td>".$connect->_rows[$i][3]."</td>
         <td>".$connect->_rows[$i][4]."</td>
         <td>".$connect->_rows[$i][5]."</td>
-        <td width='280' class='text-right'>
+        <td width='290' class='text-right'>
             <button class='btn btn-xs btn-default' onclick='fnImprimirTraspaso(".$connect->_rows[$i][1].")'><i class='fa fa-print'></i> Imprimir</button>
-            <button class='btn btn-xs btn-default'><i class='fa fa-eye'></i> Ver</button>
+            <button class='btn btn-xs btn-default'><i class='fa fa-edit'></i> Editar</button>
             <button class='btn btn-xs btn-default ".$HiddenBtn."'><i class='fa fa-check'></i> Autorizar</button>
             <button class='btn btn-xs btn-default ".$HiddenBtn." '><i class='fa fa-close'></i> Cancelar</button>
         </td>

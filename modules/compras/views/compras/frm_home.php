@@ -76,22 +76,16 @@ unset($_SESSION['EXPORT']);
                 <i class="fa fa-list"></i> Lista de compras <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
-                <li><a href="#" onclick="lista_compras_realizadas(1)" >Compra por dar Entrada</a></li>
-                <li><a href="#" onclick="lista_compras_realizadas(2)" >Compras Realizadas</a></li>
-                <li><a href="#" onclick="lista_compras_realizadas(3)" >Compras Canceladas</a></li>
+                <li><a href="#" onclick="lista_compras_realizadas(1)" ><i class="fa fa-edit"></i> Compra por dar Entrada</a></li>
+                <li><a href="#" onclick="lista_compras_realizadas(2)" ><i class="fa fa-check"></i> Compras Realizadas</a></li>
+                <li><a href="#" onclick="lista_compras_realizadas(3)" ><i class="fa fa-close"></i> Compras Canceladas</a></li>
             </ul>
         </div>
 
-        <div class="btn-group">
-            <button class="btn btn-default btn-sm dropdown-toggle"
-                    type="button" data-toggle="dropdown">
-                <i class="fa fa-line-chart"></i> Reportes <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu">
-                <li><a href="#">Reportes </a></li>
-                <li><a href="#">Indicadores</a></li>
-            </ul>
-        </div>
+        <button class="btn btn-default btn-sm"><i class="fa fa-print"></i> Reportes</button>
+
+        <button class="btn btn-warning active btn-sm"><i class="fa fa-area-chart"></i> Indicadores</button>
+
 
     </div>
     <div id="data_list" class="box-body">

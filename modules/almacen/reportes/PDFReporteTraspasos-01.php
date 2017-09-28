@@ -14,10 +14,33 @@ require_once '../../../plugins/html2pdf/html2pdf.class.php';
 
 $connect = new \core\seguridad();
 
+$idTraspas = $_REQUEST['id'];
+
+$connect->_query = "
+SELECT 
+	lpad(a.idtraspaso,4,'0'),a.idtraspaso,a.tipo_articulo,c.codigo,c.nombre_articulo,
+	a.cantidad,d.nombre_almacen as AlmacenOrigien,e.nombre_almacen as AlmacenDestino,
+    DATE_FORMAT(b.fecha_alta,'%d/%m/%Y'),f.nick_name as UsuarioSolicita,g.nick_name as UsuarioAutoriza 
+FROM detalle_traspasos as a 
+JOIN traspasos as b 
+ON a.idtraspaso = b.idtraspaso 
+JOIN articulos as c 
+ON a.idarticulo = c.idarticulo 
+JOIN almacen as d 
+ON b.idalmacen_origen = d.idalmacen 
+JOIN almacen as e 
+ON b.idalmacen_destino = e.idalmacen 
+JOIN perfil_usuarios as f 
+ON b.idusuario_solicita = f.idusuario 
+LEFT JOIN perfil_usuarios as g 
+ON b.idusuario_autoriza = g.idusuario 
+WHERE a.idtraspaso = $idTraspas ORDER BY c.nombre_articulo ASC
+";
+
+$connect->get_result_query();
+$Traspasos = $connect->_rows;
+
 $Background = "#F3F3F3";
-
-$RowsTraspaso = "";
-
 $DomicilioSucursal = "Calle avenida sendero division norte # 135 Local 123";
 $TelefonoSucursal = "81 2132-356 - 044 81 2134-4567";
 
@@ -46,13 +69,13 @@ ob_start();
         </page_footer>
         <table style="width: 100%;border: solid 1px #000; border-collapse: collapse" align="center">
             <tr>
-                <td style="width: 100%;text-align: left">
+                <td style="width: 100%;text-align: left;font-size: 14px;">
                     <b><?=$_SESSION['data_home']['nombre_empresa']?></b><br><br>
-                    <b>Folio: </b> 0001<br>
-                    <b>Fecha Registro: </b> 25/09/2017<br>
-                    <b>Fecha Actual: </b> 25/09/2017<br>
-                    <b>Solicitante: </b>Pedro Luis<br>
-                    <b>Autorizador: </b>Alejandro Gomez<br>
+                    <b>Folio: </b> <?=$Traspasos[0][0]?><br>
+                    <b>Fecha Registro: </b> <?=$Traspasos[0][8]?><br>
+                    <b>Fecha Actual: </b> <?=date("d/m/Y")?><br>
+                    <b>Solicitante: </b><?=$Traspasos[0][9]?><br>
+                    <b>Autorizador: </b><?=$Traspasos[0][10]?><br>
 
                 </td>
             </tr>
@@ -62,10 +85,10 @@ ob_start();
         <table style="width: 100%;border: solid 1px #000; border-collapse: collapse" align="center">
             <tr>
                 <td style="width: 17%;border: solid 1px #000;background: <?=$Background?> ;padding: 5px; text-align: left;"><b>Almacen Origen:</b></td>
-                <td style="width: 25%;border: solid 1px #000;padding: 5px; text-align: left;"><?=$RowsTraspaso?></td>
+                <td style="width: 25%;border: solid 1px #000;padding: 5px; text-align: left;"><?=$Traspasos[0][6]?></td>
                 <td style="width: 16%;border-right: solid 1px #000;padding: 5px; text-align: left;"></td>
                 <td style="width: 17%;border: solid 1px #000;background: <?=$Background?>;padding: 5px; text-align: left;"><b>Almacen Destino:</b></td>
-                <td style="width: 25%;border: solid 1px #000;padding: 5px; text-align: center;"><b><?=$RowsTraspaso?></b></td>
+                <td style="width: 25%;border: solid 1px #000;padding: 5px; text-align: left;"><?=$Traspasos[0][7]?></td>
             </tr>
         </table>
         <br>
@@ -77,39 +100,41 @@ ob_start();
                 </th>
             </tr>
             <tr>
-                <th style="width: 15%;padding: 8px; text-align: center; border: solid 1px #000; background: <?=$Background?>">Codigo</th>
+                <th style="width: 20%;padding: 8px; text-align: center; border: solid 1px #000; background: <?=$Background?>">Codigo</th>
                 <th style="width: 60%;padding: 8px; text-align: center; border: solid 1px #000; background: <?=$Background?>">Descripción</th>
-                <th style="width: 15%;padding: 8px; text-align: center; border: solid 1px #000; background: <?=$Background?>">Tip</th>
+                <th style="width: 10%;padding: 8px; text-align: center; border: solid 1px #000; background: <?=$Background?>">Tip</th>
                 <th style="width: 10%;padding: 8px; text-align: left; border: solid 1px #000; background: <?=$Background?>">Cantidad</th>
             </tr>
             </thead>
             <tbody>
             <?php
-            if(count($RowsCompras)>0){
+            if(count($Traspasos)>0){
 
-                for($i=0;$i<count($RowsCompras);$i++){
+                $Total = 0;
+                for($i=0;$i<count($Traspasos);$i++){
 
                     echo "
                     <tr>
-                    <td style='width: 15%;padding: 5px; text-align: center; border: solid 1px #000;'>".$RowsTraspaso."</td>
-                    <td style='width: 60%;padding: 5px; text-align: left; border: solid 1px #000;'>".$RowsTraspaso."</td>
-                    <td style='width: 15%;padding: 5px; text-align: center; border: solid 1px #000;'>".$RowsTraspaso."</td>
-                    <td style='width: 10%;padding: 5px; text-align: left; border: solid 1px #000;'>".$RowsTraspaso."</td>
+                    <td style='width: 20%;padding: 5px; text-align: center; border: solid 1px #000;'>".$Traspasos[$i][3]."</td>
+                    <td style='width: 60%;padding: 5px; text-align: left; border: solid 1px #000;'>".$Traspasos[$i][4]."</td>
+                    <td style='width: 10%;padding: 5px; text-align: center; border: solid 1px #000;'>".$Traspasos[$i][2]."</td>
+                    <td style='width: 10%;padding: 5px; text-align: center; border: solid 1px #000;'>".$Traspasos[$i][5]."</td>
                     </tr>
                     ";
+                    $Total = $Total + $Traspasos[$i][5];
                 }
             }
 
-            if(count($RowsTraspaso) <= 5){
+            if(count($Traspasos) <= 5){
 
-                for($i=0;$i<(7 -count($RowsTraspaso)) ;$i++){
+                for($i=0;$i<(7 -count($Traspasos)) ;$i++){
 
 
                     echo "
                     <tr>
-                    <td style='width: 15%;padding: 5px; text-align: left; border: solid 1px #000;'>&nbsp;</td>
+                    <td style='width: 20%;padding: 5px; text-align: left; border: solid 1px #000;'>&nbsp;</td>
                     <td style='width: 60%;padding: 5px; text-align: left; border: solid 1px #000;'>&nbsp;</td>
-                    <td style='width: 15%;padding: 5px; text-align: left; border: solid 1px #000;'>&nbsp;</td>
+                    <td style='width: 10%;padding: 5px; text-align: left; border: solid 1px #000;'>&nbsp;</td>
                     <td style='width: 10%;padding: 5px; text-align: left; border: solid 1px #000;'>&nbsp;</td>
                     </tr>
                     ";
@@ -118,9 +143,9 @@ ob_start();
 
             echo "
                     <tr>
-                    <td colspan='2' style='width: 75%;padding: 5px; text-align: left; border-right: solid 1px #000;'>&nbsp;</td>
-                    <td style='width: 15%;padding: 5px; text-align: right; border: solid 1px #000;background: ".$Background." '>Total</td>
-                    <td style='width: 10%;padding: 5px; text-align: left; border: solid 1px #000;'>00</td>
+                    <td colspan='2' style='width: 80%;padding: 5px; text-align: left; border-right: solid 1px #000;'>&nbsp;</td>
+                    <td style='width: 10%;padding: 5px; text-align: right; border: solid 1px #000;background: ".$Background." '>Total</td>
+                    <td style='width: 10%;padding: 5px; text-align: center; border: solid 1px #000;'>".$Total."</td>
                     </tr>
                     ";
 
