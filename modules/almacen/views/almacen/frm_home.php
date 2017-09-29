@@ -48,7 +48,7 @@ unset($_SESSION['EXPORT']);
                 <i class="fa fa-list-ol"></i> Inventario <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
-                <li><a href="#" onclick="listar_inventarios(1,'ART',1,'Almacen General')">Almacen General</a></li>
+                <li><a href="#" onclick="listar_inventarios(1,'ART',1,'Almacen General')"><i class="fa fa-list-alt"></i> Almacen General</a></li>
                 <?php
                 $connect->_query = "SELECT idalmacen,nombre_almacen from almacen WHERE idalmacen <> ".$_SESSION['sys_config']['almacen']." AND idempresa = ".$_SESSION['data_home']['idempresa']." ";
                 $connect->get_result_query();
@@ -88,7 +88,7 @@ unset($_SESSION['EXPORT']);
                 <i class="fa fa-print"></i> Reportes <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
-                <li><a href="#"><i class="fa fa-list"></i> Inventario</a></li>
+                <li><a href="#" onclick="fnReporteInventario(1)"><i class="fa fa-list"></i> Inventario</a></li>
                 <li><a href="#"><i class="fa fa-truck"></i> Traspasos</a></li>
             </ul>
         </div>

@@ -117,7 +117,7 @@ if($_SESSION['data_login']['idperfil'] == 1){
     on a.idalmacen_origen = b.idalmacen 
     left join almacen as c 
     on a.idalmacen_destino = c.idalmacen
-    where a.idempresa = $idEmpresa ORDER BY a.fecha_alta DESC limit 0,10 
+    where a.idempresa = $idEmpresa and a.idestado = 1 ORDER BY a.fecha_alta DESC limit 0,10 
     ";
     $connect->get_result_query(true);
     $ListaTraspasos = $connect->_rows;

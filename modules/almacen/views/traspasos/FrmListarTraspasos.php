@@ -51,6 +51,7 @@ on a.idusuario_solicita = d.idusuario ".$Where." ORDER BY a.fecha_alta DESC
 $connect->get_result_query();
 ?>
 <script>
+
     $("th").addClass("bg-bareylev");
     $("#ttindicador").text('<?=$connect->getFormatFolio(count($connect->_rows),4)?>');
 </script>
@@ -68,6 +69,9 @@ $connect->get_result_query();
     <tbody>
     <?php
     for($i=0;$i<count($connect->_rows);$i++){
+
+        $idTraspaso = $connect->_rows[$i][1];
+
         echo "<tr>
         <td>".$connect->_rows[$i][0]."</td>
         <td>".$connect->_rows[$i][2]."</td>
@@ -76,9 +80,9 @@ $connect->get_result_query();
         <td>".$connect->_rows[$i][5]."</td>
         <td width='290' class='text-right'>
             <button class='btn btn-xs btn-default' onclick='fnImprimirTraspaso(".$connect->_rows[$i][1].")'><i class='fa fa-print'></i> Imprimir</button>
-            <button class='btn btn-xs btn-default'><i class='fa fa-edit'></i> Editar</button>
-            <button class='btn btn-xs btn-default ".$HiddenBtn."'><i class='fa fa-check'></i> Autorizar</button>
-            <button class='btn btn-xs btn-default ".$HiddenBtn." '><i class='fa fa-close'></i> Cancelar</button>
+            <button class='btn btn-xs btn-default' onclick='fnEditarTraspaso(1,$idTraspaso)'><i class='fa fa-edit'></i> Editar</button>
+            <button class='btn btn-xs btn-default ".$HiddenBtn."' onclick='fnAutorizarTraspaso($idTraspaso)' ><i class='fa fa-check'></i> Autorizar</button>
+            <button class='btn btn-xs btn-default ".$HiddenBtn." ' onclick='fnCancelarTraspaso($idTraspaso)' ><i class='fa fa-close'></i> Cancelar</button>
         </td>
         </tr>";
     }

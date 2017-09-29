@@ -2,6 +2,198 @@
  * Created by alejandro.gomez on 22/05/2017.
  */
 
+
+function fnReporteInventario(opc) {
+
+    switch (opc){
+        case 1: //Mostrar el formulario para la busqueda
+
+            SenderAjax(
+                "modules/almacen/views/inventario/",
+                "FrmReporteInventario.php",
+                null,
+                "show_modal",
+                "post",
+                {opc:opc}
+            );
+            break;
+        case 2://Llamar a funcion para realizar la busqueda
+
+            var idalmacen = $("#txtidAlmacen").val(),
+                idarticulo = $("#txtidArticulo").val(),
+                idcategoria = $("#txtidCategoria").val(),
+                idTipo = $("#txtidTipo").val(),rows="";
+
+            var tabla = "<div class='padding-x5'><button class='btn btn-info btn-xs '><i class='fa fa-file-excel-o'></i> Exportar</button><span class='pull-right'>Se Encntraron <span class='badge'>00</span> registros</span></div> <table class='table table-hover table-condensed table-striped'><thead><tr><th class='bg-bareylev'>#</th><th class='bg-bareylev'>Almacen</th><th class='bg-bareylev'>Articulo</th><th class='bg-bareylev'>Categoría</th><th class='bg-bareylev'>Tipo</th><th class='bg-bareylev'>Existencias</th></tr></thead><tbody id='listaReporteInventario'></tbody></table>"
+
+            $.ajax({
+                url:"modules/almacen/src/inventario/fnBuscarReporteInventarios.php",
+                type:"get",
+                dataType:"json",
+                data:{idalmacen:idalmacen,idarticulo:idarticulo,idcategoria:idcategoria,idTipo:idTipo},
+                beforeSend:function () {
+                    fnloadSpinner(1);
+                }
+            }).done(function (response) {
+                fnloadSpinner(2);
+
+                console.log(response);
+
+                if(response.result){
+
+                    for(i=0;i< response.data.length;i++){
+                        rows = rows + "<tr><td>1</td><td>"+response.data[i].nombre_almacen+"</td><td>"+response.data[i].nombre_articulo+"</td><td>"+response.data[i].nombre_catalogo+"</td><td>"+response.data[i].tipo_articulo+"</td><td>"+response.data[i].existencias+"</td></tr>";
+                    }
+
+                    $("#lista_traspasos").html(tabla);
+                    $("#listaReporteInventario").html(rows);
+                    $("#mdlBtnReporteInventario").click();
+
+                }else{
+                    MyAlert(response.message);
+                }
+                //MyAlert(response.message);
+
+
+            }).fail(function (jqhr,textStatus,errno) {
+               fnloadSpinner(2);
+
+               if(console && console.log()){
+                   if(textStatus == "timeout"){
+                       MyAlert("Se agoto el tiempo de espera");
+                   }else{
+                       MyAlert("No se encontro la vista solicitada");
+                   }
+               }
+            });
+
+            break;
+        default:
+            MyAlert("Opcion no encntrada");
+            break;
+    }
+
+}
+
+function fnEditarTraspaso(opc,idTraspaso) {
+
+    switch (opc){
+        case 1://Mostrar formulario para editar traspaso
+            SenderAjax(
+                "modules/almacen/views/traspasos/",
+                "FrmEditarTraspaso.php",
+                null,
+                "lista_traspasos",
+                "post",
+                {opc:opc,idTraspaso:idTraspaso}
+            );
+            break;
+        case 2://Mostrar formulario para editar traspaso
+
+            break;
+    }
+
+}
+
+function fnCancelarTraspaso(idTraspaso) {
+
+    if(typeof idTraspaso == null || idTraspaso == ""){
+        MyAlert("No se encontro el traspaso");
+    }else{
+
+        bootbox.confirm({
+           title:"Traspasos",
+            message:"Esta seguro de cancelar el traspaso ?",
+            size:"small",
+            buttons:buttonBootBox,
+            callback:function (res) {
+                if(res){
+                    $.ajax({
+                        url:"modules/almacen/src/traspasos/fnCancelarTraspaso.php",
+                        type:"post",
+                        dataType:"json",
+                        data:{idTraspaso:idTraspaso},
+                        beforeSend:function () {
+                            fnloadSpinner(1);
+                        }
+                    }).done(function (response) {
+                        fnloadSpinner(2);
+                        console.log(response);
+
+                        if(response.result){
+
+                            fnListarTraspasos(3,0);
+                            getMessage(response.message,null,"success",700);
+
+                        }else{
+                            MyAlert(response.message);
+                        }
+
+                    }).fail(function (jqhr,textStatus,errno) {
+
+                        fnloadSpinner(2);
+
+                        if(console && console.log){
+                            if(textStatus == "timeout"){
+                                MyAlert("Tiempo de espera agtado");
+                            }else{
+                                MyAlert("Vista no encontrada");
+                            }
+                        }
+
+                    })
+                }
+            }
+        });
+
+    }
+
+}
+
+function fnAutorizarTraspaso(idTraspaso){
+
+    if(typeof idTraspaso == null || idTraspaso == ""){
+        MyAlert("No se encontro el traspaso");
+    }else{
+
+        $.ajax({
+            url:"modules/almacen/src/traspasos/fnAutrizarTraspaso.php",
+            type:"post",
+            dataType:"json",
+            data:{idTraspaso:idTraspaso},
+            beforeSend:function () {
+                fnloadSpinner(1);
+            }
+        }).done(function (response) {
+            fnloadSpinner(2);
+            console.log(response);
+
+            if(response.result){
+
+                fnListarTraspasos(3,0);
+                getMessage(response.message,null,"success",700);
+            }else{
+                MyAlert(response.message);
+            }
+
+        }).fail(function (jqhr,textStatus,errno) {
+
+            fnloadSpinner(2);
+
+            if(console && console.log){
+                if(textStatus == "timeout"){
+                    MyAlert("Tiempo de espera agtado");
+                }else{
+                    MyAlert("Vista no encontrada");
+                }
+            }
+
+        });
+
+    }
+
+}
+
 function fnImprimirTraspaso(idtraspaso) {
 
     window.open("modules/almacen/reportes/PDFReporteTraspasos-01.php?id="+idtraspaso+"","","location=no,width=700,height=800,scrollbars=NO,menubar=NO,titlebar=NO,toolbar=NO");

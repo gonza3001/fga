@@ -5,6 +5,16 @@
  */
 
 var validar_cierre = false;
+var buttonBootBox = {
+
+    confirm: {
+        label: '<i class="fa fa-check"></i> Aceptar',
+        className: 'btn-default'
+    },cancel: {
+        label: '<i class="fa fa-times"></i> Cancelar',
+        className: 'btn-danger'
+    },
+};
 
 function fnGnEliminarImpresora(idImpresora,idSucursal){
     $.ajax({
