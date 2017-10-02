@@ -97,6 +97,7 @@ $lista = $connect->_rows;
                             <thead>
                             <tr>
                                 <th>Nombre</th>
+                                <th class='text-center'>Existencias</th>
                                 <th width="70">Precio</th>
                                 <th>Agregar</th>
                             </tr>

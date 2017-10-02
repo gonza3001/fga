@@ -17,7 +17,7 @@ class ClassControllerCarritoVentas
 
     }
 
-    public function introduce_producto($id_prod,$tipo_producto,$nombre_prod,$precio_venta,$cantidad,$descripcion){
+    public function introduce_producto($id_prod,$tipo_producto,$nombre_prod,$precio_venta,$cantidad,$existencias,$descripcion){
 
         $_SESSION['cart_venta'][] = array(
             'id'=>$id_prod,
@@ -25,6 +25,7 @@ class ClassControllerCarritoVentas
             'nombre'=>$nombre_prod,
             'cantidad'=>$cantidad,
             'precio_venta'=>$precio_venta,
+            'existencias'=>$existencias,
             'descripcion'=>$descripcion
 
         );

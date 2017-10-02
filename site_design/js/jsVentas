@@ -948,7 +948,6 @@ function fnVentaAddCartProducto(opc,param) {
             url:"modules/ventas/src/ventas/fn_agregar_producto.php",
             type:"post",
             data:{
-                opc:opc,
                 producto:producto,
                 tipo_producto:tipo_producto,
                 descripcion:descripcion_por_producto,
@@ -957,26 +956,17 @@ function fnVentaAddCartProducto(opc,param) {
                 idcantidad:idcantidad
             },
             dataType:"JSON"
-        }).done(function(response){
+        }).done(function(data){
 
-            console.log(response);
-
-
-           /* if(data.result == "ok"){
+            if(data.result == "ok"){
 
                 fnVentaShowCartProducto(1);
                 $("#producto").val("");
                 $("#txtCantidad").val(1);
 
             }else if(data.result == "error"){
-
-                if(data.result.data.opc == 2 ){
-                    MyAlert("Prueba.... "+data.mensaje,"alert");
-                }else{
-                    MyAlert(data.mensaje,"alert");
-                }
-
-            }*/
+                MyAlert(data.mensaje,"alert");
+            }
 
         }).fail(function(jqXHR,textStatus,errorThrown){
 

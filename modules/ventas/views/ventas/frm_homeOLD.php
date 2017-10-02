@@ -218,7 +218,7 @@ $idEmpresa = $_SESSION['data_home']['iddepartamento'];
 
     <div id="form_caja" class="box-body">
 
-        <div id="cashOpen" >
+        <div id="cashOpen" class=" hidden">
             <div class="row row-sm">
                 <div class="col-md-8">
                     <div class="box box-primary">
@@ -338,7 +338,6 @@ $idEmpresa = $_SESSION['data_home']['iddepartamento'];
                                         </tbody>
                                     </table>
                                 </div>
-
                                 <div class="col-md-12">
                                     <button class="btn btn-success" onclick="fnVentaCobrarVenta(1)"><i class="fa fa-dollar"></i> Cobrar</button>
                                     <button class="btn btn-danger" onclick="gn_menu_principal(9,9)"><i class="fa fa-close"></i> Cancelar Venta</button>
@@ -356,6 +355,15 @@ $idEmpresa = $_SESSION['data_home']['iddepartamento'];
                     <label class="text-red"> << BUSCAR PRODUCTO (ctrl + 2) >> &nbsp;</label>
                     <label class="text-green" > << AGREGAR (ctrl + 3) > >&nbsp;</label>
                     <label class="text-fuchsia" > << COBRAR (ctrl + 4) >>&nbsp;</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="callout callout-danger">
+                    <h4>No se ha realizado el cierre del dia anterior !</h4>
+                    <p>Realize primeramente el cierre del día anterior, para hacer la apertura de la caja.</p>
                 </div>
             </div>
         </div>

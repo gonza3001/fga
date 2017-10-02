@@ -71,15 +71,27 @@ $connect->_query = "
 $connect->get_result_query();
 
 $data_producto = $connect->_rows[0];
+$Existencias = $connect->_rows[6];
 
 header("Content-type:application/json");
 
-if($Cantidad >= $data_producto[6]){
-    echo json_encode(array(
-        "result"=>"error",
-        "mensaje"=>"No cuenta con suficiente stock"
-    ));
-    exit();
+$ListaCarrito = $carrito->imprime_carrito();
+
+
+
+
+echo json_encode($_POST);
+
+
+/*
+if($_POST['opc'] != 2){
+    if($Cantidad > $data_producto[6]){
+        echo json_encode(array(
+            "result"=>"error",
+            "mensaje"=>"No cuenta con suficiente stock, aun asi quiere crear la orden de trabajo ?",
+            "data"=>array("opc"=>2)
+        ));
+    }
 }
 
 $carrito->introduce_producto(
@@ -93,5 +105,6 @@ $carrito->introduce_producto(
 
 echo json_encode(array(
     "result"=>"ok",
-    "test"=>$data_producto
-));
+    "test"=>$data_producto,
+    "data"=>array("opc"=>2)
+));*/

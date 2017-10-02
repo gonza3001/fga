@@ -41,6 +41,6 @@ for($i=0;$i < count($lista);$i++){
     $NombreProducto = $lista[$i][2];
     $precio_venta = $lista[$i][4];
 
-    echo "<tr><td>".$lista[$i][2]."</td><td>".$lista[$i][4]."</td><td><button class='btn btn-sm btn-success' onclick='$(\"#producto\").val(\"".$valor."\");$(\"#txtNameProduc\").html(\"".$NombreProducto."\");$(\"#descripcion_por_producto\").val(\" \").focus();$(\"#content02\").removeClass(\"hidden\");$(\"#content01\").addClass(\"hidden\")' ><i class='fa fa-plus'></i></button></td></tr>";
+    echo "<tr><td>".$lista[$i][2]."</td><td class='text-center'>".(int) ($lista[$i][3])."</td><td>".$lista[$i][4]."</td><td><button class='btn btn-sm btn-success' onclick='$(\"#producto\").val(\"".$valor."\");$(\"#txtNameProduc\").html(\"".$NombreProducto."\");$(\"#descripcion_por_producto\").val(\" \").focus();$(\"#content02\").removeClass(\"hidden\");$(\"#content01\").addClass(\"hidden\")' ><i class='fa fa-plus'></i></button></td></tr>";
 
 }
