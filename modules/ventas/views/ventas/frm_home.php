@@ -58,11 +58,14 @@ if($_SESSION['myPrint'] ==""){
  $valPrint = 0;
 }
 $idEmpresa = $_SESSION['data_home']['iddepartamento'];
+
 ?>
 <script src="<?=\core\core::ROOT_APP()?>site_design/js/jsVentas.js"></script>
 <script src="<?=\core\core::ROOT_APP()?>site_design/js/jsCatalogos.js"></script>
 
 <script>
+
+    getValidarCierre('<?=date("Y-m-d")?>');
 
     function mdlSeleccionarImpresora(opc,nameprinter){
         if(opc==0){
@@ -82,15 +85,10 @@ $idEmpresa = $_SESSION['data_home']['iddepartamento'];
             setTimeout(function () {
                 gn_menu_principal(9,9);
             },500);
-
-
-
         }
     }
 
     mdlSeleccionarImpresora(<?=$valPrint?>);
-    //Validar cierre del dia anterior
-    //fnVentaCierreCaja(1);
 
     $(".select2").select2();
     $("#idcliente").click(function(){
@@ -169,7 +167,6 @@ $idEmpresa = $_SESSION['data_home']['iddepartamento'];
 
         <button class="btn btn-sm btn-primary" onclick="fnVentaHistorialCliente({'opc':1})" ><i class="fa fa-list"></i> Historial Cliente </button>
 
-
         <div class="btn-group">
             <button class="btn btn-default btn-sm dropdown-toggle"
                     type="button" data-toggle="dropdown">
@@ -243,7 +240,7 @@ $idEmpresa = $_SESSION['data_home']['iddepartamento'];
 
     <div id="form_caja" class="box-body">
 
-        <div id="cashOpen" class="">
+        <div id="cashOpen" class=" hidden">
             <div class="row row-sm">
                 <div class="col-md-8">
                     <div class="box box-primary">
@@ -380,6 +377,15 @@ $idEmpresa = $_SESSION['data_home']['iddepartamento'];
                     <label class="text-red"> << BUSCAR PRODUCTO (ctrl + 2) >> &nbsp;</label>
                     <label class="text-green" > << AGREGAR (ctrl + 3) > >&nbsp;</label>
                     <label class="text-fuchsia" > << COBRAR (ctrl + 4) >>&nbsp;</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="callout callout-danger">
+                    <h4>No se ha realizado el cierre del dia anterior !</h4>
+                    <p>Realize primeramente el cierre del día anterior, para hacer la apertura de la caja.</p>
                 </div>
             </div>
         </div>

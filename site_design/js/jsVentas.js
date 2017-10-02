@@ -6,114 +6,6 @@ var viewContentVenta = false;
 var gPagoInicial = false,gPagoEfectivo = true,gPagoTerjeta = false,gPagoCombinado = false;
 
 
-function fnVentaTrabajosPendientes(opc) {
-
-    SenderAjax(
-      "modules/ventas/views/ventas/",
-        "frm_trabajos_pendientes.php",
-        null,
-        "cashOpen",
-        "post",
-        {opc:opc}
-    );
-
-}
-
-function fnVentaServicios() {
-
-
-    $.ajax({
-        url:"modules/servicios/src/servicios/fn_registrar_recarga.php",
-        type:"post",
-        dataType:"json",
-        beforeSend:function () {
-          fnloadSpinner(1);
-        },
-        data:{
-            SysKey:"12345",
-            id:"19201012021",
-            referencia:"5555555525",
-            producto:"TEL200",
-            bolsaID:"1"
-        },
-    }).done(function (response) {
-
-        fnloadSpinner(2);
-
-        if(response.error == 0){
-            MyAlert("<span class='text-bold' ><i class='fa fa-check-circle-o text-success'></i> "+response.message+"<br><span class='text-center'>Fecha: "+response.data.Fecha+"<br>Transaccion: "+response.data.TransID+"<br>Folio: "+response.data.Folio+"</span></span>","alert");
-        }else{
-
-            MyAlert("<span class='text-bold' ><i class='fa fa-exclamation-triangle'></i>"+response.message+"</span>","alert");
-
-        }
-
-    }).fail(function (jqh,textStatus) {
-
-        fnloadSpinner(2);
-        console.log("Error: "+textStatus);
-    })
-
-}
-
-
-function fnVentaAceptarPago(){
-
-    var folio_venta = $("#folio_venta").val(),
-        importe_pendiente = setFormatoMoneda(1,$("#textSaldoPendiente").val()),
-        importe_pago = setFormatoMoneda(1,$("#textPago").val()),
-        importe_total = setFormatoMoneda(1,$("#textImporteTotal").val()),
-        tipo_venta = $("#textTipoVenta").val();
-
-    $.ajax(
-        {
-            url:"modules/ventas/src/ventas/fn_realizar_pago.php",
-            type:"post",
-            dataType:"json",
-            data:{
-             folio_venta:folio_venta,
-                importe_pendiente:importe_pendiente,
-                importe_pago:importe_pago,
-                importe_total:importe_total,
-                tipo_venta:tipo_venta
-            },
-            beforeSend:function(){
-                $("#btnAceptarPago").attr("disabled",true);
-            }
-        }
-    ).done(function(response){
-
-            //$("#modal_result").text(response.toString());
-
-            switch (response.result){
-                case "ok":
-
-                    $("#folio_venta").attr("disabled",true);
-                    $("#result_pago").toggleClass("hidden");
-                    $("#detalle_pago").toggleClass("hidden");
-
-                    if(response.data.tipo_ticket == 'abono'){
-                        $("#row_cambio").toggleClass("hidden");
-                    }
-
-                    $("#folio_pago").val(response.data.folio_pago);
-                    $("#total_cambio").val(response.data.cambio);
-                    $("#total_cambio").addClass("currency");
-                    $(".currency").numeric({prefix:'$ ', cents: true});
-
-                    break;
-                case "error":
-                    MyAlert(response.mensaje,"error");
-                    break;
-            }
-
-
-        }).fail(function(jxqh,textStatus){
-            MyAlert("Error al llamar el metodo fn_realiza_pago: "+textStatus,"error");
-        })
-
-}
-
 function fnVentaCierreCaja(opcion){
 
     switch (opcion){
@@ -139,7 +31,7 @@ function fnVentaCierreCaja(opcion){
                             //Ciere del dia realizado
                             $("#form_caja").html('<div class="row"><div class="col-md-12"><div class="callout callout-success"><h4>Cierre Realizado !</h4><p>Movimientos no proceden El día ya fue cerrado.</p></div></div></div>');
                             break;
-                            case 'sistema_nuevo':
+                        case 'sistema_nuevo':
                             //Realizar Apertura
                             $("#form_caja").html('<div class="row"><div class="col-md-12"><div class="callout callout-warning"><h4>No se ha realizado la apertura !</h4><p>Realize primeramente la apertura del dia para poder realizar las ventas diarias.</p></div></div></div>');
 
@@ -187,6 +79,139 @@ function fnVentaCierreCaja(opcion){
             break;
     }
 
+}
+
+function setApertura(opc,FechaApertura,SaldoApertura) {
+    switch (opc){
+        case 1:
+            //Mostrar Formulario de Apertura
+            SenderAjax(
+              "modules/ventas/views/apertura/",
+                "frm_apertura.php",
+                null,
+                "idgeneral",
+                "post",
+                {opc:opc,FechaApertura:FechaApertura}
+            );
+            break;
+        case 2:
+
+            var FechaApertura = $("#FechaApertura").val(),
+                SaldoApertura = $("#SaldoApertura").val();
+
+            SaldoApertura = setFormatoMoneda(1,SaldoApertura);
+
+            $.ajax({
+                url:"modules/ventas/src/apertura/fn_apertura_caja.php",
+                type:"post",
+                dataType:"json",
+                data:{
+                    FechaApertura:FechaApertura,
+                    SaldoApertura:SaldoApertura,
+                    opc:opc
+                }
+            }).done(function (response) {
+
+                MyAlert(response.message);
+
+            }).fail(function (jqhr,textStatus,errno) {
+
+                if(console && console.log){
+
+                    if(textStatus == "timeout"){
+                        MyAlert("Tiempo de espera agotado");
+                    }else{
+                        MyAlert("Error al cargar la vista");
+                    }
+
+                }
+
+            });
+
+
+
+            break;
+    }
+}
+
+function getValidarApertura(FechaActual) {
+    $.ajax({
+        url:"modules/ventas/src/apertura/getValidaApertura.php",
+        type:"get",
+        dataType:"json",
+        data:{FechaActual:FechaActual}
+    }).done(function (response) {
+
+        //console.log(response);
+        return response;
+
+
+    }).fail(function (jqhr,textStatus,errno) {
+        if(console && console.log){
+
+            if(textStatus == "timeout"){
+                return "error";
+            }else{
+                return "error";
+            }
+        }
+    });
+}
+
+function getValidarCierre(FechaActual) {
+
+    $.ajax({
+        url:"modules/ventas/src/cierre/getValidaCierre.php",
+        type:"get",
+        dataType:"json",
+        data:{FechaActual:FechaActual}
+    }).done(function (response) {
+
+        if(response.result){
+
+            switch (response.data.opc){
+                case 1:
+
+                   var res = getValidarApertura(FechaActual);
+
+                    if(res.result){
+
+                        setApertura(1,FechaActual,1);
+                        $("#form_caja").html('<div class="row"><div class="col-md-12"><div class="callout callout-info"><h4>Realizar Apertura!</h4><p>Realize la apertura del dia.</p></div></div></div>');
+
+                    }else {
+                        setApertura(1,FechaActual,1);
+
+                    }
+
+
+                    break;
+                case 2:
+                    $("#form_caja").html('<div class="row"><div class="col-md-12"><div class="callout callout-success"><h4>Cierre Realizado !</h4><p>Movimientos no proceden El día ya fue cerrado.</p></div></div></div>');
+                    break;
+                case 3:
+                    $("#form_caja").html('<div class="row"><div class="col-md-12"><div class="callout callout-danger"><h4>No se ha realizado el cierre del dia anterior !</h4><p>Realize primeramente el cierre del día anterior, para hacer la apertura de la caja.</p></div></div></div>');
+
+                    break;
+            }
+
+        }else{
+            MyAlert(response.message);
+        }
+
+
+    }).fail(function (jqhr,textStatus,errno) {
+
+        if(console && console.log){
+
+            if(textStatus == "timeout"){
+                MyAlert("Tiempo de espera agotado");
+            }else{
+                MyAlert("Vista no encontrada");
+            }
+        }
+
+    })
 }
 
 //Apertura Caja
@@ -246,6 +271,115 @@ function fnVentaAperturaCaja(opcion) {
             break;
 
     }
+
+}
+
+
+
+function fnVentaTrabajosPendientes(opc) {
+
+    SenderAjax(
+      "modules/ventas/views/ventas/",
+        "frm_trabajos_pendientes.php",
+        null,
+        "cashOpen",
+        "post",
+        {opc:opc}
+    );
+
+}
+
+function fnVentaServicios() {
+
+
+    $.ajax({
+        url:"modules/servicios/src/servicios/fn_registrar_recarga.php",
+        type:"post",
+        dataType:"json",
+        beforeSend:function () {
+          fnloadSpinner(1);
+        },
+        data:{
+            SysKey:"12345",
+            id:"19201012021",
+            referencia:"5555555525",
+            producto:"TEL200",
+            bolsaID:"1"
+        },
+    }).done(function (response) {
+
+        fnloadSpinner(2);
+
+        if(response.error == 0){
+            MyAlert("<span class='text-bold' ><i class='fa fa-check-circle-o text-success'></i> "+response.message+"<br><span class='text-center'>Fecha: "+response.data.Fecha+"<br>Transaccion: "+response.data.TransID+"<br>Folio: "+response.data.Folio+"</span></span>","alert");
+        }else{
+
+            MyAlert("<span class='text-bold' ><i class='fa fa-exclamation-triangle'></i>"+response.message+"</span>","alert");
+
+        }
+
+    }).fail(function (jqh,textStatus) {
+
+        fnloadSpinner(2);
+        console.log("Error: "+textStatus);
+    })
+
+}
+
+function fnVentaAceptarPago(){
+
+    var folio_venta = $("#folio_venta").val(),
+        importe_pendiente = setFormatoMoneda(1,$("#textSaldoPendiente").val()),
+        importe_pago = setFormatoMoneda(1,$("#textPago").val()),
+        importe_total = setFormatoMoneda(1,$("#textImporteTotal").val()),
+        tipo_venta = $("#textTipoVenta").val();
+
+    $.ajax(
+        {
+            url:"modules/ventas/src/ventas/fn_realizar_pago.php",
+            type:"post",
+            dataType:"json",
+            data:{
+             folio_venta:folio_venta,
+                importe_pendiente:importe_pendiente,
+                importe_pago:importe_pago,
+                importe_total:importe_total,
+                tipo_venta:tipo_venta
+            },
+            beforeSend:function(){
+                $("#btnAceptarPago").attr("disabled",true);
+            }
+        }
+    ).done(function(response){
+
+            //$("#modal_result").text(response.toString());
+
+            switch (response.result){
+                case "ok":
+
+                    $("#folio_venta").attr("disabled",true);
+                    $("#result_pago").toggleClass("hidden");
+                    $("#detalle_pago").toggleClass("hidden");
+
+                    if(response.data.tipo_ticket == 'abono'){
+                        $("#row_cambio").toggleClass("hidden");
+                    }
+
+                    $("#folio_pago").val(response.data.folio_pago);
+                    $("#total_cambio").val(response.data.cambio);
+                    $("#total_cambio").addClass("currency");
+                    $(".currency").numeric({prefix:'$ ', cents: true});
+
+                    break;
+                case "error":
+                    MyAlert(response.mensaje,"error");
+                    break;
+            }
+
+
+        }).fail(function(jxqh,textStatus){
+            MyAlert("Error al llamar el metodo fn_realiza_pago: "+textStatus,"error");
+        })
 
 }
 
@@ -746,6 +880,7 @@ function fnVentaShowCartProducto(opc) {
     }
 
 }
+
 function fnVentaAddCartMateriales(){
 
     var producto = $("#material").val(),
@@ -791,6 +926,7 @@ function fnVentaAddCartMateriales(){
     }
 
 }
+
 function fnVentaAddCartProducto(opc,param) {
 
     var producto = $("#producto").val(),
@@ -839,7 +975,6 @@ function fnVentaAddCartProducto(opc,param) {
         });
     }
 }
-
 
 function fnVentaComboSeleccionado(idcombo,nombrecombo) {
 

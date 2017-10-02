@@ -2,6 +2,11 @@
  * Created by alejandro.gomez on 22/05/2017.
  */
 
+function fnEportarInventario() {
+
+    window.open("modules/almacen/reportes/XLSReporteInventario-02.php","","location=no,width=700,height=800,scrollbars=NO,menubar=NO,titlebar=NO,toolbar=NO");
+
+}
 
 function fnReporteInventario(opc) {
 
@@ -24,7 +29,7 @@ function fnReporteInventario(opc) {
                 idcategoria = $("#txtidCategoria").val(),
                 idTipo = $("#txtidTipo").val(),rows="";
 
-            var tabla = "<div class='padding-x5'><button class='btn btn-info btn-xs '><i class='fa fa-file-excel-o'></i> Exportar</button><span class='pull-right'>Se Encntraron <span class='badge'>00</span> registros</span></div> <table class='table table-hover table-condensed table-striped'><thead><tr><th class='bg-bareylev'>#</th><th class='bg-bareylev'>Almacen</th><th class='bg-bareylev'>Articulo</th><th class='bg-bareylev'>Categoría</th><th class='bg-bareylev'>Tipo</th><th class='bg-bareylev'>Existencias</th></tr></thead><tbody id='listaReporteInventario'></tbody></table>"
+            var tabla = "<div class='padding-x5'><button onclick='fnEportarInventario()' class='btn btn-info btn-xs '><i class='fa fa-file-excel-o'></i> Exportar</button><span class='pull-right'>Se Encntraron <span id='ttInventario' class='badge'>00</span> registros</span></div> <table class='table table-hover table-condensed table-striped'><thead><tr><th class='bg-bareylev'>#</th><th class='bg-bareylev'>Almacen</th><th class='bg-bareylev'>Articulo</th><th class='bg-bareylev'>Categoría</th><th class='bg-bareylev'>Tipo</th><th class='bg-bareylev'>Existencias</th></tr></thead><tbody id='listaReporteInventario'></tbody></table>"
 
             $.ajax({
                 url:"modules/almacen/src/inventario/fnBuscarReporteInventarios.php",
@@ -45,9 +50,12 @@ function fnReporteInventario(opc) {
                         rows = rows + "<tr><td>1</td><td>"+response.data[i].nombre_almacen+"</td><td>"+response.data[i].nombre_articulo+"</td><td>"+response.data[i].nombre_catalogo+"</td><td>"+response.data[i].tipo_articulo+"</td><td>"+response.data[i].existencias+"</td></tr>";
                     }
 
+
+
                     $("#lista_traspasos").html(tabla);
                     $("#listaReporteInventario").html(rows);
                     $("#mdlBtnReporteInventario").click();
+                    $("#ttInventario").text(response.data.length);
 
                 }else{
                     MyAlert(response.message);

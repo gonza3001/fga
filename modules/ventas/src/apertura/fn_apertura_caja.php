@@ -54,29 +54,14 @@ $idDepartamento = $_SESSION['data_home']['iddepartamento'];
 $NoUsuarioAlta = $_SESSION['data_login']['idusuario'];
 header("Content-type:application/json");
 
+if($_SERVER['REQUEST_METHOD'] == "POST"){
 
-switch($_POST['opc']){
-    case 1:
-
-        //Validar si ya se realizo la apertura
-        $DateTIME = date("Y-m-d H:i:s");
-
-        $connect->_query = "SELECT fecha_apertura FROM apertura WHERE idempresa = $idEmpresa AND iddepartamento = $idDepartamento AND date(fecha_apertura) = date('".$DateTIME."') ";
-        $connect->get_result_query();
-
-        if(count($connect->_rows) > 0){
-            echo json_encode(array("result"=>"ok"));
-        }else{
-            echo json_encode(array("result"=>"error","mensaje"=>"error no se encontro la apertura de la caja"));
-        }
-        break;
-    case 2:
+    if(array_key_exists('FechaApertura',$_POST) && array_key_exists('SaldoApertura',$_POST)){
 
         $DateTIME = date("Y-m-d H:i:s");
-        $SaldoInicial = $_POST['SaldoInicial'];
+        $SaldoInicial = $_POST['SaldoApertura'];
 
-        if($SaldoInicial > 0){
-            $connect->_query = "call sp_registra_apertura(
+        $connect->_query = "call sp_registra_apertura(
             '$idEmpresa',
             '$idDepartamento',
             '$SaldoInicial',
@@ -84,15 +69,15 @@ switch($_POST['opc']){
             '$DateTIME',
             '$DateTIME'
             )";
-            $connect->execute_query();
+        $connect->execute_query();
 
-            echo json_encode(array("result"=>"ok"));
-        }else{
-            echo json_encode(array("result"=>"error","mensaje"=>"El saldo inicial es incorrecto"));
-        }
+            echo json_encode(array("result"=>true,"message"=>"Apertura realizada correctamente","data"=>array()));
 
-        break;
-    default:
-        break;
+    }else{
+            echo json_encode(array("result"=>false,"message"=>"No se encontraron los parametros para realizar la apertura","data"=>array()));
+    }
+
+}else{
+
+    echo json_encode(array("result"=>false,"message"=>"No se encontraron los parametros para realizar la apertura","data"=>array()));
 }
-

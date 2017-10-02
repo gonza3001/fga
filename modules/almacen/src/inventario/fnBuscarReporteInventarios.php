@@ -63,8 +63,7 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
 
     $cadena = $w . substr($where[0].$where[1].$where[2].$where[3].$where[4].$where[5].$where[6].$where[7].$where[8],0,-5);
 
-    $connect->_query = "
-    	SELECT a.idempresa,a.idalmacen,b.nombre_almacen,a.idarticulo,c.nombre_articulo,a.tipo_articulo,a.existencias,c.idcategoria,d.nombre_catalogo 
+    $connect->_query = "SELECT a.idempresa,a.idalmacen,b.nombre_almacen,a.idarticulo,c.nombre_articulo,a.tipo_articulo,a.existencias,c.idcategoria,d.nombre_catalogo 
 	FROM almacen_articulos as a 
 	LEFT JOIN almacen as b 
 	ON a.idalmacen = b.idalmacen 
@@ -75,6 +74,8 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
 	$cadena
     ";
     $connect->get_result_query(true);
+
+    $_SESSION['EXPORT'] = $connect->_rows;
 
     echo json_encode(array("result"=>true,"message"=>"Consulta exitosa","data"=>$connect->_rows));
 
