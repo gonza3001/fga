@@ -66,22 +66,46 @@ $connect->_query = "
         select a.idarticulo,b.nombre_articulo,b.codigo,b.precio_venta,b.precio_mayoreo,b.cantidad_mayoreo,a.existencias FROM almacen_articulos as a
         LEFT JOIN articulos as b
         ON a.idarticulo = b.idarticulo
-        WHERE  a.idarticulo = $idArticulo AND a.idempresa = $idEmpresa AND a.idalmacen = $idAlmacen AND a.existencias > $Cantidad ;
+        WHERE  a.idarticulo = $idArticulo AND a.idempresa = $idEmpresa AND a.idalmacen = $idAlmacen AND a.existencias >= $Cantidad ;
         ";
 $connect->get_result_query();
 
 $data_producto = $connect->_rows[0];
-$Existencias = $connect->_rows[6];
+$Existencias = (int)$data_producto[6];
 
 header("Content-type:application/json");
 
+
+
+
 $ListaCarrito = $carrito->imprime_carrito();
 
+if(count($ListaCarrito) > 0){
+
+    for($i=0;$i<count($ListaCarrito);$i++){
+
+        if($idArticulo == $ListaCarrito[$i]['idproducto']){
+
+            $Existencias = $Existencias - $Cantidad;
+
+        }
+    }
+}
 
 
+$carrito->introduce_producto(
+    $_POST['idproducto'],
+    $TipoProducto,
+    $_POST['nombre_producto'],
+    $data_producto[3],
+    $Cantidad,
+    $Existencias,
+    $Descripcion
+);
 
-echo json_encode($_POST);
+$ListaCarrito = $carrito->imprime_carrito();
 
+echo json_encode($ListaCarrito);
 
 /*
 if($_POST['opc'] != 2){

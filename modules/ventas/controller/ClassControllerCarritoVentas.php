@@ -25,8 +25,8 @@ class ClassControllerCarritoVentas
             'nombre'=>$nombre_prod,
             'cantidad'=>$cantidad,
             'precio_venta'=>$precio_venta,
-            'existencias'=>$existencias,
-            'descripcion'=>$descripcion
+            'descripcion'=>$descripcion,
+            'existencias'=>$existencias
 
         );
 
@@ -59,6 +59,7 @@ class ClassControllerCarritoVentas
                 "descripcion"=>$_SESSION['cart_venta'][$i]['descripcion'],
                 "precio_venta"=>$_SESSION['cart_venta'][$i]['precio_venta'],
                 "cantidad"=>$_SESSION['cart_venta'][$i]['cantidad'],
+                "existencias"=>$_SESSION['cart_venta'][$i]['existencias'],
                 "total"=>$total_precio
             );
         }
