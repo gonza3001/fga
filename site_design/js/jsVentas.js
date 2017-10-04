@@ -666,65 +666,88 @@ function fnVentaCobrarVenta(opc) {
             var pago_inicial = $("#idtotal_pago_inicial").text(),
                 descripcion_general = $("#descripcion_general").val();
 
+            var FechaEntrega = $("#FechaEntrega").val(),
+                HoraEntrega = $("#HoraEntrega").val(),
+                MinutoEntrega = $("#MinutoEntrega").val(),
+                FormatoHora = $("#FormatoHora").val();
+
+
+
             pago_efectivo = parseFloat(setFormatoMoneda(1,pago_efectivo));
             pago_tarjeta = parseFloat(setFormatoMoneda(1,pago_tarjeta));
             total_venta = parseFloat(setFormatoMoneda(1,total_venta));
             pago_inicial = parseFloat(setFormatoMoneda(1,pago_inicial));
 
-            if(TipoVenta == 2){
-
-                //Venta a credito
-
-                if(pago_efectivo < pago_inicial){
-                    MyAlert("El pago minimo debe ser de : " + pago_inicial ,"alert");
-                }else{
-
-                    $("#btnRealizarCobro").attr('disabled',true);
-
-                    SenderAjax(
-                        "modules/ventas/src/ventas/",
-                        "fn_realizar_cobro.php",
-                        null,
-                        "modal_result",
-                        "post",
-                        {
-                            tipo_venta:2,
-                            tipo_pago:1,
-                            total_venta:total_venta,
-                            pago_inicial:pago_inicial,
-                            pago_efectivo:pago_efectivo,
-                            pago_tarjeta:0,
-                            descripcion_general:descripcion_general,
-                            idcliente:idcliente
-                        }
-                    )
-                }
+            if(FechaEntrega == ""){
+                MyAlert("Seleccione la fecha de entrega");
             }else{
-                //Venta de contado
 
-                if(pago_efectivo < total_venta){
-                    MyAlert("El pago es inferior al total de la venta","alert");
+                if(TipoVenta == 2){
+
+                    //Venta a credito
+
+                    if(pago_efectivo < pago_inicial){
+                        MyAlert("El pago minimo debe ser de : " + pago_inicial ,"alert");
+                    }else{
+
+                        $("#btnRealizarCobro").attr('disabled',true);
+
+                        SenderAjax(
+                            "modules/ventas/src/ventas/",
+                            "fn_realizar_cobro.php",
+                            null,
+                            "modal_result",
+                            "post",
+                            {
+                                tipo_venta:2,
+                                tipo_pago:1,
+                                total_venta:total_venta,
+                                pago_inicial:pago_inicial,
+                                pago_efectivo:pago_efectivo,
+                                pago_tarjeta:0,
+                                descripcion_general:descripcion_general,
+                                idcliente:idcliente,
+                                FechaEntrega:FechaEntrega,
+                                HoraEntrega:HoraEntrega,
+                                MinutoEntrega:MinutoEntrega,
+                                FormatoHora:FormatoHora
+                            }
+                        )
+                    }
                 }else{
+                    //Venta de contado
 
-                    SenderAjax(
-                        "modules/ventas/src/ventas/",
-                        "fn_realizar_cobro.php",
-                        null,
-                        "modal_result",
-                        "post",
-                        {
-                            tipo_venta:1,
-                            tipo_pago:1,
-                            total_venta:total_venta,
-                            pago_inicial:0,
-                            pago_efectivo:pago_efectivo,
-                            pago_tarjeta:0,
-                            descripcion_general:descripcion_general,
-                            idcliente:idcliente
-                        }
-                    )
+                    if(pago_efectivo < total_venta){
+                        MyAlert("El pago es inferior al total de la venta","alert");
+                    }else{
+
+                        SenderAjax(
+                            "modules/ventas/src/ventas/",
+                            "fn_realizar_cobro.php",
+                            null,
+                            "modal_result",
+                            "post",
+                            {
+                                tipo_venta:1,
+                                tipo_pago:1,
+                                total_venta:total_venta,
+                                pago_inicial:0,
+                                pago_efectivo:pago_efectivo,
+                                pago_tarjeta:0,
+                                descripcion_general:descripcion_general,
+                                idcliente:idcliente,
+                                FechaEntrega:FechaEntrega,
+                                HoraEntrega:HoraEntrega,
+                                MinutoEntrega:MinutoEntrega,
+                                FormatoHora:FormatoHora
+                            }
+                        )
+                    }
                 }
+
             }
+
+
             break;
         default:
             MyAlert("Processnado : 31212012","alert");
@@ -962,21 +985,21 @@ function fnVentaAddCartProducto(opc,param) {
             console.log(response);
 
 
-           /* if(data.result == "ok"){
+            if(response.result == "ok"){
 
                 fnVentaShowCartProducto(1);
                 $("#producto").val("");
                 $("#txtCantidad").val(1);
 
-            }else if(data.result == "error"){
+            }else if(response.result == "error"){
 
-                if(data.result.data.opc == 2 ){
-                    MyAlert("Prueba.... "+data.mensaje,"alert");
+                if(response.result.data.opc == 2 ){
+                    MyAlert("Prueba.... "+response.mensaje,"alert");
                 }else{
-                    MyAlert(data.mensaje,"alert");
+                    MyAlert(response.mensaje,"alert");
                 }
 
-            }*/
+            }
 
         }).fail(function(jqXHR,textStatus,errorThrown){
 

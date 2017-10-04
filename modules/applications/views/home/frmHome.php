@@ -28,6 +28,7 @@ $core = new \core\core();
     $core::includeCSS("plugins/datatables/extensions/TableTools/css/dataTables.tableTools.css",false);
 
     // Nombre de la pagina
+    ?><title>Sistema 12</title></head><body class="<?=\core\core::THEME_APP('skin-myskin')?>   fixed sidebar-collapse sidebar-mini">
     <div class="wrapper">
         <?php include "modules/applications/layout/header.inc";
          include "modules/applications/layout/menu_principal.inc";?>
