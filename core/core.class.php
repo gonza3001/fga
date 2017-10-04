@@ -14,6 +14,11 @@ header("Pragma: no-cache");
 
 class core
 {
+
+    public static function  THEME_APP($THEME_APP = 'skin-green'){
+        return $THEME_APP;
+    }
+
     public static  function ROOT_APP(){
         $ruta = '/fga/' ;
 

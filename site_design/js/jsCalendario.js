@@ -17,14 +17,10 @@ $(function() {
         firstDay: 0,
         isRTL: false,
         showMonthAfterYear: false,
-        yearSuffix: ''
+        yearSuffix: '',
+        changeMonth: true,
+        changeYear: true
     };
     $.datepicker.setDefaults($.datepicker.regional['es']);
 
-    $( ".datepicker" ).datepicker(
-        {
-            dateFormat: "dd/mm/yy",
-            changeMonth: true,
-            changeYear: true
-        });
 });

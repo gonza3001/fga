@@ -61,7 +61,8 @@ if(
     array_key_exists('total_venta',$_POST) &&
     array_key_exists('pago_inicial',$_POST) &&
     array_key_exists('pago_efectivo',$_POST) &&
-    array_key_exists('pago_tarjeta',$_POST)
+    array_key_exists('pago_tarjeta',$_POST) &&
+    array_key_exists('FechaEntrega',$_POST)
 ){
 
     //Sanatizar Datos
@@ -81,8 +82,20 @@ if(
     $PagoInicial = $_POST['pago_inicial'];
     $PagoEfectivo = $_POST['pago_efectivo'];
     $PagoTarjeta = $_POST['pago_tarjeta'];
-    $FechaActual = date("Y-m-d H:i:s");
 
+    //Convertir la Fecha y Hora de entrega en Formato DateTime
+    $FechaEntrega = $_POST['FechaEntrega'];
+    $HoraEntrega = $_POST['HoraEntrega'];
+    $MinutoEntrega = $_POST['MinutoEntrega'];
+    $FormatoEntrega = $_POST['FormatoEntrega'];
+    $CadenaHora = $HoraEntrega.":".$MinutoEntrega.$FormatoEntrega;
+    $CadenaHora = strtotime($CadenaHora);
+    $HoraEntrega = date("H:i", $CadenaHora);
+
+    $FechaEntrega = $FechaEntrega." ".$HoraEntrega;
+
+
+    $FechaActual = date("Y-m-d H:i:s");
     $Cambio = (($PagoEfectivo + $PagoTarjeta) - $TotalVenta);
 
     //Registrar en ventas

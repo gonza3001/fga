@@ -10551,3 +10551,13 @@ Info Box
     -o-transform: rotate(-130deg);
     -webkit-transform: rotate(-130deg);
     transform: rotate(-130deg); } }
+
+.dropdown-menu
+{
+  border: 1px solid #4874e9 !important;
+}
+.dropdown-menu a:hover
+{
+  background: #387fce !important;
+  color: #fff !important;
+}

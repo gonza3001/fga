@@ -16,6 +16,19 @@ var buttonBootBox = {
     },
 };
 
+
+function DayFormat(datepicker) {
+
+    if(datepicker == null && datepicker == ""){datepicker = "dd/mm/yy";}
+
+    $( ".datepicker" ).datepicker(
+        {
+            dateFormat: datepicker,
+            changeMonth: true,
+            changeYear: true
+        });
+}
+
 function fnGnEliminarImpresora(idImpresora,idSucursal){
     $.ajax({
         url:"modules/configuracion/src/parametros/fnEliminarImpresora.php",
