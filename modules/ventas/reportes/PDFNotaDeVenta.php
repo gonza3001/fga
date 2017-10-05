@@ -156,7 +156,7 @@ ob_start();
                                 }
                                 $TotalImporte = ($ListaVenta[$i][7] * $ListaVenta[$i][6]) + $TotalImporte;
                             }
-                            $TotalImporte = ( ($ListaVenta[$i][7] * $ListaVenta[$i][6]) + $TotalImporte );
+                            $TotalImporte = $TotalImporte + $ListaVenta[0][10];
                         }
 
                         if(count($ListaVenta) <= 7){

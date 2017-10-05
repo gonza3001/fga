@@ -10563,11 +10563,11 @@ Info Box
   max-height: 60rem !important;
 }
 
-.dropdown-menu
+.btn-group >.dropdown-menu
 {
   border: 1px solid #4874e9 !important;
 }
-.dropdown-menu a:hover
+.btn-group>.dropdown-menu a:hover
 {
   background: #387fce !important;
   color: #fff !important;

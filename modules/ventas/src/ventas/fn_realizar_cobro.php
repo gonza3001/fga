@@ -92,7 +92,7 @@ if(
     $CadenaHora = strtotime($CadenaHora);
     $HoraEntrega = date("H:i:s", $CadenaHora);
 
-    $FechaEntrega = $FechaEntrega." ".$HoraEntrega;
+    echo $FechaEntrega = $FechaEntrega." ".$HoraEntrega;
 
 
     $FechaActual = date("Y-m-d H:i:s");
