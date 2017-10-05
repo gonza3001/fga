@@ -446,7 +446,9 @@ function nuevo_cliente(opc,idcliente){
                 MyAlert("Ingrese el nombre del  cliente","alert");
             }else if(nombre_completo.length <= 8){
                 MyAlert("Ingrese el Nombre y almenos un apellido");
-            }else {
+            }else if($.trim(correo) == "" && $.trim(telefono) == "" && $.trim(celular)==""){
+                MyAlert("Ingrese algun medio de contacto del cliente");
+            }else{
                 strData = {
                     nombre_cliente:nombre_completo,
                     correo:correo,

@@ -89,7 +89,7 @@ unset($_SESSION['EXPORT']);
 
 </script>
 
-<div class="row">
+<div class="row row-sm">
     <div class="col-md-1">
 
         <div class="box box-info">
@@ -108,13 +108,13 @@ unset($_SESSION['EXPORT']);
         </div>
 
     </div>
-    <div class="col-md-10">
+    <div class="col-md-11">
 
         <div class="box box-success">
 
             <div class="box-body">
 
-                <div class="row">
+                <div class="row row-sm">
                     <div class="col-md-4">
                         <div class="form-group">
                             Nombre
@@ -152,7 +152,7 @@ unset($_SESSION['EXPORT']);
                 </div>
 
 
-                <div id="detalle_venta" class="row"></div>
+                <div id="detalle_venta" class="row row-sm"></div>
 
                 <div class="row">
                     <div class="col-md-12">

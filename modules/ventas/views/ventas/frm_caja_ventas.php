@@ -176,7 +176,6 @@ $PagoInicial = round(($Total *  $_SESSION['sys_config']['pago_inicial']) / 100);
                         </div>
                     </div>
 
-
                 </div>
 
                 <div id="vta02" class="row hidden">
@@ -187,7 +186,7 @@ $PagoInicial = round(($Total *  $_SESSION['sys_config']['pago_inicial']) / 100);
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <h3 class="text-bold text-center ">Folio Venta</h3>
-                                    <input style="font-size: 34px;" class="form-control text-center text-bold input-lg" id="folio_venta" disabled />
+                                    <input style="font-size: 32px;" class="form-control text-center text-bold input-lg" id="folio_venta" disabled />
                                 </div>
                             </div>
                             <div class="col-md-3"></div>
@@ -198,7 +197,7 @@ $PagoInicial = round(($Total *  $_SESSION['sys_config']['pago_inicial']) / 100);
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <h3 class="text-bold text-center ">Cambio</h3>
-                                    <input style="font-size: 34px;" class="form-control text-center currency text-bold input-lg" id="total_cambio" disabled />
+                                    <input style="font-size: 32px;" class="form-control text-center currency text-bold input-lg" id="total_cambio" disabled />
                                 </div>
                             </div>
                             <div class="col-md-3"></div>

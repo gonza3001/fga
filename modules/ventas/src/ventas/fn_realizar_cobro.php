@@ -47,7 +47,6 @@ include "../../controller/ClassControllerCarritoVentas.php";
 /**@@ Vacriar Variable el cual contiene los datos de la ultima exportacion de
  **   Cualquier reporte
  **/
-
 $connect = new \core\seguridad();
 $connect->valida_session_id();
 
@@ -99,7 +98,7 @@ if(
     $Cambio = (($PagoEfectivo + $PagoTarjeta) - $TotalVenta);
 
     //Registrar en ventas
-    $connect->_query = "call sp_registra_venta('$idEmpresa','$idDepartamento','$NoUsuarioAlta','$idCliente','$TipoVenta','$DescripcionGeneral','$CostoTrabajoCP','0',1,'$FechaActual')";
+    $connect->_query = "call sp_registra_venta('$idEmpresa','$idDepartamento','$NoUsuarioAlta','$idCliente','$TipoVenta','$DescripcionGeneral','$CostoTrabajoCP','0',1,'$FechaActual','$FechaEntrega')";
     $connect->get_result_query();
     $idVenta = $connect->_rows[0][0];
 
@@ -107,8 +106,8 @@ if(
     $listaCarrito = $carrito->imprime_carrito();
 
     switch ($TipoVenta){
-        case 1:
-            //venta de contado
+        case 1://venta de contado
+
             if($PagoEfectivo < $TotalVenta){
                 \core\core::MyAlert("El pago es inferior al total de la venta","alert");
             }else{
@@ -159,9 +158,8 @@ if(
             echo "<script>$('#folio_venta').val('".$FolioVenta."');$('#form_caja').html('');$('#total_cambio').val('".$Cambio."');$('#vta01').addClass('hidden');$('#vta02').removeClass('hidden')</script>";
 
             break;
-        case 2:
+        case 2://venta de credito
 
-            //venta de credito
             if($PagoEfectivo < $PagoInicial){
                 \core\core::MyAlert("El pago minimo debe ser de : $PagoInicial","alert");
             }else{
@@ -189,6 +187,14 @@ if(
                     $connect->execute_query();
                 }
 
+                if($PagoEfectivo >= $TotalVenta){
+                    $ImportePagado = $TotalVenta;
+                }else{
+
+                    $ImportePagado = $PagoEfectivo;
+
+                }
+
                 //Movimientos Caja
                 $connect->_query = "call sp_registra_movimientos_caja(
                 '2',
@@ -196,7 +202,7 @@ if(
                 '$TotalVenta',
                 '$NoUsuarioAlta',
                 'A',
-                '$PagoEfectivo',
+                '$ImportePagado',
                 '$PagoEfectivo',
                 '$TipoPago',
                 '0',

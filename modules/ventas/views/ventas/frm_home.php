@@ -220,13 +220,13 @@ $idEmpresa = $_SESSION['data_home']['iddepartamento'];
 
         <div id="cashOpen" >
             <div class="row row-sm">
-                <div class="col-md-8">
+                <div class="col-md-7">
                     <div class="box box-primary">
                         <div class="box-body">
 
                             <div class="row row-sm">
 
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="input-group">
@@ -239,7 +239,7 @@ $idEmpresa = $_SESSION['data_home']['iddepartamento'];
                                         </div>
                                     </div><br>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="input-group">
@@ -252,11 +252,10 @@ $idEmpresa = $_SESSION['data_home']['iddepartamento'];
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div><br/>
 
                             <div class="row row-sm">
-
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="input-group">
@@ -278,11 +277,11 @@ $idEmpresa = $_SESSION['data_home']['iddepartamento'];
                                     </div>
                                 </div>
 
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="input-group">
-                                          <span class="input-group-btn">
+                                                <span class="input-group-btn">
                                             <button class="btn btn-default" onclick="nuevo_cliente(1,1)" type="button"><i class="fa fa-user"></i> Clinte Nuevo</button>
                                           </span>
                                                 <select id="idcliente" class="form-control select2" style="width: 100%">
@@ -297,10 +296,10 @@ $idEmpresa = $_SESSION['data_home']['iddepartamento'];
                                             </div><!-- /input-group -->
                                         </div>
                                     </div>
-                                </div>
+                                </div><br/>
 
                             </div>
-                            <br>
+
                             <div class="row row-sm">
                                 <div class="col-md-12">
                                     <div class="row">
@@ -316,7 +315,7 @@ $idEmpresa = $_SESSION['data_home']['iddepartamento'];
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-5">
                     <div class="box box-success">
                         <div class="box-body">
                             <div class="bg-black currency text-center" id="ledcaja" style="padding: 6px;margin: 2px;height: 70px;font-size: 38px;"> $0.00</div>

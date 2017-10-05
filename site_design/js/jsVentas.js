@@ -672,7 +672,6 @@ function fnVentaCobrarVenta(opc) {
                 FormatoHora = $("#FormatoHora").val();
 
 
-
             pago_efectivo = parseFloat(setFormatoMoneda(1,pago_efectivo));
             pago_tarjeta = parseFloat(setFormatoMoneda(1,pago_tarjeta));
             total_venta = parseFloat(setFormatoMoneda(1,total_venta));

@@ -303,18 +303,7 @@ function fnVentaImprimirTicket(opc){
             //Impresion al realizar la venta
             var folio_venta = $("#folio_venta").val();
 
-            $.ajax({
-                url:"modules/ventas/reportes/tickets/frm_boleta.php",
-                type:"post",
-                data:{opc:opc,folio_venta:folio_venta}
-            }).done(function(data){
-
-                $("#form_caja").html(data);
-                $("#mdl_programaciones").modal('toggle');
-
-            }).fail(function(jqh,textEstatus){
-
-            });
+            window.open("modules/ventas/reportes/PDFNotaDeVenta.php?pc="+opc+"&id="+folio_venta+"","","location=no,width=600,height=400,scrollbars=NO,menubar=NO,titlebar=NO,toolbar=NO");
 
             break;
     }

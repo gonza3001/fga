@@ -15,7 +15,14 @@ header("Pragma: no-cache");
 class core
 {
 
-    public static function  THEME_APP($THEME_APP = 'skin-green'){
+    static public  $SkinTheme = 'skin-green';
+
+    public static function  THEME_APP($THEME_APP){
+
+        if($THEME_APP == NULL && $THEME_APP == ""){
+            $THEME_APP = self::$SkinTheme;
+        }
+
         return $THEME_APP;
     }
 
