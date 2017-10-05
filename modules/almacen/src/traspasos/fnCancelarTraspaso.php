@@ -25,18 +25,17 @@ if($_SERVER['REQUEST_METHOD']=="POST"){
         $idTraspaso = $_POST['idTraspaso'];
 
         $connect->_query = "
-        call sp_CancelarAutorizar('$idTraspaso','$NoUsuario');
+        call sp_CancelarTraspaso('$idTraspaso','$NoUsuario');
         ";
         $connect->get_result_query();
-
         $Mensaje =$connect->_rows[0][0];
 
-        if($Estado == 'ok'){
+        if($Mensaje == 'ok'){
 
-            echo json_encode(array("result"=>true, "message"=>"Traspaso exitoso","data"=>array()));
+            echo json_encode(array("result"=>true, "message"=>"Traspaso exitoso","data"=>array($Mensaje)));
 
         }else{
-            echo json_encode(array("result"=>false, "message"=>"Error el traspaso ya no se encuentra pendiente","data"=>array()));
+            echo json_encode(array("result"=>false, "message"=>"Error el traspaso ya no se encuentra pendiente","data"=>array($Mensaje)));
         }
 
     }else{

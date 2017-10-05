@@ -160,6 +160,8 @@ function fnCancelarTraspaso(idTraspaso) {
 
 function fnAutorizarTraspaso(idTraspaso){
 
+
+
     if(typeof idTraspaso == null || idTraspaso == ""){
         MyAlert("No se encontro el traspaso");
     }else{
@@ -189,6 +191,7 @@ function fnAutorizarTraspaso(idTraspaso){
             fnloadSpinner(2);
 
             if(console && console.log){
+                console.log(textStatus+errno);
                 if(textStatus == "timeout"){
                     MyAlert("Tiempo de espera agtado");
                 }else{

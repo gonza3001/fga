@@ -87,9 +87,10 @@ if(
     $HoraEntrega = $_POST['HoraEntrega'];
     $MinutoEntrega = $_POST['MinutoEntrega'];
     $FormatoEntrega = $_POST['FormatoEntrega'];
+
     $CadenaHora = $HoraEntrega.":".$MinutoEntrega.$FormatoEntrega;
     $CadenaHora = strtotime($CadenaHora);
-    $HoraEntrega = date("H:i", $CadenaHora);
+    $HoraEntrega = date("H:i:s", $CadenaHora);
 
     $FechaEntrega = $FechaEntrega." ".$HoraEntrega;
 

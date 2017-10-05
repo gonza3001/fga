@@ -121,7 +121,7 @@ $ListaAlmacenes = $connect->_rows;
             </div>
         </div>
 
-        <div class="row">
+        <div class="row" >
             <div class="col-md-12 table-responsive">
 
                 <table class="table table-condensed">
@@ -146,8 +146,8 @@ $ListaAlmacenes = $connect->_rows;
                     </tr>
                     </tfoot>
                 </table>
-
             </div>
+            <br>
         </div>
 
     </div>

@@ -79,7 +79,7 @@ unset($_SESSION['EXPORT']);
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title" style="font-size: 14px">Buscar Productos</h4>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" >
 
                 <div class="row">
                     <form action="#" onsubmit="nueva_orden_compra(3,0); return false;">
@@ -99,7 +99,7 @@ unset($_SESSION['EXPORT']);
                     </form>
                 </div>
                 <br/>
-                <div class="row">
+                <div class="row row-sm scroll-auto" style="max-height: 55vh;">
                     <div class="col-md-12">
                         <button class="pull-right hidden btn btn-warning btn-sm"><i class="fa fa-check"></i> Agregar Todo</button>
                         <table id="tbexample" class="table table-condensed table-bordered table-striped table-hover">

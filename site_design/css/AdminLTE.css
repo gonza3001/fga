@@ -10550,7 +10550,18 @@ Info Box
     -ms-transform: rotate(-130deg);
     -o-transform: rotate(-130deg);
     -webkit-transform: rotate(-130deg);
-    transform: rotate(-130deg); } }
+    transform: rotate(-130deg); }
+}
+
+.scroll-auto{
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+}
+.scroll{
+  overflow-y: scroll !important;
+  overflow-x: hidden !important;
+  max-height: 60rem !important;
+}
 
 .dropdown-menu
 {

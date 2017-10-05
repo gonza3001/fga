@@ -46,7 +46,7 @@ on a.idalmacen_destino = b.idalmacen
 left join almacen as c 
 on a.idalmacen_origen = c.idalmacen 
 left join perfil_usuarios as d 
-on a.idusuario_solicita = d.idusuario ".$Where." ORDER BY a.fecha_alta DESC
+on a.idusuario_solicita = d.idusuario $Where ORDER BY a.fecha_alta DESC
 ";
 $connect->get_result_query();
 ?>

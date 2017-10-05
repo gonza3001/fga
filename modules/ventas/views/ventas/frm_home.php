@@ -244,7 +244,7 @@ $idEmpresa = $_SESSION['data_home']['iddepartamento'];
                                         <div class="col-md-12">
                                             <div class="input-group">
                                           <span class="input-group-btn">
-                                            <button class="btn btn-default" onclick="fnVentaOpenModal({'opc':3})" type="button">Selec. Material</button>
+                                            <button class="btn btn-info" onclick="fnVentaOpenModal({'opc':3})" type="button">Selec. Material</button>
                                           </span>
                                                 <input type="text" disabled class="form-control" placeholder="...">
 
@@ -260,7 +260,7 @@ $idEmpresa = $_SESSION['data_home']['iddepartamento'];
                                         <div class="col-md-12">
                                             <div class="input-group">
                                           <span class="input-group-btn">
-                                            <button class="btn btn-default" onclick="nuevo_cliente(1,1)" disabled type="button"><i class="fa fa-file-photo-o"></i> Tipo Diseño</button>
+                                            <button class="btn btn-primary" disabled type="button"><i class="fa fa-file-photo-o"></i> Tipo Diseño</button>
                                           </span>
                                                 <select id="costotrabajo" onchange="fnAgregarTipoDiseno(this.value)" class="form-control select2" style="width: 100%">
                                                     <option value="0">-- Tipo Diseño --</option>
@@ -274,7 +274,7 @@ $idEmpresa = $_SESSION['data_home']['iddepartamento'];
                                                 </select>
                                             </div><!-- /input-group -->
                                         </div>
-                                    </div>
+                                    </div><br>
                                 </div>
 
                                 <div class="col-md-12">
@@ -282,7 +282,7 @@ $idEmpresa = $_SESSION['data_home']['iddepartamento'];
                                         <div class="col-md-12">
                                             <div class="input-group">
                                                 <span class="input-group-btn">
-                                            <button class="btn btn-default" onclick="nuevo_cliente(1,1)" type="button"><i class="fa fa-user"></i> Clinte Nuevo</button>
+                                            <button class="btn btn-default active" onclick="nuevo_cliente(1,1)" type="button"><i class="fa fa-user"></i> Clinte Nuevo</button>
                                           </span>
                                                 <select id="idcliente" class="form-control select2" style="width: 100%">
                                                     <?php
@@ -295,8 +295,8 @@ $idEmpresa = $_SESSION['data_home']['iddepartamento'];
                                                 </select>
                                             </div><!-- /input-group -->
                                         </div>
-                                    </div>
-                                </div><br/>
+                                    </div><br>
+                                </div>
 
                             </div>
 
