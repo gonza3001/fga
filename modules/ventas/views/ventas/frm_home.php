@@ -130,8 +130,14 @@ $idEmpresa = $_SESSION['data_home']['iddepartamento'];
                 <i class="fa fa-list-alt"></i> Trabajos <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
+<<<<<<< HEAD
                 <li><a href="#"  onclick="fnVentaOpenModal({'opc':5})"><i class="fa fa-tasks"></i> Pendientes</a></li>
                 <li><a href="#"  onclick="fnVentaOpenModal({'opc':7})"><i class="fa fa-check"></i> Terminados</a></li>
+=======
+                <li><a href="#"  onclick="fnTrabajosPendientes(1)"><i class="fa fa-list"></i> Pendientes</a></li>
+                <li><a href="#"  onclick="fnVentaOpenModal({'opc':7})"><i class="fa fa-check"></i> Terminados</a></li>
+                <li><a href="#"  onclick="fnVentaOpenModal({'opc':6})"><i class="fa fa-close"></i> Cancelados</a></li>
+>>>>>>> 5d9411288fc186b48e0d54b261aaa8698ea6bd6a
             </ul>
         </div>
 
@@ -140,9 +146,13 @@ $idEmpresa = $_SESSION['data_home']['iddepartamento'];
         <button class="btn btn-sm btn-default" onclick="setVentaPagos({'opc':1,'folio':0})"><i class="fa fa-dollar"></i> Pagos </button>
 
         <div class="btn-group">
-            <button class="btn btn-warning btn-sm dropdown-toggle"
+            <button class="btn btn-default btn-sm dropdown-toggle"
                     type="button" data-toggle="dropdown">
+<<<<<<< HEAD
                 <i class="fa fa-registered"></i> Movimientos Caja <span class="caret"></span>
+=======
+                <i class="fa fa-money"></i> Caja <span class="caret"></span>
+>>>>>>> 5d9411288fc186b48e0d54b261aaa8698ea6bd6a
             </button>
             <ul class="dropdown-menu">
                 <li><a href="#"  onclick="fnVentaOpenModal({'opc':5})">Apertura</a></li>
@@ -198,7 +208,11 @@ $idEmpresa = $_SESSION['data_home']['iddepartamento'];
         <div class="btn-group">
             <button class="btn btn-danger btn-sm dropdown-toggle"
                     type="button" data-toggle="dropdown">
+<<<<<<< HEAD
                 <i class="fa fa-trash-o"></i> Cancelaciones <span class="caret"></span>
+=======
+               <i class="fa fa-trash-o"></i> Cancelaciones <span class="caret"></span>
+>>>>>>> 5d9411288fc186b48e0d54b261aaa8698ea6bd6a
             </button>
             <ul class="dropdown-menu">
                 <li><a href="#" onclick="setVentaPagos({'opc':5,'folio':0})" >Folio de Venta</a></li>
