@@ -125,16 +125,26 @@ $idEmpresa = $_SESSION['data_home']['iddepartamento'];
 
         <button class="btn btn-sm btn-success" onclick="gn_menu_principal(9,9)" ><i class="fa fa-home"></i> Nueva venta </button>
 
-        <button class="btn btn-sm btn-default" > Trabajos Pendientes</button>
+        <div class="btn-group">
+            <button class="btn btn-default btn-sm dropdown-toggle"
+                    type="button" data-toggle="dropdown">
+                <i class="fa fa-list-alt"></i> Trabajos <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+                <li><a href="#"  onclick="fnTrabajosPendientes(1)"><i class="fa fa-list"></i> Pendientes</a></li>
+                <li><a href="#"  onclick="fnVentaOpenModal({'opc':7})"><i class="fa fa-check"></i> Terminados</a></li>
+                <li><a href="#"  onclick="fnVentaOpenModal({'opc':6})"><i class="fa fa-close"></i> Cancelados</a></li>
+            </ul>
+        </div>
 
         <button class="btn btn-sm btn-info hidden" onclick="gn_menu_principal(15,15)" ><i class="fa fa-dollar"></i> Servicios </button>
 
         <button class="btn btn-sm btn-default" onclick="setVentaPagos({'opc':1,'folio':0})"><i class="fa fa-dollar"></i> Pagos </button>
 
         <div class="btn-group">
-            <button class="btn btn-warning btn-sm dropdown-toggle"
+            <button class="btn btn-default btn-sm dropdown-toggle"
                     type="button" data-toggle="dropdown">
-                Caja <span class="caret"></span>
+                <i class="fa fa-money"></i> Caja <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
                 <li><a href="#"  onclick="fnVentaOpenModal({'opc':5})">Apertura</a></li>
@@ -148,7 +158,7 @@ $idEmpresa = $_SESSION['data_home']['iddepartamento'];
         <div class="btn-group">
             <button class="btn btn-default btn-sm dropdown-toggle"
                     type="button" data-toggle="dropdown">
-                Re Impresiones <span class="caret"></span>
+                <i class="fa fa-print"></i> Re Impresiones <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
                 <li><a href="#" onclick="setVentaPagos({'opc':3,'folio':0})">Folio de Venta</a></li>
@@ -186,7 +196,7 @@ $idEmpresa = $_SESSION['data_home']['iddepartamento'];
         <div class="btn-group">
             <button class="btn btn-danger btn-sm dropdown-toggle"
                     type="button" data-toggle="dropdown">
-                Cancelaciones <span class="caret"></span>
+               <i class="fa fa-trash-o"></i> Cancelaciones <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
                 <li><a href="#" onclick="setVentaPagos({'opc':5,'folio':0})" >Folio de Venta</a></li>
@@ -201,7 +211,7 @@ $idEmpresa = $_SESSION['data_home']['iddepartamento'];
         <div class="btn-group">
             <button class="btn btn-default btn-sm dropdown-toggle"
                     type="button" data-toggle="dropdown">
-                Reportes <span class="caret"></span>
+                <i class="fa fa-line-chart"></i> Reportes <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
                 <li><a href="#" onclick="fnVentaCorteDiario(1)" >Movimientos Diario</a></li>
