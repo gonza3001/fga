@@ -116,7 +116,6 @@ $idEmpresa = $_SESSION['data_home']['iddepartamento'];
             </div>
         </div>
     </div>
-
 </div>
 <div class="box box-info animated fadeInDown">
 
@@ -125,7 +124,16 @@ $idEmpresa = $_SESSION['data_home']['iddepartamento'];
 
         <button class="btn btn-sm btn-success" onclick="gn_menu_principal(9,9)" ><i class="fa fa-home"></i> Nueva venta </button>
 
-        <button class="btn btn-sm btn-default" > Trabajos Pendientes</button>
+        <div class="btn-group">
+            <button class="btn btn-default btn-sm dropdown-toggle"
+                    type="button" data-toggle="dropdown">
+                <i class="fa fa-list-alt"></i> Trabajos <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+                <li><a href="#"  onclick="fnVentaOpenModal({'opc':5})"><i class="fa fa-tasks"></i> Pendientes</a></li>
+                <li><a href="#"  onclick="fnVentaOpenModal({'opc':7})"><i class="fa fa-check"></i> Terminados</a></li>
+            </ul>
+        </div>
 
         <button class="btn btn-sm btn-info hidden" onclick="gn_menu_principal(15,15)" ><i class="fa fa-dollar"></i> Servicios </button>
 
@@ -134,12 +142,16 @@ $idEmpresa = $_SESSION['data_home']['iddepartamento'];
         <div class="btn-group">
             <button class="btn btn-warning btn-sm dropdown-toggle"
                     type="button" data-toggle="dropdown">
-                Caja <span class="caret"></span>
+                <i class="fa fa-registered"></i> Movimientos Caja <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
                 <li><a href="#"  onclick="fnVentaOpenModal({'opc':5})">Apertura</a></li>
                 <li><a href="#"  onclick="fnVentaOpenModal({'opc':7})">Arqueo</a></li>
                 <li><a href="#"  onclick="fnVentaOpenModal({'opc':6})">Cierre</a></li>
+                <li><a href="#"  onclick="fnVentaOpenModal({'opc':6})">Entradas</a></li>
+                <li><a href="#"  onclick="fnVentaOpenModal({'opc':6})">Salidas</a></li>
+                <li><a href="#"  onclick="fnVentaOpenModal({'opc':6})">Aportaciones</a></li>
+                <li><a href="#"  onclick="fnVentaOpenModal({'opc':6})">Retiros</a></li>
             </ul>
         </div>
 
@@ -148,7 +160,7 @@ $idEmpresa = $_SESSION['data_home']['iddepartamento'];
         <div class="btn-group">
             <button class="btn btn-default btn-sm dropdown-toggle"
                     type="button" data-toggle="dropdown">
-                Re Impresiones <span class="caret"></span>
+                <i class="fa fa-print"></i> Re Impresiones <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
                 <li><a href="#" onclick="setVentaPagos({'opc':3,'folio':0})">Folio de Venta</a></li>
@@ -186,7 +198,7 @@ $idEmpresa = $_SESSION['data_home']['iddepartamento'];
         <div class="btn-group">
             <button class="btn btn-danger btn-sm dropdown-toggle"
                     type="button" data-toggle="dropdown">
-                Cancelaciones <span class="caret"></span>
+                <i class="fa fa-trash-o"></i> Cancelaciones <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
                 <li><a href="#" onclick="setVentaPagos({'opc':5,'folio':0})" >Folio de Venta</a></li>
@@ -201,7 +213,7 @@ $idEmpresa = $_SESSION['data_home']['iddepartamento'];
         <div class="btn-group">
             <button class="btn btn-default btn-sm dropdown-toggle"
                     type="button" data-toggle="dropdown">
-                Reportes <span class="caret"></span>
+                <i class="fa fa-line-chart"></i> Reportes <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
                 <li><a href="#" onclick="fnVentaCorteDiario(1)" >Movimientos Diario</a></li>
@@ -214,6 +226,7 @@ $idEmpresa = $_SESSION['data_home']['iddepartamento'];
                 <li><a href="#">Detallado</a></li>
             </ul>
         </div>
+
     </div>
 
     <div id="form_caja" class="box-body">
@@ -310,11 +323,10 @@ $idEmpresa = $_SESSION['data_home']['iddepartamento'];
                                 </div>
                             </div>
 
-
-
                         </div>
                     </div>
                 </div>
+
                 <div class="col-md-5">
                     <div class="box box-success">
                         <div class="box-body">
@@ -357,6 +369,7 @@ $idEmpresa = $_SESSION['data_home']['iddepartamento'];
                     <label class="text-fuchsia" > << COBRAR (ctrl + 4) >>&nbsp;</label>
                 </div>
             </div>
+
         </div>
 
     </div>
