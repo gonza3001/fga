@@ -22,7 +22,7 @@ include "../../../../core/seguridad.class.php";
             <div class="box-header">
                 <i class="fa fa-list"></i> Lista de Trabajos Pendientes
             </div>
-            <div class="box-body">
+            <div class="box-body no-padding">
                 <table class="table table-bordered table-condensed table-hover table-striped">
                     <thead>
                     <tr>
@@ -46,8 +46,14 @@ include "../../../../core/seguridad.class.php";
             <div class="box-header">
                 <i class="fa fa-folder-open"></i> Orden de Trabajo: <span id="getTituloDetalle"></span>
             </div>
+            <div class="toolbars hidden">
+                <button class="btn btn-primary btn-xs" onclick="setVentaPagos({'opc':8});"><i class="fa fa-dollar"></i> Pagos</button>
+                <button class="btn hidden btn-link btn-xs"><i class="fa fa-user"></i> Datos del Cliente</button>
+                <button class="btn btn-danger btn-xs" ><i class="fa fa-check-square"></i> Terminar Trabajo</button>
+            </div>
             <div class="box-body scroll-auto no-padding" style="min-height: 55vh;max-height: 55vh;">
 
+                <div id="datos_cliente" class="row row-sm"></div>
                 <div id="getDetalleOrden" class="row row-sm">
 
                     <h2 class="text-center text-gray">Seleccione un Folio</h2>

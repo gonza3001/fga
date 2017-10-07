@@ -54,9 +54,6 @@ $connect->valida_session_id();
 unset($_SESSION['cart_venta']);
 unset($_SESSION['cart_costo_trabajo']);
 
-if($_SESSION['myPrint'] ==""){
- $valPrint = 0;
-}
 $idEmpresa = $_SESSION['data_home']['iddepartamento'];
 
 ?>
@@ -64,10 +61,6 @@ $idEmpresa = $_SESSION['data_home']['iddepartamento'];
 <script src="<?=\core\core::ROOT_APP()?>site_design/js/jsCatalogos.js"></script>
 
 <script>
-
-
-
-
     $(".select2").select2();
     $("#idcliente").click(function(){
         $(this).focus();
@@ -94,29 +87,6 @@ $idEmpresa = $_SESSION['data_home']['iddepartamento'];
         fnVentaCobrarVenta(1);
     });
 </script>
-<div class="modal fade" id="mdlSeleccionarImpresora" data-backdrop="static">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                Seleccionar Impresora <?=$idEmpresa?>
-            </div>
-            <div class="modal-body">
-                <table class="table">
-                    <?php
-                    $connect->_query = "select opc_catalogo,nombre_catalogo,descripcion_catalogo from catalogo_general WHERE idcatalogo = 8 and opc_catalogo2 = $idEmpresa and idestado = 1";
-                    $connect->get_result_query();
-                    for($i=0;$i<count($connect->_rows);$i++){
-                        echo '<tr><td><a href="#" onclick="mdlSeleccionarImpresora(2,\''.$connect->_rows[$i][2].'\')">'.$connect->_rows[$i][2].'</a> </td></tr>';
-                    }
-                    ?>
-                </table>
-            </div>
-            <div class="modal-footer">
-                <button id="btnCloseModalChangePrinter" class="btn btn-danger btn-sm " data-dismiss="modal"><i class="fa fa-close"></i> Cerrar</button>
-            </div>
-        </div>
-    </div>
-</div>
 <div class="box box-info animated fadeInDown">
 
     <div class="box-header">
@@ -130,14 +100,9 @@ $idEmpresa = $_SESSION['data_home']['iddepartamento'];
                 <i class="fa fa-list-alt"></i> Trabajos <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
-<<<<<<< HEAD
-                <li><a href="#"  onclick="fnVentaOpenModal({'opc':5})"><i class="fa fa-tasks"></i> Pendientes</a></li>
-                <li><a href="#"  onclick="fnVentaOpenModal({'opc':7})"><i class="fa fa-check"></i> Terminados</a></li>
-=======
                 <li><a href="#"  onclick="fnTrabajosPendientes(1)"><i class="fa fa-list"></i> Pendientes</a></li>
                 <li><a href="#"  onclick="fnVentaOpenModal({'opc':7})"><i class="fa fa-check"></i> Terminados</a></li>
                 <li><a href="#"  onclick="fnVentaOpenModal({'opc':6})"><i class="fa fa-close"></i> Cancelados</a></li>
->>>>>>> 5d9411288fc186b48e0d54b261aaa8698ea6bd6a
             </ul>
         </div>
 
@@ -148,20 +113,16 @@ $idEmpresa = $_SESSION['data_home']['iddepartamento'];
         <div class="btn-group">
             <button class="btn btn-default btn-sm dropdown-toggle"
                     type="button" data-toggle="dropdown">
-<<<<<<< HEAD
-                <i class="fa fa-registered"></i> Movimientos Caja <span class="caret"></span>
-=======
-                <i class="fa fa-money"></i> Caja <span class="caret"></span>
->>>>>>> 5d9411288fc186b48e0d54b261aaa8698ea6bd6a
+                <i class="fa fa-money"></i> Movimientos Caja <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
-                <li><a href="#"  onclick="fnVentaOpenModal({'opc':5})">Apertura</a></li>
+                <li><a href="#"  onclick="getEntradas({'opc':5})">Apertura</a></li>
                 <li><a href="#"  onclick="fnVentaOpenModal({'opc':7})">Arqueo</a></li>
                 <li><a href="#"  onclick="fnVentaOpenModal({'opc':6})">Cierre</a></li>
-                <li><a href="#"  onclick="fnVentaOpenModal({'opc':6})">Entradas</a></li>
-                <li><a href="#"  onclick="fnVentaOpenModal({'opc':6})">Salidas</a></li>
-                <li><a href="#"  onclick="fnVentaOpenModal({'opc':6})">Aportaciones</a></li>
-                <li><a href="#"  onclick="fnVentaOpenModal({'opc':6})">Retiros</a></li>
+                <li><a href="#"  onclick="getEntradas(1)">Entradas</a></li>
+                <li><a href="#"  onclick="getEntradas(3)">Salidas</a></li>
+                <li><a href="#"  onclick="getAportaciones(1,1)">Aportaciones</a></li>
+                <li><a href="#"  onclick="getAportaciones(1,2)">Retiro</a></li>
             </ul>
         </div>
 
@@ -208,11 +169,7 @@ $idEmpresa = $_SESSION['data_home']['iddepartamento'];
         <div class="btn-group">
             <button class="btn btn-danger btn-sm dropdown-toggle"
                     type="button" data-toggle="dropdown">
-<<<<<<< HEAD
                 <i class="fa fa-trash-o"></i> Cancelaciones <span class="caret"></span>
-=======
-               <i class="fa fa-trash-o"></i> Cancelaciones <span class="caret"></span>
->>>>>>> 5d9411288fc186b48e0d54b261aaa8698ea6bd6a
             </button>
             <ul class="dropdown-menu">
                 <li><a href="#" onclick="setVentaPagos({'opc':5,'folio':0})" >Folio de Venta</a></li>

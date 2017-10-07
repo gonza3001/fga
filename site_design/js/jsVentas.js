@@ -5,9 +5,289 @@
 var viewContentVenta = false;
 var gPagoInicial = false,gPagoEfectivo = true,gPagoTerjeta = false,gPagoCombinado = false;
 
+function getAportaciones(opc,TipoAportacion) {
+
+    switch (opc){
+        case 1:
+            SenderAjax(
+                "modules/ventas/views/aportaciones/",
+                "FrmAportaciones.php",
+                null,
+                "idgeneral",
+                "post",{opc:opc,TipoAportacion:TipoAportacion}
+            );
+            break;
+        case 2:
+
+            console.log(TipoAportacion);
+            var idorigen = $("#sucursal_origen").val(),
+                iddestino = $("#sucursal_destino").val(),
+                importe = $("#importe_aportacion").val(),
+                observaciones = $("#observaciones").val();
+
+            importe = setFormatoMoneda(1,importe);
+
+            if(idorigen == 0){
+                MyAlert("Seleccione la sucursal origen");
+            }else if(iddestino == 0){
+                MyAlert("Seleccione la sucursal destino");
+            }else if(importe == 0.00){
+                MyAlert("Ingrese un importe");
+            }else if($.trim(observaciones)==""){
+                MyAlert("Ingrese una observacion");
+            }else{
+
+                $.ajax({
+                    url:"modules/ventas/src/aportaciones/fnRegistrarAportacion.php",
+                    type:"post",
+                    dataType:"json",
+                    data:{opc:TipoAportacion,idorigen:idorigen,iddestino:iddestino,importe:importe,observaciones:observaciones},
+                    beforeSend:function () {
+                        fnloadSpinner(1);
+                    }
+                }).done(function (response) {
+
+
+                    fnloadSpinner(2);
+                    if(response.result){
+
+                        $("#box1").addClass("hidden");
+                        $("#box2").removeClass("hidden");
+                        $("#mdlBtnGuardar").addClass("hidden");
+                        $("#FolioAportacion").val(''+response.data.Folio+'');
+
+                        if(TipoAportacion == 1){
+                            getMessage("Aportacion registrada correctamente","Aportacion","success",800);
+                        }else{
+                            getMessage("Retiro registrado correctamente","Retiro","success",800);
+                        }
+
+                    }else{
+                        MyAlert(response.message);
+                    }
+                    console.log(response);
+                }).fail(function (jqhr,textStatus,errno) {
+                    fnloadSpinner(2);
+                    if(console && console.log){
+                        if(textStatus == "timeout"){
+                            MyAlert("Tiempo de espera agotad");
+                        }else{
+                            MyAlert("Error al cargar la vista");
+                        }
+                    }
+                })
+
+            }
+
+            break;
+        case 3:
+            SenderAjax(
+                "modules/ventas/views/entradas/",
+                "FrmSalida.php",
+                null,
+                "idgeneral",
+                "post",{opc:opc}
+            );
+            break;
+        case 4:
+            var idconcepto = $("#idconcepto_salida").val(),
+                importe = $("#importe_salida").val(),
+                observaciones = $("#observaciones_salida").val();
+
+            importe = setFormatoMoneda(1,importe);
+
+            if(idconcepto == 0){
+                MyAlert("Seleccione un concepto");
+            }else if(importe == 0.00){
+                MyAlert("Ingrese un importe");
+            }else if($.trim(observaciones)==""){
+                MyAlert("Ingrese una observacion");
+            }else{
+
+                $.ajax({
+                    url:"modules/ventas/src/entradas/fnRegistrarSalida.php",
+                    type:"post",
+                    dataType:"json",
+                    data:{idconcepto:idconcepto,importe:importe,observaciones:observaciones},
+                    beforeSend:function () {
+                        fnloadSpinner(1);
+                    }
+                }).done(function (response) {
+
+                    console.log(response);
+
+                    fnloadSpinner(2);
+
+                    if(response.result){
+
+                        $("#box1").addClass("hidden");
+                        $("#box2").removeClass("hidden");
+                        $("#mdlBtnGuardar").addClass("hidden");
+                        $("#FolioSalida").val(''+response.data.Folio+'');
+                        getMessage("Salida registrada correctamente","Salida","success",900);
+
+                    }else{
+                        MyAlert(response.message);
+                    }
+
+                }).fail(function (jqhr,textStatus,errno) {
+                    fnloadSpinner(2);
+                    if(console && console.log){
+                        if(textStatus == "timeout"){
+                            MyAlert("Tiempo de espera agotad");
+                        }else{
+                            MyAlert("Error al cargar la vista");
+                        }
+                    }
+                });
+
+            }
+            break;
+        default:
+            MyAlert("Opcion no encontrada");
+            break;
+    }
+
+}
+
+function getEntradas(opc) {
+
+    switch (opc){
+        case 1:
+            SenderAjax(
+                "modules/ventas/views/entradas/",
+                "FrmEntrada.php",
+                null,
+                "idgeneral",
+                "post",{opc:opc}
+            );
+            break;
+        case 2:
+
+            var idconcepto = $("#idconcepto").val(),
+                importe = $("#importe_entrada").val(),
+                observaciones = $("#observaciones").val();
+
+            importe = setFormatoMoneda(1,importe);
+
+            if(idconcepto == 0){
+                MyAlert("Seleccione un concepto");
+            }else if(importe == 0.00){
+                MyAlert("Ingrese un importe");
+            }else if($.trim(observaciones)==""){
+                MyAlert("Ingrese una observacion");
+            }else{
+
+                $.ajax({
+                    url:"modules/ventas/src/entradas/fnRegistrarEntrada.php",
+                    type:"post",
+                    dataType:"json",
+                    data:{idconcepto:idconcepto,importe:importe,observaciones:observaciones},
+                    beforeSend:function () {
+                        fnloadSpinner(1);
+                    }
+                }).done(function (response) {
+
+                    fnloadSpinner(2);
+                    if(response.result){
+
+                        $("#box1").addClass("hidden");
+                        $("#box2").removeClass("hidden");
+                        $("#mdlBtnGuardar").addClass("hidden");
+                        $("#FolioEntrada").val(''+response.data.Folio+'');
+                        getMessage("Entrada registrada correctamente","Entradas","success",800);
+
+
+                    }else{
+                        MyAlert(response.message);
+                    }
+                    console.log(response);
+                }).fail(function (jqhr,textStatus,errno) {
+                    fnloadSpinner(2);
+                    if(console && console.log){
+                        if(textStatus == "timeout"){
+                            MyAlert("Tiempo de espera agotad");
+                        }else{
+                            MyAlert("Error al cargar la vista");
+                        }
+                    }
+                })
+
+            }
+
+            break;
+        case 3:
+            SenderAjax(
+                "modules/ventas/views/entradas/",
+                "FrmSalida.php",
+                null,
+                "idgeneral",
+                "post",{opc:opc}
+            );
+            break;
+        case 4:
+            var idconcepto = $("#idconcepto_salida").val(),
+                importe = $("#importe_salida").val(),
+                observaciones = $("#observaciones_salida").val();
+
+            importe = setFormatoMoneda(1,importe);
+
+            if(idconcepto == 0){
+                MyAlert("Seleccione un concepto");
+            }else if(importe == 0.00){
+                MyAlert("Ingrese un importe");
+            }else if($.trim(observaciones)==""){
+                MyAlert("Ingrese una observacion");
+            }else{
+
+                $.ajax({
+                    url:"modules/ventas/src/entradas/fnRegistrarSalida.php",
+                    type:"post",
+                    dataType:"json",
+                    data:{idconcepto:idconcepto,importe:importe,observaciones:observaciones},
+                    beforeSend:function () {
+                        fnloadSpinner(1);
+                    }
+                }).done(function (response) {
+
+                    console.log(response);
+
+                    fnloadSpinner(2);
+
+                    if(response.result){
+
+                        $("#box1").addClass("hidden");
+                        $("#box2").removeClass("hidden");
+                        $("#mdlBtnGuardar").addClass("hidden");
+                        $("#FolioSalida").val(''+response.data.Folio+'');
+                        getMessage("Salida registrada correctamente","Salida","success",900);
+
+                    }else{
+                        MyAlert(response.message);
+                    }
+
+                }).fail(function (jqhr,textStatus,errno) {
+                    fnloadSpinner(2);
+                    if(console && console.log){
+                        if(textStatus == "timeout"){
+                            MyAlert("Tiempo de espera agotad");
+                        }else{
+                            MyAlert("Error al cargar la vista");
+                        }
+                    }
+                });
+
+            }
+            break;
+        default:
+            MyAlert("Opcion no encontrada");
+            break;
+    }
+
+}
+
 function fngetDetaleTrabajo(idventa,data) {
 
-    console.log(data);
     var divDetalle = $("#getDetalleOrden");
 
     divDetalle.html("");
@@ -15,28 +295,33 @@ function fngetDetaleTrabajo(idventa,data) {
     var TempleteART = '',
         TempleteMAT = '',NombreArticulo='';
 
+    divDetalle.html("<input id='txtidVenta' class='hidden' disabled value='"+idventa+"'/>");
+
 
     for(i=0;i<data.length;i++){
 
         if(idventa == data[i].idventa){
 
+
             $("#getTituloDetalle").text(data[i].Folio+" - "+ data[i].NombreCliente);
+
+            $(".toolbars").removeClass('hidden');
+
 
             if(data[i].tipo_articulo == "ART"){
 
-                NombreArticulo = data[i].nombre_articulo;
+                    $("#datos_cliente").html('<div class="col-md-6 invoice-col no-padding "><address class="well well-sm no-margin"><strong>Datos del cliente</strong><br>Nombre: '+data[i].NombreCliente+'<br>Fecha venta: '+data[i].FechaVenta+'<br>Fecha promesa: '+data[i].FechaPromesa+'</address></div><div class="col-md-6 no-margin invoice-col"><address class="well well-sm"><strong>Datos de Venta</strong><br>Sucursal: '+data[i].nombre_departamento+'<br>Cajer: '+data[i].nick_name+'<br> <span class="pull-left">Importe: $'+data[i].precio_compra+'</span><span class="pull-right">Pendiente: $'+data[i].precio_compra+'</span><br></address></div>');
 
-                TempleteART = '<div class="col-md-6 invoice-col "><address class="well well-sm"><strong>Datos del cliente</strong><br>Nombre: '+data[i].NombreCliente+'<br>Fecha Venta: '+data[i].FechaVenta+'</address></div><div class="col-md-6 invoice-col"><address><strong>Datos de Venta</strong><br>Sucursal: '+data[i].nombre_departamento+'<br>Sucursal: '+data[i].nombre_departamento+'<br></address></div><div class="col-md-6 ">\n' +
+
+                NombreArticulo = data[i].nombre_articulo;
+                TempleteART = '<div class="col-md-6 ">\n' +
                     '                        <div class="panel panel-info">\n' +
                     '                            <div class="panel-heading padding-x3"><b>Articulo</b>: '+NombreArticulo +'</div>\n' +
-                    '                            <div class="panel-body scroll-auto" style="min-height: 25vh;">\n' +
-                            '                       <strong><i class="fa fa-book margin-r-5"></i>  Producto</strong><p class="text-muted">'+ NombreArticulo  +'</p>' +
-                            '                       <strong><i class="fa fa-bookmark margin-r-5"></i> Descripción</strong><p class="text-muted">'+data[i].descripcion+'</p>' +
-                            '                       <strong><i class="fa fa-paper-plane"></i> Material</strong><p id="textMat" class="text-muted">'+TempleteMAT+'</p>'+
+                    '                            <div class="panel-body no-padding scroll-auto" style="min-height: 25vh;">\n' +
+                            '                       <table class="table table-condensed table-hover  no-border"><tr><td><strong><i class="fa fa-book margin-r-5"></i>  Producto</strong><p class="text-muted">'+ NombreArticulo  +'</p></td><td><strong><i class="fa fa-book margin-r-5"></i>  Cantidad</strong><p class="text-muted">'+ data[i].cantidad  +'</p></td></tr><tr><td colspan="2"><strong><i class="fa fa-bookmark margin-r-5"></i> Descripción</strong><p class="text-muted">'+data[i].descripcion+'</p></td></tr><tr><td colspan="2"><strong><i class="fa fa-paper-plane"></i> Material</strong><p id="textMat" class="text-muted">'+TempleteMAT+'</p></td></tr></table>' +
                             '                    </div>' +
                         '                    </div>' +
                     '                    </div>';
-
                 divDetalle.html(divDetalle.html()+TempleteART);
             }
 
@@ -44,7 +329,6 @@ function fngetDetaleTrabajo(idventa,data) {
                 TempleteMAT = "Material: " +data[i].nombre_articulo+"<br>Cantidad: "+data[i].cantidad;
                 $("#textMat").html($("#textMat").text()+TempleteMAT);
             }
-
 
         }
     }
@@ -90,6 +374,7 @@ function fnListarTrabajos(opc) {
                     $("#tblListaTrabajos tr ").removeClass('bg-light-blue-gradient text-white');
                     $(this).addClass('bg-light-blue-gradient text-white');
                 });
+                $(".toolbars").addClass("hidden");
 
             }else{
                 getMessage("No se encontraron trabajos","Trabajos","success",850);

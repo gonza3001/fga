@@ -522,6 +522,22 @@ function setVentaPagos(data){
             });
 
             break;
+        case 8:
+            var folio = $("#txtidVenta").val();
+            if(folio == ""){MyAlert("Ingrese un folio");}else{
+                SenderAjax(
+                    "modules/ventas/views/ventas/",
+                    "frm_pagos.php",
+                    null,"show_modal","post",{
+                        opc:opcion,
+                        folio:folio
+                    }
+                );
+            }
+            break;
+        default:
+            MyAlert("Opcion no existe");
+            break;
     }
 
 
