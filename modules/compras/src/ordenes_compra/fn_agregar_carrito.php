@@ -72,7 +72,7 @@ for($i=0; $i < count($data);$i++){
         <td><a href='#' onclick='fnCompraEliminarProducto(".$i.")' ><span class='fa fa-trash' ></span></a></td>
     </tr>";
 }
-$tota_iva = ($total_neto * 0.16);
+$tota_iva = ($total_neto * 0);
 $total = $total_neto + $tota_iva ;
 ?>
 
@@ -85,10 +85,10 @@ $total = $total_neto + $tota_iva ;
                 <td class="text-right text-bold" >Neto:</td>
                 <td class="text-right currency"><?=$total_neto?></td>
             </tr>
-            <tr>
+            <tr class="hidden">
                 <td colspan="4"></td>
-                <td class="text-right text-bold">Iva 16%:</td>
-                <td class="text-right currency"><?=$tota_iva?></td>
+                <td class="text-right text-bold">Iva 0:</td>
+                <td class="text-right currency">0</td>
             </tr>
             <tr>
                 <td colspan="4"></td>

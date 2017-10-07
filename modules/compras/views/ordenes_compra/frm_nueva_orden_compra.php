@@ -17,11 +17,32 @@ $idEmpresa = $_SESSION['data_home']['idempresa'];
 
 ?>
 <script>
+    //Script parar recorrer una tabla y sacar los valores de los tr
+    $("#btnRecorrer").click(function () {
+        $("#tabla tbody tr").each(function (index) {
+            var campo1, campo2, campo3;
+            $(this).children("td").each(function (index2) {
+                switch (index2) {
+                    case 0:
+                        campo1 = $(this).text();
+                        break;
+                    case 1:
+                        campo2 = $(this).text();
+                        break;
+                    case 2:
+                        campo3 = $(this).text();
+                        break;
+                }
+                $(this).css("background-color", "#ECF8E0");
+            })
+            alert(campo1 + ' - ' + campo2 + ' - ' + campo3);
+        })
+    })
     $(".select2").select2();
 </script>
 <div class="row">
 
-    <div class="col-md-5">
+    <div class="col-md-4">
         <div class="form-group">
             <label>Proveedor</label>
             <select id="idproveedor" class="form-control select2" style="width: 100%">
@@ -39,7 +60,17 @@ $idEmpresa = $_SESSION['data_home']['idempresa'];
             </select>
         </div>
     </div>
-    <div class="col-md-3">
+
+    <div class="col-md-2">
+        <div class="form-group">
+            <label>Sucursal</label>
+            <select class="form-control select2" style="width: 100%">
+                <option value="0"> Sucursal de Entrega</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="col-md-2">
         <div class="form-group">
             <label>Fecha</label>
             <input class="form-control" disabled value="<?=date("d/m/Y")?>" />

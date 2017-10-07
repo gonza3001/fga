@@ -265,7 +265,7 @@ ob_start();
     </page>
 <?php
 $content = ob_get_clean();
-$pdf = new HTML2PDF('P','A4','es','UTF-8');
+$pdf = new HTML2PDF('P','Letter','es','UTF-8');
 $pdf->writeHTML($content);
 $pdf->pdf->IncludeJS('print(TRUE)');
 $pdf->output('NotaDeVenta.pdf');

@@ -57,17 +57,17 @@ ob_start();
         <table style="width: 100%;border: solid 1px #000; border-collapse: collapse" align="center">
             <tr>
                 <td style="width: 15%;border: solid 1px #000;background: <?=$Background?> ;padding: 5px; text-align: left;"><b>Proveedor:</b></td>
-                <td style="width: 15%;border: solid 1px #000;padding: 5px; text-align: left;"><?=$RowsCompras[0][11]?></td>
-                <td style="width: 45%;border-right: solid 1px #000;padding: 5px; text-align: left;"></td>
+                <td style="width: 25%;border: solid 1px #000;padding: 5px; text-align: left;"><?=$RowsCompras[0][11]?></td>
+                <td style="width: 35%;border-right: solid 1px #000;padding: 5px; text-align: left;"></td>
                 <td style="width: 10%;border: solid 1px #000;background: <?=$Background?>;padding: 5px; text-align: left;"><b>Folio:</b></td>
                 <td style="width: 15%;border: solid 1px #000;padding: 5px; text-align: center;"><b><?=$RowsCompras[0][3]?></b></td>
             </tr>
             <tr>
                 <td style="width: 15%;border: solid 1px #000;background: <?=$Background?> ;padding: 5px; text-align: left;"><b>Telefono:</b></td>
-                <td style="width: 15%;border: solid 1px #000;padding: 5px; text-align: left;"><?=$RowsCompras[0][12]?></td>
-                <td style="width: 45%;border-right: solid 1px #000;padding: 5px; text-align: left;"></td>
+                <td style="width: 25%;border: solid 1px #000;padding: 5px; text-align: left;"><?=$RowsCompras[0][12]?></td>
+                <td style="width: 35%;border-right: solid 1px #000;padding: 5px; text-align: left;"></td>
                 <td style="width: 10%;border: solid 1px #000;background: <?=$Background?> ;padding: 5px; text-align: left;"><b>Fecha:</b></td>
-                <td style="width: 15%;border: solid 1px #000;padding: 5px; text-align: left;"><?=date("d/m/Y")?></td>
+                <td style="width: 15%;border: solid 1px #000;padding: 5px; text-align: center;"><?=date("d/m/Y")?></td>
             </tr>
         </table>
 
@@ -129,6 +129,15 @@ ob_start();
         <br>
         <table style="width: 100%;border: solid 1px #000; border-collapse: collapse" align="center">
             <tr>
+                <td  style='width: 100%;padding: 5px; text-align: left; border: solid 1px #000;background: <?=$Background?>'>Sucursal de Entrega</td>
+            </tr>
+            <tr>
+                <td style='width: 100%;padding: 5px; text-align: left; border: solid 1px #000;'>
+                    &nbsp;<br><br><br>
+                </td>
+            </tr>
+            <tr><td>&nbsp;</td></tr>
+            <tr>
                 <td  style='width: 100%;padding: 5px; text-align: left; border: solid 1px #000;background: <?=$Background?>'>Observaciones</td>
             </tr>
             <tr>
@@ -142,7 +151,7 @@ ob_start();
     </page>
 <?php
 $content = ob_get_clean();
-$pdf = new HTML2PDF('P','A4','es','UTF-8');
+$pdf = new HTML2PDF('P','Letter','es','UTF-8');
 $pdf->writeHTML($content);
 $pdf->pdf->IncludeJS('print(TRUE)');
 $pdf->output('Reporte.pdf');

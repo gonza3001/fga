@@ -5,6 +5,19 @@
 var viewContentVenta = false;
 var gPagoInicial = false,gPagoEfectivo = true,gPagoTerjeta = false,gPagoCombinado = false;
 
+function WindowsOpenReport(idReport,arrayid) {
+
+
+    switch (idReport){
+        //Ticket de Entradas
+        case 1:
+            var idEntrada = arrayid.idEntrada;
+            window.open("modules/ventas/reportes/PDFEntradas-01.php?pc="+idReport+"&id="+idEntrada+"","","location=no,width=600,height=700,scrollbars=NO,menubar=NO,titlebar=NO,toolbar=NO");
+            break;
+    }
+
+}
+
 function getAportaciones(opc,TipoAportacion) {
 
     switch (opc){
