@@ -161,7 +161,7 @@ $idEmpresa = $_SESSION['data_home']['iddepartamento'];
                     </ul>
                 </li>
                 <li class="divider"></li>
-                <li><a href="#">Entrada y Salidas</a></li>
+                <li><a href="#" onclick="getEntradas(5)">Entrada y Salidas</a></li>
                 <li><a href="#">Aportaciones y Retiros</a></li>
             </ul>
         </div>

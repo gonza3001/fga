@@ -83,7 +83,7 @@ if($Tipo == 1){
                             <input id="FolioAportacion" readonly class="form-control text-bold text-center" />
                         </div>
                         <div class="form-group">
-                            <button class="btn btn-block btn-default btn-sm"><i class="fa fa-print"></i> Imprimir</button>
+                            <button class="btn btn-block btn-default btn-sm" onclick="WindowsOpenReport(2,{idAportacion:$('#FolioAportacion').val()})" ><i class="fa fa-print"></i> Imprimir</button>
                         </div>
                     </div>
                 </div>

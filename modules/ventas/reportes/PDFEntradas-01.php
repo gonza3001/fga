@@ -13,9 +13,7 @@ include "../../../core/seguridad.class.php";
 require_once '../../../plugins/html2pdf/html2pdf.class.php';
 
 $connect = new \core\seguridad();
-
 $Folio = $_REQUEST['id'];
-
 $connect->_query = "
 SELECT 
 	a.Folio,
@@ -35,7 +33,7 @@ SELECT
     e.nick_name,
     a.idestatus,
     a.fecha_registro,
-    date(a.fecha_registro)as Fecha
+    date(a.fecha_registro)as Fecha,
     time(a.fecha_registro)as Hora 
 FROM entradas as a 
 LEFT JOIN departamentos as b 
@@ -46,25 +44,33 @@ LEFT JOIN perfil_usuarios as d
 ON a.idusuario_autoriza = d.idusuario
 LEFT JOIN perfil_usuarios as e 
 ON a.idusuario_cancela = e.idusuario
-
 where a.Folio = '$Folio'
 ";
 $connect->get_result_query();
 
 //Datos de la Consulta de Entrada
 $TipoMovimiento = "Entrada";
+
+
 $NombreDepartamento = $connect->_rows[0][4];
+$TipoEntrada = $connect->_rows[0][5];
 $Solicitante = $connect->_rows[0][10];
 $Autorizante = $connect->_rows[0][12];
 $UsuarioCancela = $connect->_rows[0][14];
-
 $Importe = $connect->setFormatoMoneda($connect->_rows[0][7],'pesos');
 $Estatus = $connect->_rows[0][15];
 $FechaRegistro = $connect->_rows[0][16];
+
+if($TipoEntrada == "E"){
+    $TituloPDF = "Solicitud de Entrada";
+    $TipoMovimiento = "Entrada";
+}else{
+    $TituloPDF = "Solicitud de Salida";
+    $TipoMovimiento = "Salida";
+}
 //Datos del la empresa
 
 $Background = "#F3F3F3";
-$TituloPDF = "Solicitud de Entrada";
 $DomicilioSucursal = "Calle avenida sendero division norte # 135 Local 123";
 $TelefonoSucursal = "81 2132-356 - 044 81 2134-4567";
 
@@ -158,6 +164,5 @@ $content = ob_get_clean();
 $pdf = new HTML2PDF('P','Letter','es','UTF-8');
 $pdf->writeHTML($content);
 $pdf->pdf->IncludeJS('print(TRUE)');
-$pdf->output('Reporte.pdf');
-
+$pdf->output($TipoMovimiento.date("YmdHis").'.pdf');
 ?>

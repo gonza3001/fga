@@ -1,10 +1,10 @@
 CREATE DATABASE  IF NOT EXISTS `bdpvt` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `bdpvt`;
--- MySQL dump 10.13  Distrib 5.7.9, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.6.24, for Win64 (x86_64)
 --
 -- Host: localhost    Database: bdpvt
 -- ------------------------------------------------------
--- Server version	5.7.14
+-- Server version	5.6.17
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -72,7 +72,7 @@ CREATE TABLE `almacen_articulos` (
 
 LOCK TABLES `almacen_articulos` WRITE;
 /*!40000 ALTER TABLE `almacen_articulos` DISABLE KEYS */;
-INSERT INTO `almacen_articulos` VALUES (1,1,1,'ART',7.00),(1,1,2,'ART',7.00),(1,1,283,'ART',10.00),(1,1,284,'ART',10.00),(1,1,285,'ART',10.00),(1,1,286,'ART',10.00),(1,1,287,'ART',10.00),(1,1,295,'ART',10.00),(1,1,296,'ART',10.00),(1,1,297,'ART',10.00),(1,1,312,'ART',20.00),(1,1,313,'ART',20.00),(1,1,314,'ART',20.00),(1,1,315,'ART',20.00),(1,1,319,'MAT',10.00),(1,1,320,'MAT',10.00),(1,4,1,'ART',3.00),(1,4,2,'ART',3.00),(1,4,283,'ART',5.00),(1,4,284,'ART',5.00),(1,4,285,'ART',5.00),(1,4,286,'ART',5.00),(1,4,287,'ART',5.00),(1,4,295,'ART',15.00),(1,4,296,'ART',15.00),(1,4,297,'ART',15.00),(1,5,283,'ART',15.00),(1,5,284,'ART',15.00),(1,5,285,'ART',15.00),(1,5,286,'ART',15.00),(1,5,287,'ART',15.00),(1,5,295,'ART',10.00),(1,5,296,'ART',15.00),(1,5,297,'ART',15.00),(1,5,312,'ART',14.00),(1,5,313,'ART',15.00),(1,5,314,'ART',15.00),(1,5,315,'ART',15.00);
+INSERT INTO `almacen_articulos` VALUES (1,1,1,'ART',37.00),(1,1,2,'ART',37.00),(1,1,3,'ART',30.00),(1,1,283,'ART',10.00),(1,1,284,'ART',10.00),(1,1,285,'ART',10.00),(1,1,286,'ART',10.00),(1,1,287,'ART',10.00),(1,1,295,'ART',10.00),(1,1,296,'ART',10.00),(1,1,297,'ART',10.00),(1,1,312,'ART',20.00),(1,1,313,'ART',20.00),(1,1,314,'ART',20.00),(1,1,315,'ART',20.00),(1,1,319,'MAT',37.00),(1,1,320,'MAT',37.00),(1,4,1,'ART',3.00),(1,4,2,'ART',3.00),(1,4,283,'ART',5.00),(1,4,284,'ART',5.00),(1,4,285,'ART',5.00),(1,4,286,'ART',5.00),(1,4,287,'ART',5.00),(1,4,295,'ART',15.00),(1,4,296,'ART',15.00),(1,4,297,'ART',15.00),(1,5,283,'ART',15.00),(1,5,284,'ART',15.00),(1,5,285,'ART',15.00),(1,5,286,'ART',15.00),(1,5,287,'ART',15.00),(1,5,295,'ART',18.00),(1,5,296,'ART',25.00),(1,5,297,'ART',25.00),(1,5,312,'ART',19.00),(1,5,313,'ART',20.00),(1,5,314,'ART',20.00),(1,5,315,'ART',20.00),(1,5,319,'MAT',22.00),(1,5,320,'MAT',23.00);
 /*!40000 ALTER TABLE `almacen_articulos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -159,7 +159,7 @@ CREATE TABLE `aportaciones` (
   `fecha_registro` datetime NOT NULL,
   `fecha_cancelacion` datetime DEFAULT NULL,
   PRIMARY KEY (`idFolio`,`idLlave`,`idempresa`,`iddepartamento`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -168,7 +168,7 @@ CREATE TABLE `aportaciones` (
 
 LOCK TABLES `aportaciones` WRITE;
 /*!40000 ALTER TABLE `aportaciones` DISABLE KEYS */;
-INSERT INTO `aportaciones` VALUES (1,0,1,3,'A',1500.00,1,2,'Prueba de Aportacion',1,1,NULL,'A','C','2017-10-07 11:44:18',NULL),(2,0,1,3,'R',750.00,1,2,'Prueba de retiro',1,1,NULL,'A','A','2017-10-07 11:44:33',NULL),(3,1,1,3,'A',1500.00,1,2,'Cancelacion de Prueba',1,1,1,'C','C','2017-10-07 11:46:59','2017-10-07 11:46:59');
+INSERT INTO `aportaciones` VALUES (1,0,1,3,'A',1500.00,1,2,'Prueba de Aportacion',1,1,NULL,'A','C','2017-10-07 11:44:18',NULL),(2,0,1,3,'R',750.00,1,2,'Prueba de retiro',1,1,NULL,'A','A','2017-10-07 11:44:33',NULL),(3,1,1,3,'A',1500.00,1,2,'Cancelacion de Prueba',1,1,1,'C','C','2017-10-07 11:46:59','2017-10-07 11:46:59'),(4,0,1,3,'A',980.00,1,2,'Prueba',1,1,NULL,'A','A','2017-10-07 16:55:56',NULL),(5,0,1,3,'A',123.00,1,2,'test',1,1,NULL,'A','A','2017-10-08 00:03:12',NULL),(6,0,1,3,'A',787.00,1,2,'Prueb',1,1,NULL,'A','A','2017-10-08 00:07:42',NULL),(7,0,1,3,'A',123.00,1,2,'rest',1,1,NULL,'A','A','2017-10-08 00:10:51',NULL),(8,0,1,3,'R',1234.00,1,2,'Texto de retiro',1,1,NULL,'A','A','2017-10-08 00:22:35',NULL);
 /*!40000 ALTER TABLE `aportaciones` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -370,7 +370,7 @@ CREATE TABLE `compra` (
   `fecha_alta` datetime DEFAULT NULL,
   `fecha_um` datetime DEFAULT NULL,
   PRIMARY KEY (`idcompra`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -379,7 +379,7 @@ CREATE TABLE `compra` (
 
 LOCK TABLES `compra` WRITE;
 /*!40000 ALTER TABLE `compra` DISABLE KEYS */;
-INSERT INTO `compra` VALUES (1,1,1,NULL,2,NULL,NULL,1,NULL,'2017-10-05 21:16:36',NULL),(2,1,1,NULL,2,NULL,NULL,1,NULL,'2017-10-05 21:20:46',NULL),(3,1,1,NULL,1,NULL,NULL,1,NULL,'2017-10-05 21:52:46',NULL),(4,1,1,NULL,1,NULL,NULL,1,NULL,'2017-10-07 11:57:01',NULL);
+INSERT INTO `compra` VALUES (1,1,1,NULL,2,NULL,NULL,1,NULL,'2017-10-05 21:16:36',NULL),(2,1,1,NULL,2,NULL,NULL,1,NULL,'2017-10-05 21:20:46',NULL),(3,1,1,NULL,2,NULL,NULL,1,NULL,'2017-10-05 21:52:46',NULL),(4,1,1,NULL,1,NULL,NULL,1,NULL,'2017-10-07 11:57:01',NULL),(5,1,1,NULL,1,NULL,NULL,1,NULL,'2017-10-08 00:25:45',NULL);
 /*!40000 ALTER TABLE `compra` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -464,7 +464,7 @@ CREATE TABLE `detalle_compra` (
   `cantidad` int(11) DEFAULT NULL,
   `precio_compra` decimal(19,2) DEFAULT NULL,
   PRIMARY KEY (`iddetalle_compra`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -473,7 +473,7 @@ CREATE TABLE `detalle_compra` (
 
 LOCK TABLES `detalle_compra` WRITE;
 /*!40000 ALTER TABLE `detalle_compra` DISABLE KEYS */;
-INSERT INTO `detalle_compra` VALUES (1,1,1,'MAT',320,10,10.00),(2,1,1,'MAT',319,10,10.00),(3,1,1,'ART',1,10,28.42),(4,1,1,'ART',2,10,28.42),(5,1,2,'ART',283,30,60.00),(6,1,2,'ART',284,30,60.00),(7,1,2,'ART',285,30,60.00),(8,1,2,'ART',286,30,60.00),(9,1,2,'ART',287,30,65.00),(10,1,2,'ART',312,40,90.00),(11,1,2,'ART',313,40,130.00),(12,1,2,'ART',314,40,270.00),(13,1,2,'ART',315,40,90.00),(14,1,2,'ART',295,50,25.00),(15,1,2,'ART',296,50,40.00),(16,1,2,'ART',297,50,80.00),(17,1,3,'MAT',320,50,10.00),(18,1,3,'MAT',319,50,10.00),(19,1,3,'ART',1,30,28.42),(20,1,3,'ART',2,30,28.42),(21,1,3,'ART',3,30,28.42),(22,1,4,'ART',1,20,28.42),(23,1,4,'ART',2,20,28.42);
+INSERT INTO `detalle_compra` VALUES (1,1,1,'MAT',320,10,10.00),(2,1,1,'MAT',319,10,10.00),(3,1,1,'ART',1,10,28.42),(4,1,1,'ART',2,10,28.42),(5,1,2,'ART',283,30,60.00),(6,1,2,'ART',284,30,60.00),(7,1,2,'ART',285,30,60.00),(8,1,2,'ART',286,30,60.00),(9,1,2,'ART',287,30,65.00),(10,1,2,'ART',312,40,90.00),(11,1,2,'ART',313,40,130.00),(12,1,2,'ART',314,40,270.00),(13,1,2,'ART',315,40,90.00),(14,1,2,'ART',295,50,25.00),(15,1,2,'ART',296,50,40.00),(16,1,2,'ART',297,50,80.00),(17,1,3,'MAT',320,50,10.00),(18,1,3,'MAT',319,50,10.00),(19,1,3,'ART',1,30,28.42),(20,1,3,'ART',2,30,28.42),(21,1,3,'ART',3,30,28.42),(22,1,4,'ART',1,20,28.42),(23,1,4,'ART',2,20,28.42),(24,1,5,'MAT',320,50,10.00),(25,1,5,'MAT',319,50,10.00);
 /*!40000 ALTER TABLE `detalle_compra` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -491,7 +491,7 @@ CREATE TABLE `detalle_traspasos` (
   `idarticulo` int(11) DEFAULT NULL,
   `cantidad` int(11) DEFAULT NULL,
   PRIMARY KEY (`iddetalle_traspaso`)
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -500,7 +500,7 @@ CREATE TABLE `detalle_traspasos` (
 
 LOCK TABLES `detalle_traspasos` WRITE;
 /*!40000 ALTER TABLE `detalle_traspasos` DISABLE KEYS */;
-INSERT INTO `detalle_traspasos` VALUES (1,1,'ART',283,15),(2,1,'ART',284,15),(3,1,'ART',295,15),(4,1,'ART',287,15),(5,1,'ART',296,15),(6,1,'ART',285,15),(7,1,'ART',286,15),(8,1,'ART',297,15),(9,1,'ART',312,15),(10,1,'ART',313,15),(11,1,'ART',314,15),(12,1,'ART',315,15),(13,2,'ART',1,3),(14,2,'ART',2,3),(15,2,'ART',285,5),(16,2,'ART',284,5),(17,2,'ART',283,5),(18,2,'ART',286,5),(19,2,'ART',287,5),(20,2,'ART',295,15),(21,2,'ART',296,15),(22,2,'ART',297,15),(23,3,'ART',295,10),(24,3,'ART',296,10),(25,3,'ART',297,10),(26,3,'ART',312,5),(27,3,'ART',313,5),(28,3,'ART',314,5),(29,3,'ART',315,5);
+INSERT INTO `detalle_traspasos` VALUES (1,1,'ART',283,15),(2,1,'ART',284,15),(3,1,'ART',295,15),(4,1,'ART',287,15),(5,1,'ART',296,15),(6,1,'ART',285,15),(7,1,'ART',286,15),(8,1,'ART',297,15),(9,1,'ART',312,15),(10,1,'ART',313,15),(11,1,'ART',314,15),(12,1,'ART',315,15),(13,2,'ART',1,3),(14,2,'ART',2,3),(15,2,'ART',285,5),(16,2,'ART',284,5),(17,2,'ART',283,5),(18,2,'ART',286,5),(19,2,'ART',287,5),(20,2,'ART',295,15),(21,2,'ART',296,15),(22,2,'ART',297,15),(23,3,'ART',295,10),(24,3,'ART',296,10),(25,3,'ART',297,10),(26,3,'ART',312,5),(27,3,'ART',313,5),(28,3,'ART',314,5),(29,3,'ART',315,5),(30,4,'MAT',319,23),(31,4,'MAT',320,23);
 /*!40000 ALTER TABLE `detalle_traspasos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -522,7 +522,7 @@ CREATE TABLE `detalle_venta` (
   `precio_compra` decimal(19,2) DEFAULT NULL,
   `descripcion` text,
   PRIMARY KEY (`iddetalle_venta`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -531,7 +531,7 @@ CREATE TABLE `detalle_venta` (
 
 LOCK TABLES `detalle_venta` WRITE;
 /*!40000 ALTER TABLE `detalle_venta` DISABLE KEYS */;
-INSERT INTO `detalle_venta` VALUES (1,1,5,1,'ART',295,1.00,55.00,' Imagen centrada'),(2,1,5,2,'ART',295,2.00,55.00,' Prueba de Taza con descripcion'),(3,1,5,3,'ART',295,1.00,55.00,' Prueba de '),(4,1,5,3,'ART',312,1.00,90.00,'Nombre alejandro gomez y Belem'),(5,1,5,4,'ART',295,1.00,55.00,' ');
+INSERT INTO `detalle_venta` VALUES (1,1,5,1,'ART',295,1.00,55.00,' Imagen centrada'),(2,1,5,2,'ART',295,2.00,55.00,' Prueba de Taza con descripcion'),(3,1,5,3,'ART',295,1.00,55.00,' Prueba de '),(4,1,5,3,'ART',312,1.00,90.00,'Nombre alejandro gomez y Belem'),(5,1,5,4,'ART',295,1.00,55.00,' '),(6,1,5,5,'ART',295,1.00,55.00,' Prueba e taaaaa'),(7,1,5,6,'ART',295,1.00,55.00,' Imagen centrada'),(8,1,5,6,'MAT',319,1.00,18.00,'');
 /*!40000 ALTER TABLE `detalle_venta` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -631,7 +631,7 @@ CREATE TABLE `entradas` (
   `fecha_registro` datetime NOT NULL,
   `fecha_cancelacion` datetime DEFAULT NULL,
   PRIMARY KEY (`Folio`,`FolioLlave`,`idempresa`,`iddepartamento`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -640,7 +640,7 @@ CREATE TABLE `entradas` (
 
 LOCK TABLES `entradas` WRITE;
 /*!40000 ALTER TABLE `entradas` DISABLE KEYS */;
-INSERT INTO `entradas` VALUES (1,0,1,3,'E',1,1500.00,'Prueba de Entrada',1,NULL,1,'A','A','2017-10-07 11:43:45',NULL),(2,0,1,3,'S',1,750.00,'Prueba de Salida',1,NULL,1,'A','C','2017-10-07 11:44:00',NULL),(3,2,1,3,'S',1,750.00,'Cancelacion de Prueba',1,1,1,'C','C','2017-10-07 11:49:11','2017-10-07 11:49:11'),(4,0,1,3,'E',1,32.00,'tes',1,NULL,1,'A','A','2017-10-07 12:42:05',NULL),(5,0,1,3,'E',1,7889.00,'tes',1,NULL,1,'A','A','2017-10-07 13:35:49',NULL);
+INSERT INTO `entradas` VALUES (1,0,1,3,'E',1,1500.00,'Prueba de Entrada',1,NULL,1,'A','A','2017-10-07 11:43:45',NULL),(2,0,1,3,'S',1,750.00,'Prueba de Salida',1,NULL,1,'A','C','2017-10-07 11:44:00',NULL),(3,2,1,3,'S',1,750.00,'Cancelacion de Prueba',1,1,1,'C','C','2017-10-07 11:49:11','2017-10-07 11:49:11'),(4,0,1,3,'E',1,32.00,'tes',1,NULL,1,'A','A','2017-10-07 12:42:05',NULL),(5,0,1,3,'E',1,7889.00,'tes',1,NULL,1,'A','A','2017-10-07 13:35:49',NULL),(6,0,1,3,'E',1,123.00,'Prueba',1,NULL,1,'A','A','2017-10-07 16:08:09',NULL),(7,0,1,3,'S',1,123.00,'tes',1,NULL,1,'A','A','2017-10-07 16:24:20',NULL),(8,0,1,3,'S',1,90.00,'test',1,NULL,1,'A','A','2017-10-07 16:45:03',NULL),(9,0,1,3,'E',1,75.00,'Prueba',1,NULL,1,'A','A','2017-10-07 16:53:09',NULL),(10,0,1,3,'S',1,234.00,'Prueba',1,NULL,1,'A','A','2017-10-07 16:53:53',NULL),(11,0,1,3,'S',1,90.00,'gtesg',1,NULL,1,'A','A','2017-10-07 23:26:13',NULL);
 /*!40000 ALTER TABLE `entradas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -725,7 +725,7 @@ CREATE TABLE `movimientos_caja` (
   `fecha_movimiento` datetime DEFAULT NULL,
   `fecha_registro` datetime DEFAULT NULL,
   PRIMARY KEY (`idmovimiento`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -734,7 +734,7 @@ CREATE TABLE `movimientos_caja` (
 
 LOCK TABLES `movimientos_caja` WRITE;
 /*!40000 ALTER TABLE `movimientos_caja` DISABLE KEYS */;
-INSERT INTO `movimientos_caja` VALUES (1,1,1,1,85.00,1,NULL,NULL,NULL,NULL,'A',85.00,100.00,1,0.00,0.00,'2017-10-05 21:42:54','2017-10-05 21:42:54'),(2,2,2,1,155.00,1,NULL,NULL,NULL,NULL,'A',80.00,80.00,1,0.00,0.00,'2017-10-06 17:23:37','2017-10-06 17:23:37'),(3,2,3,1,190.00,1,NULL,NULL,NULL,NULL,'A',80.00,80.00,1,0.00,0.00,'2017-10-06 17:37:15','2017-10-06 17:37:15'),(4,2,2,2,155.00,1,NULL,NULL,NULL,NULL,'A',75.00,80.00,1,0.00,0.00,'2017-10-06 17:42:11','2017-10-06 17:42:11'),(5,2,3,2,190.00,1,NULL,NULL,NULL,NULL,'A',110.00,200.00,1,0.00,0.00,'2017-10-07 00:53:37','2017-10-07 00:53:37'),(6,1,4,1,100.00,1,NULL,NULL,NULL,NULL,'A',100.00,200.00,1,0.00,0.00,'2017-10-07 13:45:15','2017-10-07 13:45:15');
+INSERT INTO `movimientos_caja` VALUES (1,1,1,1,85.00,1,NULL,NULL,NULL,NULL,'A',85.00,100.00,1,0.00,0.00,'2017-10-05 21:42:54','2017-10-05 21:42:54'),(2,2,2,1,155.00,1,NULL,NULL,NULL,NULL,'A',80.00,80.00,1,0.00,0.00,'2017-10-06 17:23:37','2017-10-06 17:23:37'),(3,2,3,1,190.00,1,NULL,NULL,NULL,NULL,'A',80.00,80.00,1,0.00,0.00,'2017-10-06 17:37:15','2017-10-06 17:37:15'),(4,2,2,2,155.00,1,NULL,NULL,NULL,NULL,'A',75.00,80.00,1,0.00,0.00,'2017-10-06 17:42:11','2017-10-06 17:42:11'),(5,2,3,2,190.00,1,NULL,NULL,NULL,NULL,'A',110.00,200.00,1,0.00,0.00,'2017-10-07 00:53:37','2017-10-07 00:53:37'),(6,1,4,1,100.00,1,NULL,NULL,NULL,NULL,'A',100.00,200.00,1,0.00,0.00,'2017-10-07 13:45:15','2017-10-07 13:45:15'),(7,1,5,1,85.00,1,NULL,NULL,NULL,NULL,'A',85.00,100.00,1,0.00,0.00,'2017-10-07 17:20:36','2017-10-07 17:20:36'),(8,2,6,1,118.00,1,NULL,NULL,NULL,NULL,'A',50.00,50.00,1,0.00,0.00,'2017-10-08 00:29:03','2017-10-08 00:29:03');
 /*!40000 ALTER TABLE `movimientos_caja` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -925,7 +925,7 @@ CREATE TABLE `traspasos` (
   `fecha_um` datetime DEFAULT NULL,
   `idusuario_um` int(11) DEFAULT NULL,
   PRIMARY KEY (`idtraspaso`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -934,7 +934,7 @@ CREATE TABLE `traspasos` (
 
 LOCK TABLES `traspasos` WRITE;
 /*!40000 ALTER TABLE `traspasos` DISABLE KEYS */;
-INSERT INTO `traspasos` VALUES (1,1,1,5,1,1,1,1,NULL,'2017-10-05 21:23:35',1,'2017-10-05 21:24:36',1),(2,1,1,4,1,5,1,1,NULL,'2017-10-05 21:57:19',1,'2017-10-05 21:57:20',1),(3,1,1,5,2,1,1,0,NULL,'2017-10-05 21:59:20',1,'2017-10-05 21:59:20',1);
+INSERT INTO `traspasos` VALUES (1,1,1,5,1,1,1,1,NULL,'2017-10-05 21:23:35',1,'2017-10-05 21:24:36',1),(2,1,1,4,1,5,1,1,NULL,'2017-10-05 21:57:19',1,'2017-10-05 21:57:20',1),(3,1,1,5,1,1,1,1,NULL,'2017-10-05 21:59:20',1,'2017-10-08 00:27:48',1),(4,1,1,5,1,1,1,1,NULL,'2017-10-08 00:27:21',1,'2017-10-08 00:27:50',1);
 /*!40000 ALTER TABLE `traspasos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -997,7 +997,7 @@ CREATE TABLE `venta` (
   `fecha_venta` datetime DEFAULT NULL,
   `fecha_cancela` datetime DEFAULT NULL,
   PRIMARY KEY (`idventa`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1006,7 +1006,7 @@ CREATE TABLE `venta` (
 
 LOCK TABLES `venta` WRITE;
 /*!40000 ALTER TABLE `venta` DISABLE KEYS */;
-INSERT INTO `venta` VALUES (1,1,3,1,2,1,'',30.00,0.00,NULL,NULL,1,'2017-10-07 09:42:00','2017-10-05 21:42:54',NULL),(2,1,3,1,2,2,'',45.00,0.00,NULL,NULL,1,'2017-10-13 05:23:00','2017-10-06 17:23:37',NULL),(3,1,3,1,2,2,'',45.00,0.00,NULL,NULL,1,'2017-10-07 05:37:00','2017-10-06 17:37:15',NULL),(4,1,3,1,2,1,'',45.00,0.00,NULL,NULL,1,'2017-10-07 01:45:00','2017-10-07 13:45:15',NULL);
+INSERT INTO `venta` VALUES (1,1,3,1,2,1,'',30.00,0.00,NULL,NULL,1,'2017-10-07 09:42:00','2017-10-05 21:42:54',NULL),(2,1,3,1,2,2,'',45.00,0.00,NULL,NULL,1,'2017-10-13 05:23:00','2017-10-06 17:23:37',NULL),(3,1,3,1,2,2,'',45.00,0.00,NULL,NULL,1,'2017-10-07 05:37:00','2017-10-06 17:37:15',NULL),(4,1,3,1,2,1,'',45.00,0.00,NULL,NULL,1,'2017-10-07 01:45:00','2017-10-07 13:45:15',NULL),(5,1,3,1,2,1,'',30.00,0.00,NULL,NULL,1,'2017-10-10 05:20:00','2017-10-07 17:20:36',NULL),(6,1,3,1,1,2,'',45.00,0.00,NULL,NULL,1,'2017-10-10 12:28:00','2017-10-08 00:29:03',NULL);
 /*!40000 ALTER TABLE `venta` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -2209,4 +2209,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-10-07 13:48:14
+-- Dump completed on 2017-10-09  8:11:05

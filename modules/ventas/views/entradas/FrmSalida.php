@@ -55,10 +55,10 @@ include "../../../../core/seguridad.class.php";
                     <div class="col-md-12">
                         <div class="form-group">
                             Folio De Salida
-                            <input id="FolioSalida" readonly class="form-control text-bold text-center" />
+                            <input id="FolioEntrada" readonly class="form-control text-bold text-center" />
                         </div>
                         <div class="form-group">
-                            <button class="btn btn-block btn-default btn-sm"><i class="fa fa-print"></i> Imprimir</button>
+                            <button onclick="WindowsOpenReport(1,{'idEntrada':$('#FolioEntrada').val()})" class="btn btn-block btn-default btn-sm"><i class="fa fa-print"></i> Imprimir</button>
                         </div>
                     </div>
                 </div>
