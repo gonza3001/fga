@@ -63,13 +63,11 @@ if($_SERVER['REQUEST_METHOD'] == "GET"){
         ";
 
         $connect->get_result_query();
-
         if(count($connect->_rows)<=0){
             echo json_encode(array("result"=>false,"message"=>"No se encontraron resultados","data"=>array()));
         }else{
 
             $idTipo = $connect->_rows[0][5];
-
             if($idTipo == "E"){$idTipo = "Entrada";}else{$idTipo = "Salida";}
 
             $Concepto = $connect->_rows[0][6];

@@ -199,10 +199,8 @@ $idEmpresa = $_SESSION['data_home']['iddepartamento'];
                 <i class="fa fa-line-chart"></i> Reportes <span class="caret"></span>
             </button>
             <ul class="dropdown-menu">
-                <li><a href="#" onclick="fnVentaCorteDiario(1)" >Movimientos Diario</a></li>
-                <li><a href="#" onclick="fnVentaCorteDiario(2)" >Corto Diario</a></li>
-                <li><a href="#" onclick="fnVentaCorteDiario(1)" >Notas Terminadas</a></li>
-                <li><a href="#" onclick="fnTrabajosPendientes(1)" >Notas Pendientes</a></li>
+                <li><a href="#" onclick="getReorteMovimientosDiario(1)" >Movimientos Diario</a></li>
+                <li><a href="#" onclick="getCorteDiario(1,0)" >Corto Diario</a></li>
                 <li><a href="#">Entradas y salidas</a></li>
                 <li><a href="#">Aportaciones y Retiros</a></li>
                 <li class="divider"></li>

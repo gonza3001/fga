@@ -1,10 +1,10 @@
 CREATE DATABASE  IF NOT EXISTS `bdpvt` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `bdpvt`;
--- MySQL dump 10.13  Distrib 5.7.9, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.6.24, for Win64 (x86_64)
 --
 -- Host: localhost    Database: bdpvt
 -- ------------------------------------------------------
--- Server version	5.7.14
+-- Server version	5.6.17
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -72,7 +72,7 @@ CREATE TABLE `almacen_articulos` (
 
 LOCK TABLES `almacen_articulos` WRITE;
 /*!40000 ALTER TABLE `almacen_articulos` DISABLE KEYS */;
-INSERT INTO `almacen_articulos` VALUES (1,1,1,'ART',37.00),(1,1,2,'ART',37.00),(1,1,3,'ART',30.00),(1,1,283,'ART',10.00),(1,1,284,'ART',10.00),(1,1,285,'ART',10.00),(1,1,286,'ART',10.00),(1,1,287,'ART',10.00),(1,1,295,'ART',10.00),(1,1,296,'ART',10.00),(1,1,297,'ART',10.00),(1,1,312,'ART',20.00),(1,1,313,'ART',20.00),(1,1,314,'ART',20.00),(1,1,315,'ART',20.00),(1,1,319,'MAT',37.00),(1,1,320,'MAT',37.00),(1,4,1,'ART',3.00),(1,4,2,'ART',3.00),(1,4,283,'ART',5.00),(1,4,284,'ART',5.00),(1,4,285,'ART',5.00),(1,4,286,'ART',5.00),(1,4,287,'ART',5.00),(1,4,295,'ART',15.00),(1,4,296,'ART',15.00),(1,4,297,'ART',15.00),(1,5,283,'ART',15.00),(1,5,284,'ART',15.00),(1,5,285,'ART',15.00),(1,5,286,'ART',15.00),(1,5,287,'ART',15.00),(1,5,295,'ART',17.00),(1,5,296,'ART',25.00),(1,5,297,'ART',25.00),(1,5,312,'ART',19.00),(1,5,313,'ART',20.00),(1,5,314,'ART',20.00),(1,5,315,'ART',20.00),(1,5,319,'MAT',21.50),(1,5,320,'MAT',23.00);
+INSERT INTO `almacen_articulos` VALUES (1,1,1,'ART',37.00),(1,1,2,'ART',37.00),(1,1,3,'ART',30.00),(1,1,283,'ART',10.00),(1,1,284,'ART',10.00),(1,1,285,'ART',10.00),(1,1,286,'ART',10.00),(1,1,287,'ART',10.00),(1,1,295,'ART',10.00),(1,1,296,'ART',10.00),(1,1,297,'ART',10.00),(1,1,312,'ART',20.00),(1,1,313,'ART',20.00),(1,1,314,'ART',20.00),(1,1,315,'ART',20.00),(1,1,319,'MAT',37.00),(1,1,320,'MAT',37.00),(1,4,1,'ART',3.00),(1,4,2,'ART',3.00),(1,4,283,'ART',5.00),(1,4,284,'ART',5.00),(1,4,285,'ART',5.00),(1,4,286,'ART',5.00),(1,4,287,'ART',5.00),(1,4,295,'ART',15.00),(1,4,296,'ART',15.00),(1,4,297,'ART',15.00),(1,5,283,'ART',15.00),(1,5,284,'ART',15.00),(1,5,285,'ART',15.00),(1,5,286,'ART',15.00),(1,5,287,'ART',15.00),(1,5,295,'ART',17.00),(1,5,296,'ART',25.00),(1,5,297,'ART',25.00),(1,5,312,'ART',18.00),(1,5,313,'ART',20.00),(1,5,314,'ART',20.00),(1,5,315,'ART',20.00),(1,5,319,'MAT',21.50),(1,5,320,'MAT',23.00);
 /*!40000 ALTER TABLE `almacen_articulos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -159,7 +159,7 @@ CREATE TABLE `aportaciones` (
   `fecha_registro` datetime NOT NULL,
   `fecha_cancelacion` datetime DEFAULT NULL,
   PRIMARY KEY (`idFolio`,`idLlave`,`idempresa`,`iddepartamento`)
-) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -168,7 +168,7 @@ CREATE TABLE `aportaciones` (
 
 LOCK TABLES `aportaciones` WRITE;
 /*!40000 ALTER TABLE `aportaciones` DISABLE KEYS */;
-INSERT INTO `aportaciones` VALUES (1,0,1,3,'A',1500.00,1,2,'Prueba de Aportacion',1,1,NULL,'A','C','2017-10-07 11:44:18',NULL),(2,0,1,3,'R',750.00,1,2,'Prueba de retiro',1,1,NULL,'A','A','2017-10-07 11:44:33',NULL),(3,1,1,3,'A',1500.00,1,2,'Cancelacion de Prueba',1,1,1,'C','C','2017-10-07 11:46:59','2017-10-07 11:46:59'),(4,0,1,3,'A',980.00,1,2,'Prueba',1,1,NULL,'A','C','2017-10-07 16:55:56',NULL),(5,0,1,3,'A',123.00,1,2,'test',1,1,NULL,'A','A','2017-10-08 00:03:12',NULL),(6,0,1,3,'A',787.00,1,2,'Prueb',1,1,NULL,'A','A','2017-10-08 00:07:42',NULL),(7,0,1,3,'A',123.00,1,2,'rest',1,1,NULL,'A','A','2017-10-08 00:10:51',NULL),(8,0,1,3,'R',1234.00,1,2,'Texto de retiro',1,1,NULL,'A','C','2017-10-08 00:22:35',NULL),(9,4,1,3,'A',980.00,1,2,'Prueba de Cancelacion',1,1,1,'C','C','2017-10-09 17:39:37','2017-10-09 17:39:37'),(10,8,1,3,'R',1234.00,1,2,'PPPPPPPPPPPPPPPP',1,1,1,'C','C','2017-10-09 17:56:18','2017-10-09 17:56:18'),(11,0,1,3,'R',785.00,1,2,'tr',1,1,NULL,'A','C','2017-10-09 17:58:38',NULL),(12,11,1,3,'R',785.00,1,2,'trrrrrrr',1,1,1,'C','C','2017-10-09 17:59:15','2017-10-09 17:59:15');
+INSERT INTO `aportaciones` VALUES (1,0,1,3,'A',300.00,1,2,'Aportacion de prueba',1,1,NULL,'A','A','2017-10-10 02:02:59',NULL);
 /*!40000 ALTER TABLE `aportaciones` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -337,7 +337,7 @@ CREATE TABLE `clientes` (
   `fecha_alta` datetime NOT NULL,
   `fecha_um` datetime DEFAULT NULL,
   PRIMARY KEY (`idcliente`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -346,7 +346,7 @@ CREATE TABLE `clientes` (
 
 LOCK TABLES `clientes` WRITE;
 /*!40000 ALTER TABLE `clientes` DISABLE KEYS */;
-INSERT INTO `clientes` VALUES (1,1,'Cliente Mostrador','','','',1,1,NULL,'2017-09-01 21:05:55',NULL),(2,1,'Alejandro','','','',1,1,NULL,'2017-10-04 20:30:17',NULL),(3,1,'Pedro luis','','','8121530769',1,1,NULL,'2017-10-04 20:36:54',NULL);
+INSERT INTO `clientes` VALUES (1,1,'Cliente Mostrador','','','',1,1,NULL,'2017-09-01 21:05:55',NULL),(2,1,'Alejandro','','','',1,1,NULL,'2017-10-04 20:30:17',NULL),(3,1,'Pedro luis','','','8121530769',1,1,NULL,'2017-10-04 20:36:54',NULL),(4,1,'Nelly Suarez','','','8121530769',1,1,NULL,'2017-10-09 22:24:03',NULL);
 /*!40000 ALTER TABLE `clientes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -522,7 +522,7 @@ CREATE TABLE `detalle_venta` (
   `precio_compra` decimal(19,2) DEFAULT NULL,
   `descripcion` text,
   PRIMARY KEY (`iddetalle_venta`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -531,7 +531,7 @@ CREATE TABLE `detalle_venta` (
 
 LOCK TABLES `detalle_venta` WRITE;
 /*!40000 ALTER TABLE `detalle_venta` DISABLE KEYS */;
-INSERT INTO `detalle_venta` VALUES (1,1,5,1,'ART',295,1.00,55.00,' Imagen centrada'),(2,1,5,2,'ART',295,2.00,55.00,' Prueba de Taza con descripcion'),(3,1,5,3,'ART',295,1.00,55.00,' Prueba de '),(4,1,5,3,'ART',312,1.00,90.00,'Nombre alejandro gomez y Belem'),(5,1,5,4,'ART',295,1.00,55.00,' '),(6,1,5,5,'ART',295,1.00,55.00,' Prueba e taaaaa'),(7,1,5,6,'ART',295,1.00,55.00,' Imagen centrada'),(8,1,5,6,'MAT',319,1.00,18.00,''),(9,1,5,7,'ART',295,1.00,55.00,' Imgen de Pacman'),(10,1,5,7,'MAT',319,0.50,18.00,'');
+INSERT INTO `detalle_venta` VALUES (1,1,5,1,'ART',295,1.00,55.00,' Imagen centrada'),(2,1,5,2,'ART',295,2.00,55.00,' Prueba de Taza con descripcion'),(3,1,5,3,'ART',295,1.00,55.00,' Prueba de '),(4,1,5,3,'ART',312,1.00,90.00,'Nombre alejandro gomez y Belem'),(5,1,5,4,'ART',295,1.00,55.00,' '),(6,1,5,5,'ART',295,1.00,55.00,' Prueba e taaaaa'),(7,1,5,6,'ART',295,1.00,55.00,' Imagen centrada'),(8,1,5,6,'MAT',319,1.00,18.00,''),(9,1,5,7,'ART',295,1.00,55.00,' Imgen de Pacman'),(10,1,5,7,'MAT',319,0.50,18.00,''),(11,1,5,8,'ART',312,1.00,90.00,' Foto de Alexs');
 /*!40000 ALTER TABLE `detalle_venta` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -631,7 +631,7 @@ CREATE TABLE `entradas` (
   `fecha_registro` datetime NOT NULL,
   `fecha_cancelacion` datetime DEFAULT NULL,
   PRIMARY KEY (`Folio`,`FolioLlave`,`idempresa`,`iddepartamento`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -640,7 +640,7 @@ CREATE TABLE `entradas` (
 
 LOCK TABLES `entradas` WRITE;
 /*!40000 ALTER TABLE `entradas` DISABLE KEYS */;
-INSERT INTO `entradas` VALUES (1,0,1,3,'E',1,1500.00,'Prueba de Entrada',1,NULL,1,'A','C','2017-10-07 11:43:45',NULL),(2,0,1,3,'S',1,750.00,'Prueba de Salida',1,NULL,1,'A','C','2017-10-07 11:44:00',NULL),(3,2,1,3,'S',1,750.00,'Cancelacion de Prueba',1,1,1,'C','C','2017-10-07 11:49:11','2017-10-07 11:49:11'),(4,0,1,3,'E',1,32.00,'tes',1,NULL,1,'A','C','2017-10-07 12:42:05',NULL),(5,0,1,3,'E',1,7889.00,'tes',1,NULL,1,'A','C','2017-10-07 13:35:49',NULL),(6,0,1,3,'E',1,123.00,'Prueba',1,NULL,1,'A','C','2017-10-07 16:08:09',NULL),(7,0,1,3,'S',1,123.00,'tes',1,NULL,1,'A','A','2017-10-07 16:24:20',NULL),(8,0,1,3,'S',1,90.00,'test',1,NULL,1,'A','A','2017-10-07 16:45:03',NULL),(9,0,1,3,'E',1,75.00,'Prueba',1,NULL,1,'A','A','2017-10-07 16:53:09',NULL),(10,0,1,3,'S',1,234.00,'Prueba',1,NULL,1,'A','A','2017-10-07 16:53:53',NULL),(11,0,1,3,'S',1,90.00,'gtesg',1,NULL,1,'A','A','2017-10-07 23:26:13',NULL),(12,4,1,3,'E',1,32.00,'',1,1,1,'C','C','2017-10-09 12:46:37','2017-10-09 12:46:37'),(13,5,1,3,'E',1,7889.00,'',1,1,1,'C','C','2017-10-09 12:54:15','2017-10-09 12:54:15'),(14,1,1,3,'E',1,1500.00,'',1,1,1,'C','C','2017-10-09 12:54:31','2017-10-09 12:54:31'),(15,6,1,3,'E',1,123.00,'',1,1,1,'C','C','2017-10-09 13:08:56','2017-10-09 13:08:56'),(16,0,1,3,'E',1,200.00,'Sobrante de caja',1,NULL,1,'A','C','2017-10-09 13:14:50',NULL),(17,16,1,3,'E',1,200.00,'',1,1,1,'C','C','2017-10-09 13:17:41','2017-10-09 13:17:41'),(18,0,1,3,'S',1,100.00,'Comida Autorizada',1,NULL,1,'A','C','2017-10-09 13:29:02',NULL),(19,18,1,3,'S',1,100.00,'error en importe',1,1,1,'C','C','2017-10-09 13:30:47','2017-10-09 13:30:47');
+INSERT INTO `entradas` VALUES (1,0,1,3,'E',1,300.00,'Prueba',1,NULL,1,'A','A','2017-10-10 00:18:11',NULL),(2,0,1,3,'E',1,1500.00,'Prueba',1,NULL,1,'A','C','2017-10-10 00:18:55',NULL),(3,0,1,3,'S',1,150.00,'Salida',1,NULL,1,'A','A','2017-10-10 00:19:11',NULL),(4,2,1,3,'E',1,1500.00,'Error en entrada',1,1,1,'C','C','2017-10-10 00:24:23','2017-10-10 00:24:23');
 /*!40000 ALTER TABLE `entradas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -725,7 +725,7 @@ CREATE TABLE `movimientos_caja` (
   `fecha_movimiento` datetime DEFAULT NULL,
   `fecha_registro` datetime DEFAULT NULL,
   PRIMARY KEY (`idmovimiento`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -734,7 +734,7 @@ CREATE TABLE `movimientos_caja` (
 
 LOCK TABLES `movimientos_caja` WRITE;
 /*!40000 ALTER TABLE `movimientos_caja` DISABLE KEYS */;
-INSERT INTO `movimientos_caja` VALUES (1,1,1,1,85.00,1,NULL,NULL,NULL,NULL,'A',85.00,100.00,1,0.00,0.00,'2017-10-05 21:42:54','2017-10-05 21:42:54'),(2,2,2,1,155.00,1,NULL,NULL,NULL,NULL,'A',80.00,80.00,1,0.00,0.00,'2017-10-06 17:23:37','2017-10-06 17:23:37'),(3,2,3,1,190.00,1,NULL,NULL,NULL,NULL,'A',80.00,80.00,1,0.00,0.00,'2017-10-06 17:37:15','2017-10-06 17:37:15'),(4,2,2,2,155.00,1,NULL,NULL,NULL,NULL,'A',75.00,80.00,1,0.00,0.00,'2017-10-06 17:42:11','2017-10-06 17:42:11'),(5,2,3,2,190.00,1,NULL,NULL,NULL,NULL,'A',110.00,200.00,1,0.00,0.00,'2017-10-07 00:53:37','2017-10-07 00:53:37'),(6,1,4,1,100.00,1,NULL,NULL,NULL,NULL,'A',100.00,200.00,1,0.00,0.00,'2017-10-07 13:45:15','2017-10-07 13:45:15'),(7,1,5,1,85.00,1,NULL,NULL,NULL,NULL,'A',85.00,100.00,1,0.00,0.00,'2017-10-07 17:20:36','2017-10-07 17:20:36'),(8,2,6,1,118.00,1,NULL,NULL,NULL,NULL,'A',50.00,50.00,1,0.00,0.00,'2017-10-08 00:29:03','2017-10-08 00:29:03'),(9,2,7,1,109.00,1,NULL,NULL,NULL,NULL,'A',50.00,50.00,1,0.00,0.00,'2017-10-09 13:37:36','2017-10-09 13:37:36');
+INSERT INTO `movimientos_caja` VALUES (1,1,1,1,85.00,1,NULL,NULL,NULL,NULL,'A',85.00,100.00,1,0.00,0.00,'2017-10-05 21:42:54','2017-10-05 21:42:54'),(2,2,2,1,155.00,1,1,'2017-10-09 22:19:41',NULL,NULL,'C',80.00,80.00,1,0.00,0.00,'2017-10-06 17:23:37','2017-10-06 17:23:37'),(3,2,3,1,190.00,1,NULL,NULL,NULL,NULL,'A',80.00,80.00,1,0.00,0.00,'2017-10-06 17:37:15','2017-10-06 17:37:15'),(4,2,2,2,155.00,1,1,'2017-10-09 22:19:31',NULL,NULL,'C',75.00,80.00,1,0.00,0.00,'2017-10-06 17:42:11','2017-10-06 17:42:11'),(5,2,3,2,190.00,1,NULL,NULL,NULL,NULL,'A',110.00,200.00,1,0.00,0.00,'2017-10-07 00:53:37','2017-10-07 00:53:37'),(6,1,4,1,100.00,1,NULL,NULL,NULL,NULL,'A',100.00,200.00,1,0.00,0.00,'2017-10-07 13:45:15','2017-10-07 13:45:15'),(7,1,5,1,85.00,1,NULL,NULL,NULL,NULL,'A',85.00,100.00,1,0.00,0.00,'2017-10-07 17:20:36','2017-10-07 17:20:36'),(8,2,6,1,118.00,1,NULL,NULL,NULL,NULL,'A',50.00,50.00,1,0.00,0.00,'2017-10-08 00:29:03','2017-10-08 00:29:03'),(9,2,7,1,109.00,1,NULL,NULL,NULL,NULL,'A',50.00,50.00,1,0.00,0.00,'2017-10-09 13:37:36','2017-10-09 13:37:36'),(10,1,8,1,135.00,1,NULL,NULL,NULL,NULL,'A',135.00,150.00,1,0.00,0.00,'2017-10-09 22:12:56','2017-10-09 22:12:56'),(11,2,2,3,155.00,1,1,'2017-10-09 22:42:33',NULL,NULL,'C',100.00,100.00,1,0.00,0.00,'2017-10-09 22:20:11','2017-10-09 22:20:11');
 /*!40000 ALTER TABLE `movimientos_caja` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -997,7 +997,7 @@ CREATE TABLE `venta` (
   `fecha_venta` datetime DEFAULT NULL,
   `fecha_cancela` datetime DEFAULT NULL,
   PRIMARY KEY (`idventa`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1006,7 +1006,7 @@ CREATE TABLE `venta` (
 
 LOCK TABLES `venta` WRITE;
 /*!40000 ALTER TABLE `venta` DISABLE KEYS */;
-INSERT INTO `venta` VALUES (1,1,3,1,2,1,'',30.00,0.00,NULL,NULL,1,'2017-10-07 09:42:00','2017-10-05 21:42:54',NULL),(2,1,3,1,2,2,'',45.00,0.00,NULL,NULL,1,'2017-10-13 05:23:00','2017-10-06 17:23:37',NULL),(3,1,3,1,2,2,'',45.00,0.00,NULL,NULL,1,'2017-10-07 05:37:00','2017-10-06 17:37:15',NULL),(4,1,3,1,2,1,'',45.00,0.00,NULL,NULL,1,'2017-10-07 01:45:00','2017-10-07 13:45:15',NULL),(5,1,3,1,2,1,'',30.00,0.00,NULL,NULL,1,'2017-10-10 05:20:00','2017-10-07 17:20:36',NULL),(6,1,3,1,1,2,'',45.00,0.00,NULL,NULL,1,'2017-10-10 12:28:00','2017-10-08 00:29:03',NULL),(7,1,3,1,2,2,'',45.00,0.00,NULL,NULL,1,'2017-10-13 01:37:00','2017-10-09 13:37:36',NULL);
+INSERT INTO `venta` VALUES (1,1,3,1,2,1,'',30.00,0.00,NULL,NULL,1,'2017-10-07 09:42:00','2017-10-05 21:42:54',NULL),(2,1,3,1,2,2,'',45.00,0.00,NULL,NULL,1,'2017-10-13 05:23:00','2017-10-06 17:23:37',NULL),(3,1,3,1,2,2,'',45.00,0.00,NULL,NULL,1,'2017-10-07 05:37:00','2017-10-06 17:37:15',NULL),(4,1,3,1,2,1,'',45.00,0.00,NULL,NULL,1,'2017-10-07 01:45:00','2017-10-07 13:45:15',NULL),(5,1,3,1,2,1,'',30.00,0.00,NULL,NULL,1,'2017-10-10 05:20:00','2017-10-07 17:20:36',NULL),(6,1,3,1,1,2,'',45.00,0.00,NULL,NULL,1,'2017-10-10 12:28:00','2017-10-08 00:29:03',NULL),(7,1,3,1,2,2,'',45.00,0.00,NULL,NULL,1,'2017-10-13 01:37:00','2017-10-09 13:37:36',NULL),(8,1,3,1,2,1,'',45.00,0.00,NULL,NULL,1,'0000-00-00 00:00:00','2017-10-09 22:12:56',NULL);
 /*!40000 ALTER TABLE `venta` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1143,7 +1143,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = '' */ ;
+/*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_CancelarAportaciones`(
 in rFolio INT,
@@ -1158,24 +1158,32 @@ BEGIN
 
 declare vEstatus VARCHAR(1);
 declare vidTipo VARCHAR(1);
+declare vFechaRegistro datetime;
 
 SET vEstatus = ( SELECT idestatus FROM aportaciones WHERE idFolio = rFolio AND idLlave = 0 AND idempresa = ridEmpresa AND iddepartamento = ridDepartamento );
 SET vidTipo = ( SELECT idtipo FROM aportaciones WHERE idFolio = rFolio AND idLlave = 0 AND idempresa = ridEmpresa AND iddepartamento = ridDepartamento );
+SET vFechaRegistro = ( SELECT fecha_registro FROM aportaciones WHERE idFolio = rFolio AND idLlave = 0 AND idempresa = ridEmpresa AND iddepartamento = ridDepartamento );
 
 if ridTipo = vidTipo THEN
 	if vEstatus = 'A' THEN
-		
-		
-	INSERT INTO
-	  aportaciones
-	  SELECT
-		null,rFolio,ridEmpresa,ridDepartamento,idtipo,importe,idsucursal_origen,idsucursal_destino,rDescripcion,idusuario_registro,ridUsuarioAutoriza,ridUsuarioCancela,'C','C',now(),now()
-	  FROM aportaciones WHERE idFolio = rFolio AND idLlave = 0 AND idempresa = ridEmpresa AND iddepartamento = ridDepartamento;
-	  
-	  UPDATE aportaciones SET idestatus = 'C' WHERE idFolio = rFolio AND idLlave = 0 AND idempresa = ridEmpresa AND iddepartamento = ridDepartamento;
+	
+		if date(now()) = date(vFechaRegistro) THEN
+        
+			INSERT INTO
+			  aportaciones
+			  SELECT
+				null,rFolio,ridEmpresa,ridDepartamento,idtipo,importe,idsucursal_origen,idsucursal_destino,rDescripcion,idusuario_registro,ridUsuarioAutoriza,ridUsuarioCancela,'C','C',now(),now()
+			  FROM aportaciones WHERE idFolio = rFolio AND idLlave = 0 AND idempresa = ridEmpresa AND iddepartamento = ridDepartamento;
+			  
+			  UPDATE aportaciones SET idestatus = 'C' WHERE idFolio = rFolio AND idLlave = 0 AND idempresa = ridEmpresa AND iddepartamento = ridDepartamento;
 
-	SELECT 'ok',@@identity as id ;
+			SELECT 'ok',@@identity as id ;
+		ELSE 
+			
+			SELECT CONCAT('El registro es de la día ',date(vFechaRegistro), ', Movimiento no procede'),'El registro no es de este dia' ;
 
+        END IF;
+        
 	ELSE 
 
 		SELECT 'error',vEstatus ;
@@ -1271,7 +1279,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = '' */ ;
+/*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_CancelarEntradas`(
 in rFolio INT,
@@ -1286,23 +1294,29 @@ BEGIN
 
 declare vEstatus VARCHAR(1);
 declare vidTipo VARCHAR(1);
+declare vFechaRegistro datetime;
 
 SET vEstatus = ( SELECT idestatus FROM entradas WHERE Folio = rFolio AND FolioLlave = 0 AND idempresa = ridEmpresa AND iddepartamento = ridDepartamento );
 SET vidTipo = ( SELECT idtipo FROM entradas WHERE Folio = rFolio AND FolioLlave = 0 AND idempresa = ridEmpresa AND iddepartamento = ridDepartamento );
+SET vFechaRegistro = ( SELECT fecha_registro FROM entradas WHERE Folio = rFolio AND FolioLlave = 0 AND idempresa = ridEmpresa AND iddepartamento = ridDepartamento );
 
 if vidTipo = ridtipo THEN
 	if vEstatus = 'A' THEN
 		
+        if date(now()) = date(vFechaRegistro) THEN 
+			
+            INSERT INTO
+			  entradas
+			  SELECT
+				null,rFolio,ridEmpresa,ridDepartamento,idtipo,idconcepto,importe,rDescripcion,idusuario_solicita,ridUsuarioCancela,ridUsuarioAutoriza,'C','C',now(),now()
+			  FROM entradas WHERE Folio = rFolio AND FolioLlave = 0 AND idempresa = ridEmpresa AND iddepartamento = ridDepartamento;
+		  
+			UPDATE entradas SET idestatus = 'C' WHERE Folio = rFolio AND FolioLlave = 0 AND idempresa = ridEmpresa AND iddepartamento = ridDepartamento;
+			SELECT 'ok',@@identity as id ;
 		
-	INSERT INTO
-	  entradas
-	  SELECT
-		null,rFolio,ridEmpresa,ridDepartamento,idtipo,idconcepto,importe,rDescripcion,idusuario_solicita,ridUsuarioCancela,ridUsuarioAutoriza,'C','C',now(),now()
-	  FROM entradas WHERE Folio = rFolio AND FolioLlave = 0 AND idempresa = ridEmpresa AND iddepartamento = ridDepartamento;
-	  
-	  UPDATE entradas SET idestatus = 'C' WHERE Folio = rFolio AND FolioLlave = 0 AND idempresa = ridEmpresa AND iddepartamento = ridDepartamento;
-
-	SELECT 'ok',@@identity as id ;
+        ELSE
+			SELECT CONCAT('El registro es de la día ',date(vFechaRegistro), ', Movimiento no procede'),'El registro no es de este dia' ;
+        END IF;
 
 	ELSE 
 
@@ -1396,6 +1410,48 @@ BEGIN
       SELECT vMensaje;
     END IF;
   END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `sp_CorteDiario` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_CorteDiario`(
+IN rOpcion INT,
+in ridEmpresa INT,
+in ridDepartamento INT
+)
+BEGIN
+
+declare vEntradas decimal(18,2);
+declare vSalidas decimal(18,2);
+declare vCancelaciones decimal(18,2);
+
+declare vAportaciones decimal(18,2);
+declare vRetiros decimal(18,2);
+declare vCancelacionAportaciones decimal(18,2);
+
+set vEntradas = (SELECT ifnull(SUM(importe),0) FROM entradas WHERE idempresa = ridEmpresa AND iddepartamento = ridDepartamento AND idtipo = 'E' AND idestatus_registro = 'A');
+set vSalidas = (SELECT ifnull(SUM(importe),0) FROM entradas WHERE idempresa = ridEmpresa AND iddepartamento = ridDepartamento AND idtipo = 'S' AND idestatus_registro = 'A');
+set vCancelaciones = (SELECT ifnull(SUM(importe),0) FROM entradas WHERE idempresa = ridEmpresa AND iddepartamento = ridDepartamento AND idestatus_registro = 'C');
+
+set vAportaciones = (SELECT ifnull(SUM(importe),0) FROM aportaciones WHERE idempresa = ridEmpresa AND iddepartamento = ridDepartamento AND idtipo = 'A' AND idestatus_registro = 'A');
+set vRetiros = (SELECT ifnull(SUM(importe),0) FROM aportaciones WHERE idempresa = ridEmpresa AND iddepartamento = ridDepartamento AND idtipo = 'R' AND idestatus_registro = 'A');
+set vCancelacionAportaciones = (SELECT ifnull(SUM(importe),0) FROM aportaciones WHERE idempresa = ridEmpresa AND iddepartamento = ridDepartamento AND idestatus_registro = 'C');
+
+
+select vEntradas,vSalidas,vCancelaciones,vAportaciones,vRetiros,vCancelacionAportaciones;
+
+END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
@@ -2224,4 +2280,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-10-09 18:35:18
+-- Dump completed on 2017-10-10  8:10:03

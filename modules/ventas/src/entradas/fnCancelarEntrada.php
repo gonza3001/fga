@@ -32,6 +32,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
         $connect->_query = "
         call sp_CancelarEntradas('$Folio','$idEmpresa','$idDepartamento','$Tipo','$_POST[Motivo]','$idUsuario','$idUsuario')
         ";
+
         $connect->get_result_query();
         $Response = $connect->_rows[0][0];
         $FolioCancelacion = $connect->_rows[0][1];
@@ -41,7 +42,6 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
         }else{
             echo json_encode(array("result"=>false,"message"=>$Response,"data"=>array()));
         }
-
 
     }else{
         echo json_encode(array("result"=>false,"message"=>"error en parametros","data"=>array()));

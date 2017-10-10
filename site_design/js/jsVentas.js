@@ -33,6 +33,137 @@ function WindowsOpenReport(idReport,arrayid) {
 
 }
 
+function get() {
+
+}
+
+function getCorteDiario(opc,Departamento) {
+
+    switch (opc){
+        //Mostrar Plantilla de Corte Diario
+        case 1:
+            SenderAjax(
+                "modules/ventas/views/ventas/",
+                "FrmCorteDiario.php",
+                null,
+                "form_caja",
+                "post", {opc:opc}
+            );
+            break;
+        //Llamr la funcion de corte diario
+        case 2:
+            $.ajax({
+                url:"modules/ventas/src/ventas/getCorteDiario.php",
+                type:"get",
+                dataType:"json",
+                data:{opc:opc,idDepartamento:Departamento},
+                beforeSend:function () {
+                    fnloadSpinner(1);
+                }
+            }).done(function (response) {
+                fnloadSpinner(2);
+
+                console.log(response);
+                if(response.result){
+
+                    var CajaInicial = 0,SubTotal = 0, Total = 0;
+
+                    $("#aportacion").text(response.data.Aportaciones.Aportacion);
+                    $("#retiro").text(response.data.Aportaciones.Retiro);
+                    $("#cancelacion_aportaciones").text(response.data.Aportaciones.Cancelacion);
+                    $("#total_aportaciones").text(response.data.Aportaciones.Total);
+
+                    $("#entrada").text(response.data.Entradas.Entradas);
+                    $("#salida").text(response.data.Entradas.Salidas);
+                    $("#cancelacion_entrada").text(response.data.Entradas.Cancelacion);
+                    $("#total_entrada").text(response.data.Entradas.Total);
+
+                    SubTotal = response.data.Aportaciones.Total + response.data.Entradas.Total;
+
+                    $("#total").text(SubTotal - CajaInicial);
+                    $("#caja_inicial").text(CajaInicial);
+                    $("#subtotal").text(SubTotal);
+
+                    $('.currency').numeric({prefix:'$ ', cents: true});
+
+
+                }else{
+                    MyAlert(response.message);
+                }
+
+            }).fail(function (jqhr,textStatus,errno) {
+
+                fnloadSpinner(2);
+
+                if(console && console.log){
+                    if(textStatus == "timeout"){
+                        MyAlert("Tiempo de espera agotado");
+                    }else{
+                        MyAlert("Error al llamar la vista solicitada");
+                    }
+                }
+            });
+
+
+            break;
+        default:
+            MyAlert("La opcion no existe");
+            break;
+    }
+
+}
+
+function getReorteMovimientosDiario(opc) {
+
+    switch (opc){
+        //Mostrar Modal de Movimientos Diario
+        case 1:
+            SenderAjax(
+                "modules/ventas/views/ventas/",
+                "FrmMovimientosDiario.php",
+                null,
+                "idgeneral",
+                "post", {opc:opc}
+            );
+            break;
+        case 2:
+            //Corto Diario - por rango de fechas
+            bootbox.confirm({
+                title: "Corte diario",
+                message: "Se borrara la información si no ha guardado, esta seguro de continuar ?",
+                size:"small",
+                buttons: {
+                    cancel: {
+                        label: '<i class="fa fa-times"></i> Cancelar'
+                    },
+                    confirm: {
+                        label: '<i class="fa fa-check"></i> Aceptar'
+                    }
+                },
+                callback: function (result) {
+
+                    if(result){
+
+                        SenderAjax(
+                            "modules/ventas/src/ventas/",
+                            "fn_corte_diario.php",
+                            null,
+                            "form_caja",
+                            "POST",
+                            "{opc:0}"
+                        );
+
+                    }
+                }
+            });
+            break;
+        default:
+            MyAlert("La opcion no existe");
+            break;
+    }
+
+}
+
 function getCancelarAportacionesRetiros(opc,Tipo,Folios) {
 
     switch (opc) {
@@ -205,7 +336,6 @@ function getAportaciones(opc,TipoAportacion) {
                         fnloadSpinner(1);
                     }
                 }).done(function (response) {
-
 
                     fnloadSpinner(2);
                     if(response.result){
@@ -1062,75 +1192,6 @@ function fnVentaAceptarPago(){
         }).fail(function(jxqh,textStatus){
             MyAlert("Error al llamar el metodo fn_realiza_pago: "+textStatus,"error");
         })
-
-}
-
-function fnVentaCorteDiario(opc){
-
-    switch (opc){
-        case 1:
-            //Corte Diario - Solo Del dia acutal
-            bootbox.confirm({
-                title: "Corte diario",
-                message: "Se borrara la información si no ha guardado, esta seguro de continuar ?",
-                size:"small",
-                buttons: {
-                    cancel: {
-                        label: '<i class="fa fa-times"></i> Cancelar'
-                    },
-                    confirm: {
-                        label: '<i class="fa fa-check"></i> Aceptar'
-                    }
-                },
-                callback: function (result) {
-
-                    if(result){
-
-                        SenderAjax(
-                            "modules/ventas/src/ventas/",
-                            "fn_movimientos_diario.php",
-                            null,
-                            "form_caja",
-                            "POST",
-                            "{opc:0}"
-                        );
-
-                    }
-                }
-            });
-            break;
-        case 2:
-            //Corto Diario - por rango de fechas
-            bootbox.confirm({
-                title: "Corte diario",
-                message: "Se borrara la información si no ha guardado, esta seguro de continuar ?",
-                size:"small",
-                buttons: {
-                    cancel: {
-                        label: '<i class="fa fa-times"></i> Cancelar'
-                    },
-                    confirm: {
-                        label: '<i class="fa fa-check"></i> Aceptar'
-                    }
-                },
-                callback: function (result) {
-
-                    if(result){
-
-                        SenderAjax(
-                            "modules/ventas/src/ventas/",
-                            "fn_corte_diario.php",
-                            null,
-                            "form_caja",
-                            "POST",
-                            "{opc:0}"
-                        );
-
-                    }
-                }
-            });
-            break;
-    }
 
 }
 
