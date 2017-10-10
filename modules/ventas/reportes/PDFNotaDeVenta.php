@@ -85,7 +85,7 @@ ob_start();
         }
         -->
     </style>
-    <page format="120x200" orientation="L"  backtop="20mm" backbottom="10mm" backleft="2mm" backright="2mm">
+    <page  backtop="20mm" backbottom="10mm" backleft="2mm" backright="2mm">
 
         <page_header>
             <table style="width: 100%;">
@@ -268,5 +268,5 @@ $content = ob_get_clean();
 $pdf = new HTML2PDF('P','Letter','es','UTF-8');
 $pdf->writeHTML($content);
 $pdf->pdf->IncludeJS('print(TRUE)');
-$pdf->output('NotaDeVenta.pdf');
+$pdf->output('NotaDeVenta_'.$FolioVenta.'_'.date("YmdHis").'.pdf');
 ?>

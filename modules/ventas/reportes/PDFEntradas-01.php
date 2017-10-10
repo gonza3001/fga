@@ -34,7 +34,8 @@ SELECT
     a.idestatus,
     a.fecha_registro,
     date(a.fecha_registro)as Fecha,
-    time(a.fecha_registro)as Hora 
+    time(a.fecha_registro)as Hora,
+    a.idestatus_registro
 FROM entradas as a 
 LEFT JOIN departamentos as b 
 ON a.iddepartamento = b.iddepartamento 
@@ -59,6 +60,7 @@ $Autorizante = $connect->_rows[0][12];
 $UsuarioCancela = $connect->_rows[0][14];
 $Importe = $connect->setFormatoMoneda($connect->_rows[0][7],'pesos');
 $Estatus = $connect->_rows[0][15];
+$EstatusRegistro = $connect->_rows[0][19];
 $FechaRegistro = $connect->_rows[0][16];
 
 if($TipoEntrada == "E"){
@@ -68,6 +70,17 @@ if($TipoEntrada == "E"){
     $TituloPDF = "Solicitud de Salida";
     $TipoMovimiento = "Salida";
 }
+
+if($_REQUEST['pc'] == 3 ){
+    $TituloPDF = "Cancelació de ".$TipoMovimiento;
+    $TipoMovimiento = $TituloPDF;
+}else{
+    if($EstatusRegistro == "C"){
+        $TituloPDF = "Cancelació de ".$TipoMovimiento;
+        $TipoMovimiento = $TituloPDF;
+    }
+}
+
 //Datos del la empresa
 
 $Background = "#F3F3F3";

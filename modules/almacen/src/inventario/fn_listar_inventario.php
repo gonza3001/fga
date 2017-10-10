@@ -54,11 +54,17 @@ $a = 1;
 $_SESSION['EXPORT'] = $lista_existencias;
 
 for($i=0;$i < count($lista_existencias);$i++){
+
+    if($_POST['tipo_articulo'] == "MAT"){
+        $Existencias = $almacen->getFormatFolio($lista_existencias[$i][7],4);
+    }else{
+        $Existencias = $almacen->getFormatFolio(intval($lista_existencias[$i][7]),4);
+    }
     echo "<tr>
         <td>".$a++."</td>
         <td>".$lista_existencias[$i][6]."</td>
         <td>".$lista_existencias[$i][3]."</td>
-        <td class='text-center'><span class='badge bg-light-blue'>".$almacen->getFormatFolio(intval($lista_existencias[$i][7]),4)."</span></td>
+        <td class='text-center'><span class='badge bg-light-blue'>".$Existencias."</span></td>
     </tr>";
 }
 ?>

@@ -1,11 +1,10 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: agomez
- * Date: 06/10/2017
- * Time: 07:59 PM
+ * User: alejandro.gomez
+ * Date: 09/10/2017
+ * Time: 05:02 PM
  */
-
 include "../../../../core/core.class.php";
 include "../../../../core/sesiones.class.php";
 include "../../../../core/seguridad.class.php";
@@ -21,6 +20,8 @@ $FechaAcutal = date("Y-m-d H:i:s");
 $Folio = $_POST['Folio'];
 $Tipo = $_POST['Tipo'];
 
+if($Tipo == 1){$Tipo =  "A";}else{$Tipo = "R";}
+
 header("ContentType:application/json");
 
 if($_SERVER['REQUEST_METHOD'] == "POST"){
@@ -30,7 +31,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
         $_POST = $connect->get_sanatiza($_POST);
 
         $connect->_query = "
-        call sp_CancelarEntradas('$Folio','$idEmpresa','$idDepartamento','$Tipo','$_POST[Motivo]','$idUsuario','$idUsuario')
+        call sp_CancelarAportaciones('$Folio','$idEmpresa','$idDepartamento','$Tipo','$_POST[Motivo]','$idUsuario','$idUsuario')
         ";
         $connect->get_result_query();
         $Response = $connect->_rows[0][0];

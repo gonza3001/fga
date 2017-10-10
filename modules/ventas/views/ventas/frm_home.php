@@ -142,7 +142,7 @@ $idEmpresa = $_SESSION['data_home']['iddepartamento'];
                     <ul class="dropdown-menu">
                         <li><a href="#">Action</a></li>
                         <li class="dropdown-submenu">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown</a>
+                            <span class="dropdown-toggle" data-toggle="dropdown">Dropdown</span>
                             <ul class="dropdown-menu">
                                 <li class="dropdown-submenu">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown</a>
@@ -162,7 +162,7 @@ $idEmpresa = $_SESSION['data_home']['iddepartamento'];
                 </li>
                 <li class="divider"></li>
                 <li><a href="#" onclick="getEntradas(5)">Entrada y Salidas</a></li>
-                <li><a href="#">Aportaciones y Retiros</a></li>
+                <li><a href="#" onclick="getAportaciones(5,1)">Aportaciones y Retiros</a></li>
             </ul>
         </div>
 
@@ -174,10 +174,22 @@ $idEmpresa = $_SESSION['data_home']['iddepartamento'];
             <ul class="dropdown-menu">
                 <li><a href="#" onclick="setVentaPagos({'opc':5,'folio':0})" >Folio de Venta</a></li>
                 <li class="divider"></li>
-                <li><a href="#">Entradas</a></li>
-                <li><a href="#">Salidas</a></li>
-                <li><a href="#">Aportaciones</a></li>
-                <li><a href="#">Retiros</a></li>
+                <li class="dropdown-submenu">
+                    <a href="#" class="dropdown-toggle" style="box-shadow: none !important;color: #000 !important;background: #fff !important;border: none !important;border-radius: 0px !important;" data-toggle="dropdown">Entradas y Salidas</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#" onclick="getCancelarEntradaSalidas(1,1,0)">Entradas</a></li>
+                        <li><a href="#" onclick="getCancelarEntradaSalidas(1,2,0)">Salidas</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown-submenu">
+                    <a href="#" class="dropdown-toggle" style="box-shadow: none !important;color: #000 !important;background: #fff !important;border: none !important;border-radius: 0px !important;" data-toggle="dropdown">Aportaciones y Retiros</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#" onclick="getCancelarAportacionesRetiros(1,1,0)">Aportaciones</a></li>
+                        <li><a href="#" onclick="getCancelarAportacionesRetiros(1,2,0)" >Retiros</a></li>
+                    </ul>
+                </li>
+                <li><a href="#" onclick="setVentaPagos({'opc':5,'folio':0})" >Cierre</a></li>
+
             </ul>
         </div>
 
@@ -190,7 +202,7 @@ $idEmpresa = $_SESSION['data_home']['iddepartamento'];
                 <li><a href="#" onclick="fnVentaCorteDiario(1)" >Movimientos Diario</a></li>
                 <li><a href="#" onclick="fnVentaCorteDiario(2)" >Corto Diario</a></li>
                 <li><a href="#" onclick="fnVentaCorteDiario(1)" >Notas Terminadas</a></li>
-                <li><a href="#" onclick="fnVentaCorteDiario(1)" >Notas Pendientes</a></li>
+                <li><a href="#" onclick="fnTrabajosPendientes(1)" >Notas Pendientes</a></li>
                 <li><a href="#">Entradas y salidas</a></li>
                 <li><a href="#">Aportaciones y Retiros</a></li>
                 <li class="divider"></li>

@@ -9,7 +9,7 @@ function WindowsOpenReport(idReport,arrayid) {
 
 
     switch (idReport){
-        //Ticket de Entradas
+        //Ticket de Entradas y Salidas
         case 1:
             var idEntrada = arrayid.idEntrada;
             window.open("modules/ventas/reportes/PDFEntradas-01.php?pc="+idReport+"&id="+idEntrada+"","","location=no,width=600,height=700,scrollbars=NO,menubar=NO,titlebar=NO,toolbar=NO");
@@ -18,6 +18,147 @@ function WindowsOpenReport(idReport,arrayid) {
         case 2:
             var idAportacion = arrayid.idAportacion;
             window.open("modules/ventas/reportes/PDFAportaciones-01.php?pc="+idReport+"&id="+idAportacion+"","","location=no,width=600,height=700,scrollbars=NO,menubar=NO,titlebar=NO,toolbar=NO");
+            break;
+         //Cancelaciones de Entras y Salidas
+        case 3:
+            var idEntrada = arrayid.idEntrada;
+            window.open("modules/ventas/reportes/PDFEntradas-01.php?pc="+idReport+"&id="+idEntrada+"","","location=no,width=600,height=700,scrollbars=NO,menubar=NO,titlebar=NO,toolbar=NO");
+            break;
+        //Cancelaciones de Aportaciones y retiros
+        case 4:
+            var idAportacion = arrayid.idAportacion;
+            window.open("modules/ventas/reportes/PDFAportaciones-01.php?pc="+idReport+"&id="+idAportacion+"","","location=no,width=600,height=700,scrollbars=NO,menubar=NO,titlebar=NO,toolbar=NO");
+            break;
+    }
+
+}
+
+function getCancelarAportacionesRetiros(opc,Tipo,Folios) {
+
+    switch (opc) {
+        case 1:
+            SenderAjax(
+                "modules/ventas/views/aportaciones/",
+                "FrmCancelarAportaciones.php",
+                null,
+                "idgeneral",
+                "post", {opc: opc, Tipo: Tipo, Folio: Folios}
+            );
+            break;
+        case 2:
+            var Folio = $('#FolioAportacion').val();
+            var Motivo = $("#motivo").val();
+
+            if(Folio <= 0 || $.trim(Folio) == ""){
+                MyAlert("Ingrese un numero de Folio");
+            }else if(isNaN(Folio)){
+                MyAlert("El folio debe ser numerico");
+            }else if($.trim(Motivo) == ""){
+                MyAlert("Ingrese un motivo de cancelación");
+            }else{
+
+                $.ajax({
+                    url:"modules/ventas/src/aportaciones/fnCancelarAportacion.php",
+                    type:"POST",
+                    dataType:"json",
+                    data:{opc:opc,Tipo:Tipo,Folio:Folio,Motivo:Motivo}
+                }).done(function (response) {
+
+                    if(response.result){
+
+                        console.log(response);
+                        $("#FolioCancelacion").val(+response.data.Folio);
+                        $("#box2").addClass("hidden");
+                        $("#box3").removeClass("hidden");
+
+                    }else{
+                        MyAlert(response.message);
+                    }
+
+                }).fail(function (jqhr,textStatus,errno) {
+
+                    if(console && console.log){
+
+                        if(textStatus == "timeout"){
+                            MyAlert("Tiempo de espera agotado");
+                        }else{
+                            MyAlert("Error al cargar la vista");
+                        }
+
+                    }
+
+                });
+            }
+            break;
+        default:
+            MyAlert("Opcion no encontrada");
+            break;
+    }
+
+}
+
+function getCancelarEntradaSalidas(opc,Tipo,Folio){
+
+    switch (opc){
+        case 1:
+            SenderAjax(
+                "modules/ventas/views/entradas/",
+                "FrmCancelarEntrada.php",
+                null,
+                "idgeneral",
+                "post",{opc:opc,Tipo:Tipo,Folio:Folio}
+            );
+            break;
+        case 2:
+
+            var Motivo = $("#motivo").val();
+
+            if(Folio <= 0 || $.trim(Folio) == ""){
+                MyAlert("Ingrese un numero de Folio");
+            }else if(isNaN(Folio)){
+                MyAlert("El folio debe ser numerico");
+            }else if($.trim(Motivo) == ""){
+                MyAlert("Ingrese un motivo de cancelación");
+            }else{
+
+                $.ajax({
+                    url:"modules/ventas/src/entradas/fnCancelarEntrada.php",
+                    type:"POST",
+                    dataType:"json",
+                    data:{opc:opc,Tipo:Tipo,Folio:Folio,Motivo:Motivo}
+                }).done(function (response) {
+
+                    if(response.result){
+
+                        console.log(response);
+                        $("#FolioCancelacion").val(+response.data.Folio);
+                        $("#box2").addClass("hidden");
+                        $("#box3").removeClass("hidden");
+
+                    }else{
+                        MyAlert(response.message);
+                    }
+
+                }).fail(function (jqhr,textStatus,errno) {
+
+                    if(console && console.log){
+
+                        if(textStatus == "timeout"){
+                            MyAlert("Tiempo de espera agotado");
+                        }else{
+                            MyAlert("Error al cargar la vista");
+                        }
+
+                    }
+
+                });
+
+
+            }
+
+            break;
+        default:
+            MyAlert("La opcion solicitada no existe");
             break;
     }
 
@@ -161,6 +302,64 @@ function getAportaciones(opc,TipoAportacion) {
 
             }
             break;
+        case 5:
+            SenderAjax(
+                "modules/ventas/views/aportaciones/",
+                "FrmReimpresionAportaciones.php",
+                null,
+                "idgeneral",
+                "post",{opc:opc,TipoAportacion:TipoAportacion}
+            );
+            break;
+        case 6:
+            var Folio = $("#FolioAportacion").val();
+
+            if(Folio <= 0 || $.trim(Folio) == ""){
+                MyAlert("Ingrese un numero de Folio");
+            }else if(isNaN(Folio)){
+                MyAlert("El folio debe ser numerico");
+            }else{
+
+                $.ajax({
+                    url:"modules/ventas/src/aportaciones/fnBuscarFolio.php",
+                    type:"get",
+                    dataType:"json",
+                    data:{opc:opc,Folio:Folio,TipoAportacion:TipoAportacion},
+                    timeout:8000
+                }).done(function (response) {
+                    console.log(response.data);
+
+                    if(response.result){
+
+                        $("#tituloMovimiento").html("<b>Transacción</b>: "+response.data.tipo);
+                        $("#cajaorigen").val(response.data.origen);
+                        $("#cajadestino").val(response.data.destino);
+                        $("#importe").val(response.data.importe);
+                        $("#observacion").val(response.data.descripcion);
+
+                        $(".currency").numeric({prefix:'$ ',cents:true});
+                        $("#box2").removeClass("hidden");
+
+                    }else{
+                        MyAlert(response.message);
+                    }
+
+                }).fail(function (jqhr,textStatus,errno) {
+
+                    if(console && console.log){
+
+                        if(textStatus == "timeout"){
+                            MyAlert("Tiempo de espera agotado");
+                        }else{
+                            MyAlert("Error al cargar la vista");
+                        }
+
+                    }
+
+                });
+            }
+
+            break;
         default:
             MyAlert("Opcion no encontrada");
             break;
@@ -168,7 +367,7 @@ function getAportaciones(opc,TipoAportacion) {
 
 }
 
-function getEntradas(opc) {
+function getEntradas(opc,Tipo) {
 
     switch (opc){
         case 1:
@@ -318,27 +517,30 @@ function getEntradas(opc) {
                     url:"modules/ventas/src/entradas/fnBuscarFolio.php",
                     type:"get",
                     dataType:"json",
-                    data:{opc:opc,Folio:Folio}
+                    data:{opc:opc,Folio:Folio,Tipo:Tipo},
+                    beforeSend:function () {
+                        fnloadSpinner(1);
+                    }
                 }).done(function (response) {
-
+                    fnloadSpinner(2);
                     if(response.result){
 
-                        console.log(response.data);
+                        console.log(response);
 
-                        $("#tituloMovimiento").text("Tipo: "+response.data.tipo);
+                        $("#tituloMovimiento").html("<b>Transacción</b>: "+response.data.tipo);
 
                         $("#importe").val(response.data.importe);
                         $("#observacion").val(response.data.descripcion);
 
+                        $(".currency").numeric({prefix:'$ ',cents:true});
                         $("#box2").removeClass("hidden");
-
-                        MyAlert(response.message);
 
                     }else{
                         MyAlert(response.message);
                     }
 
                 }).fail(function (jqhr,textStatus,errno) {
+                    fnloadSpinner(2);
 
                     if(console && console.log){
 
@@ -358,7 +560,6 @@ function getEntradas(opc) {
             MyAlert("Opcion no encontrada");
             break;
     }
-
 }
 
 function fngetDetaleTrabajo(idventa,data) {
