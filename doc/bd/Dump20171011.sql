@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.9, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.6.24, for Win64 (x86_64)
 --
--- Host: localhost    Database: 
+-- Host: localhost    Database: bdpvt
 -- ------------------------------------------------------
--- Server version	5.7.14
+-- Server version	5.6.17
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -70,6 +70,7 @@ CREATE TABLE `almacen_articulos` (
 
 LOCK TABLES `almacen_articulos` WRITE;
 /*!40000 ALTER TABLE `almacen_articulos` DISABLE KEYS */;
+INSERT INTO `almacen_articulos` VALUES (1,1,1,'ART',40.00),(1,1,2,'ART',70.00),(1,1,3,'ART',70.00),(1,1,4,'ART',70.00),(1,1,5,'ART',70.00),(1,1,6,'ART',40.00),(1,1,7,'ART',70.00),(1,1,8,'ART',70.00),(1,1,9,'ART',70.00),(1,1,10,'ART',100.00),(1,1,295,'ART',50.00),(1,1,296,'ART',50.00),(1,1,297,'ART',10.00),(1,1,305,'ART',80.00),(1,1,308,'ART',80.00),(1,1,319,'MAT',10.00),(1,1,320,'MAT',10.00),(1,4,1,'ART',28.00),(1,4,6,'ART',25.00),(1,4,295,'ART',23.00),(1,4,296,'ART',30.00),(1,4,297,'ART',30.00),(1,4,319,'MAT',13.00),(1,4,320,'MAT',20.00),(1,5,1,'ART',29.00),(1,5,2,'ART',30.00),(1,5,3,'ART',30.00),(1,5,4,'ART',30.00),(1,5,5,'ART',30.00),(1,5,6,'ART',30.00),(1,5,7,'ART',30.00),(1,5,8,'ART',30.00),(1,5,9,'ART',30.00),(1,5,319,'MAT',29.00),(1,5,320,'MAT',30.00);
 /*!40000 ALTER TABLE `almacen_articulos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -121,7 +122,7 @@ CREATE TABLE `apertura` (
   `fecha_apertura` datetime DEFAULT NULL,
   `fecha_registro` datetime DEFAULT NULL,
   PRIMARY KEY (`idapertura`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -130,7 +131,7 @@ CREATE TABLE `apertura` (
 
 LOCK TABLES `apertura` WRITE;
 /*!40000 ALTER TABLE `apertura` DISABLE KEYS */;
-INSERT INTO `apertura` VALUES (4,1,3,123.00,1,'2017-10-01 00:43:10','2017-10-01 00:43:10'),(3,1,3,123.00,1,'2017-10-01 00:42:27','2017-10-01 00:42:27'),(5,1,3,1567.00,1,'2017-10-03 22:13:16','2017-10-03 22:13:16');
+INSERT INTO `apertura` VALUES (1,1,3,800.00,1,'2017-10-10 23:21:56','2017-10-10 23:21:56'),(2,1,3,800.00,1,'2017-10-11 23:32:22','2017-10-11 23:32:22');
 /*!40000 ALTER TABLE `apertura` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -303,7 +304,7 @@ CREATE TABLE `cierre` (
   `fecha_cierre` datetime NOT NULL,
   `fecha_registro` datetime NOT NULL,
   PRIMARY KEY (`idcierre`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -312,7 +313,7 @@ CREATE TABLE `cierre` (
 
 LOCK TABLES `cierre` WRITE;
 /*!40000 ALTER TABLE `cierre` DISABLE KEYS */;
-INSERT INTO `cierre` VALUES (3,1,3,123.00,1,'2017-10-01 00:43:10','2017-10-01 00:43:10');
+INSERT INTO `cierre` VALUES (1,1,3,0.00,1,'2017-10-09 23:21:56','2017-10-09 23:21:56'),(2,1,3,1200.00,1,'2017-10-10 00:00:00','2017-10-10 00:00:00');
 /*!40000 ALTER TABLE `cierre` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -369,7 +370,7 @@ CREATE TABLE `compra` (
   `fecha_alta` datetime DEFAULT NULL,
   `fecha_um` datetime DEFAULT NULL,
   PRIMARY KEY (`idcompra`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -378,6 +379,7 @@ CREATE TABLE `compra` (
 
 LOCK TABLES `compra` WRITE;
 /*!40000 ALTER TABLE `compra` DISABLE KEYS */;
+INSERT INTO `compra` VALUES (1,1,1,NULL,2,NULL,NULL,1,NULL,'2017-10-10 22:03:13',NULL),(2,1,1,NULL,2,NULL,NULL,1,NULL,'2017-10-10 22:03:54',NULL),(3,1,1,NULL,2,NULL,NULL,1,NULL,'2017-10-11 00:10:23',NULL);
 /*!40000 ALTER TABLE `compra` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -462,7 +464,7 @@ CREATE TABLE `detalle_compra` (
   `cantidad` int(11) DEFAULT NULL,
   `precio_compra` decimal(19,2) DEFAULT NULL,
   PRIMARY KEY (`iddetalle_compra`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -471,6 +473,7 @@ CREATE TABLE `detalle_compra` (
 
 LOCK TABLES `detalle_compra` WRITE;
 /*!40000 ALTER TABLE `detalle_compra` DISABLE KEYS */;
+INSERT INTO `detalle_compra` VALUES (1,1,1,'ART',1,100,28.42),(2,1,1,'ART',2,100,28.42),(3,1,1,'ART',3,100,28.42),(4,1,1,'ART',4,100,28.42),(5,1,1,'ART',5,100,34.22),(6,1,1,'ART',6,100,33.64),(7,1,1,'ART',7,100,33.64),(8,1,1,'ART',8,100,33.64),(9,1,1,'ART',9,100,33.64),(10,1,1,'ART',10,100,40.60),(11,1,2,'MAT',320,60,10.00),(12,1,2,'MAT',319,60,10.00),(13,1,3,'ART',296,80,40.00),(14,1,3,'ART',295,80,25.00),(15,1,3,'ART',305,80,120.00),(16,1,3,'ART',308,80,85.00),(17,1,3,'ART',297,40,80.00);
 /*!40000 ALTER TABLE `detalle_compra` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -488,7 +491,7 @@ CREATE TABLE `detalle_traspasos` (
   `idarticulo` int(11) DEFAULT NULL,
   `cantidad` int(11) DEFAULT NULL,
   PRIMARY KEY (`iddetalle_traspaso`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -497,6 +500,7 @@ CREATE TABLE `detalle_traspasos` (
 
 LOCK TABLES `detalle_traspasos` WRITE;
 /*!40000 ALTER TABLE `detalle_traspasos` DISABLE KEYS */;
+INSERT INTO `detalle_traspasos` VALUES (1,1,'ART',1,30),(2,1,'ART',2,30),(3,1,'ART',3,30),(4,1,'ART',4,30),(5,1,'ART',5,30),(6,1,'ART',6,30),(7,1,'ART',7,30),(8,1,'ART',8,30),(9,1,'ART',9,30),(10,1,'MAT',319,30),(11,1,'MAT',320,30),(12,2,'ART',1,30),(13,2,'ART',6,30),(14,2,'MAT',319,10),(15,2,'MAT',320,10),(16,3,'MAT',319,10),(17,3,'MAT',320,10),(18,4,'ART',295,30),(19,4,'ART',296,30),(20,4,'ART',297,30);
 /*!40000 ALTER TABLE `detalle_traspasos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -519,7 +523,7 @@ CREATE TABLE `detalle_venta` (
   `costo_trabajo_cp` decimal(18,2) DEFAULT NULL,
   `descripcion` text,
   PRIMARY KEY (`iddetalle_venta`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -528,6 +532,7 @@ CREATE TABLE `detalle_venta` (
 
 LOCK TABLES `detalle_venta` WRITE;
 /*!40000 ALTER TABLE `detalle_venta` DISABLE KEYS */;
+INSERT INTO `detalle_venta` VALUES (1,1,5,1,'ART',1,1.00,45.00,120.00,' Imagen en la parte del centro'),(2,1,5,1,'MAT',319,1.00,18.00,120.00,''),(3,1,4,2,'ART',1,1.00,45.00,120.00,' Imagen de corazones'),(4,1,4,2,'MAT',319,1.00,18.00,120.00,''),(5,1,4,3,'ART',6,5.00,55.00,30.00,' Corazones'),(6,1,4,3,'MAT',319,1.00,18.00,30.00,''),(7,1,4,3,'MAT',319,1.00,18.00,30.00,''),(8,1,4,3,'MAT',319,1.00,18.00,30.00,''),(9,1,4,4,'ART',295,1.00,55.00,120.00,' Diseño 1 de corazones'),(10,1,4,4,'MAT',319,1.00,18.00,120.00,''),(11,1,4,5,'ART',295,3.00,55.00,30.00,' Imagen centrada'),(12,1,4,5,'MAT',319,1.00,18.00,30.00,''),(13,1,4,6,'ART',1,1.00,45.00,30.00,' Prueba de Imagen'),(14,1,4,6,'ART',295,1.00,55.00,30.00,' '),(15,1,4,6,'ART',295,2.00,55.00,30.00,' Image'),(16,1,4,6,'MAT',319,1.00,18.00,30.00,'');
 /*!40000 ALTER TABLE `detalle_venta` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -539,7 +544,7 @@ UNLOCK TABLES;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017*/ /*!50003 TRIGGER `detalle_venta_BEFORE_INSERT` BEFORE INSERT ON `detalle_venta` FOR EACH ROW BEGIN
+/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `detalle_venta_BEFORE_INSERT` BEFORE INSERT ON `detalle_venta` FOR EACH ROW BEGIN
 
 	UPDATE almacen_articulos 
 		SET 
@@ -627,7 +632,7 @@ CREATE TABLE `entradas` (
   `fecha_registro` datetime NOT NULL,
   `fecha_cancelacion` datetime DEFAULT NULL,
   PRIMARY KEY (`Folio`,`FolioLlave`,`idempresa`,`iddepartamento`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -636,6 +641,7 @@ CREATE TABLE `entradas` (
 
 LOCK TABLES `entradas` WRITE;
 /*!40000 ALTER TABLE `entradas` DISABLE KEYS */;
+INSERT INTO `entradas` VALUES (1,0,1,4,'S',1,100.00,'compra de comida autorizada',5,NULL,5,'A','A','2017-10-11 00:34:11',NULL);
 /*!40000 ALTER TABLE `entradas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -731,6 +737,7 @@ CREATE TABLE `movimientos_caja` (
 
 LOCK TABLES `movimientos_caja` WRITE;
 /*!40000 ALTER TABLE `movimientos_caja` DISABLE KEYS */;
+INSERT INTO `movimientos_caja` VALUES (1,1,'1',1,2,183.00,80.00,80.00,1,NULL,NULL,NULL,NULL,NULL,'A',1,NULL,NULL,'2017-10-10 22:08:24',NULL),(2,1,'2',2,2,183.00,13.00,13.00,1,NULL,NULL,NULL,NULL,NULL,'A',1,NULL,NULL,'2017-10-10 22:18:46',NULL),(1,2,'1',1,1,183.00,183.00,200.00,1,NULL,NULL,NULL,NULL,NULL,'A',5,NULL,NULL,'2017-10-11 00:03:53',NULL),(1,3,'1',1,2,359.00,150.00,150.00,1,NULL,NULL,NULL,NULL,NULL,'A',5,NULL,NULL,'2017-10-11 00:07:43',NULL),(1,4,'1',1,2,193.00,93.00,93.00,1,NULL,NULL,NULL,NULL,NULL,'A',5,NULL,NULL,'2017-10-11 00:18:09',NULL),(1,5,'1',1,1,213.00,213.00,300.00,1,NULL,NULL,NULL,NULL,NULL,'A',5,NULL,NULL,'2017-10-11 00:18:54',NULL),(1,6,'1',1,1,258.00,258.00,300.00,1,NULL,NULL,NULL,NULL,NULL,'A',5,NULL,NULL,'2017-10-11 00:22:44',NULL),(2,3,'2',2,2,359.00,209.00,300.00,1,NULL,NULL,NULL,NULL,NULL,'A',5,NULL,NULL,'2017-10-11 00:31:36',NULL);
 /*!40000 ALTER TABLE `movimientos_caja` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -950,7 +957,7 @@ CREATE TABLE `traspasos` (
   `fecha_um` datetime DEFAULT NULL,
   `idusuario_um` int(11) DEFAULT NULL,
   PRIMARY KEY (`idtraspaso`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -959,6 +966,7 @@ CREATE TABLE `traspasos` (
 
 LOCK TABLES `traspasos` WRITE;
 /*!40000 ALTER TABLE `traspasos` DISABLE KEYS */;
+INSERT INTO `traspasos` VALUES (1,1,1,5,1,1,1,1,NULL,'2017-10-10 22:07:07',1,'2017-10-10 22:07:07',1),(2,1,1,4,1,5,5,1,NULL,'2017-10-10 23:58:51',5,'2017-10-11 00:01:11',5),(3,1,1,4,1,5,5,5,NULL,'2017-10-11 00:15:42',5,'2017-10-11 00:16:04',5),(4,1,1,4,1,5,5,5,NULL,'2017-10-11 00:17:06',5,'2017-10-11 00:17:06',5);
 /*!40000 ALTER TABLE `traspasos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1019,7 +1027,7 @@ CREATE TABLE `venta` (
   `fecha_venta` datetime DEFAULT NULL,
   `fecha_cancela` datetime DEFAULT NULL,
   PRIMARY KEY (`idventa`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1028,15 +1036,16 @@ CREATE TABLE `venta` (
 
 LOCK TABLES `venta` WRITE;
 /*!40000 ALTER TABLE `venta` DISABLE KEYS */;
+INSERT INTO `venta` VALUES (1,1,3,1,2,2,'',NULL,NULL,1,'2017-10-13 10:08:00','2017-10-10 22:08:24',NULL),(2,1,4,5,2,1,'',NULL,NULL,1,'2017-10-13 12:03:00','2017-10-11 00:03:53',NULL),(3,1,4,5,2,2,'',NULL,NULL,1,'2017-10-12 12:06:00','2017-10-11 00:07:43',NULL),(4,1,4,5,2,2,'',NULL,NULL,1,'2017-10-13 12:17:00','2017-10-11 00:18:09',NULL),(5,1,4,5,2,1,'',NULL,NULL,1,'2017-10-11 12:18:00','2017-10-11 00:18:54',NULL),(6,1,4,5,2,1,'',NULL,NULL,1,'2017-10-13 12:22:00','2017-10-11 00:22:44',NULL);
 /*!40000 ALTER TABLE `venta` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Dumping events for database ''
+-- Dumping events for database 'bdpvt'
 --
 
 --
--- Dumping routines for database ''
+-- Dumping routines for database 'bdpvt'
 --
 /*!50003 DROP FUNCTION IF EXISTS `FN_ExisteArticuloInventario` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -1048,7 +1057,7 @@ UNLOCK TABLES;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE FUNCTION `FN_ExisteArticuloInventario`(
+CREATE DEFINER=`root`@`localhost` FUNCTION `FN_ExisteArticuloInventario`(
   ridAlmacen INT,
   ridEmpresa INT,
   ridArticulo INT
@@ -1080,7 +1089,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_actualiza_inventario`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_actualiza_inventario`(
 ridEmpresa INT,
 rTipoArticulo VARCHAR(3),
 ridArticulo INT,
@@ -1117,6 +1126,63 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `sp_AperturaCaja` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_AperturaCaja`(
+in ridEmpresa INT,
+in ridDepartamento INT,
+in rImporte decimal(18,2),
+in ridUsuario INT,
+in rFechaApertura datetime
+)
+BEGIN
+
+declare vUltimaApertura datetime;
+declare vUltimoCierre datetime;
+
+set vUltimaApertura = (select MAX(date(fecha_apertura)) from apertura WHERE iddepartamento = ridDepartamento AND idempresa = ridEmpresa );
+
+IF vUltimaApertura = date(rFechaApertura) THEN
+
+	SELECT 1 as Codigo,'La apertura ya se realizo'as Mensaje,date(vUltimaApertura) as UltimaApertura;
+
+ELSE
+	set vUltimoCierre = (select MAX(date(fecha_cierre)) from cierre WHERE iddepartamento = ridDepartamento AND idempresa = ridEmpresa );
+
+	if vUltimoCierre = date_sub(date(rFechaApertura),INTERVAL 1 DAY) THEN
+    
+		-- Realizar Apertura
+        INSERT INTO apertura VALUES (null,ridEmpresa,ridDepartamento,rImporte,ridUsuario,rFechaApertura,rFechaApertura );
+    
+    ELSE
+    
+		if vUltimoCierre < date_sub(date(rFechaApertura),INTERVAL 1 DAY) THEN
+			SELECT 2 as Codigo,'No se a realizado el cierre'as Mensaje,date(vUltimoCierre) as UltimoCierre ;
+        ELSE
+			-- SELECT 3 as Codigo,'No Hay Cierre'as Mensaje,vUltimoCierre as UltimoCierre ;
+			INSERT INTO apertura VALUES (null,ridEmpresa,ridDepartamento,rImporte,ridUsuario,rFechaApertura,rFechaApertura);
+            INSERT INTO cierre VALUES (null,ridEmpresa,ridDepartamento,0,ridUsuario,date_sub(rFechaApertura,interval 1 day),date_sub(rFechaApertura,interval 1 day));
+
+        END IF;
+    
+    END IF;
+
+END IF;
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `sp_AutorizarTraspaso` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -1127,7 +1193,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_AutorizarTraspaso`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_AutorizarTraspaso`(
 IN ridTraspaso INT,
 IN rNoUsuario INT,
 IN ridEmpresa INT
@@ -1166,7 +1232,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_CancelarAportaciones`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_CancelarAportaciones`(
 in rFolio INT,
 in ridEmpresa INT,
 in ridDepartamento INT,
@@ -1230,7 +1296,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_CancelarAutorizar`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_CancelarAutorizar`(
 in ridTraspaso INT,
 in rNoUsuario INT
 )
@@ -1302,7 +1368,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_CancelarEntradas`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_CancelarEntradas`(
 in rFolio INT,
 in ridEmpresa INT,
 in ridDepartamento INT,
@@ -1368,7 +1434,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_CancelarNotaVenta`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_CancelarNotaVenta`(
 in rOpcion INT,
 in ridMovimiento INT,
 in ridUsaurio INT
@@ -1393,7 +1459,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_CancelarTraspaso`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_CancelarTraspaso`(
   in ridTraspaso INT,
   in rNoUsuario INT
 )
@@ -1461,6 +1527,54 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `sp_CierreCaja` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_CierreCaja`(
+in ridEmpresa INT,
+in ridDepartamento INT,
+in rImporte decimal(18,2),
+in ridUsuario INT,
+in rFechaCierre datetime
+)
+BEGIN
+
+declare vUltimaApertura datetime;
+declare vUltimoCierre datetime;
+
+set vUltimaApertura = (select max(date(fecha_apertura)) from apertura WHERE iddepartamento = ridDepartamento AND idempresa = ridEmpresa );
+set vUltimoCierre = (select max(date(fecha_cierre)) from cierre WHERE iddepartamento = ridDepartamento AND idempresa = ridEmpresa );
+
+IF date(vUltimoCierre) = date (rFechaCierre) THEN
+
+	SELECT 1 as Codigo,'El Cierre ya se realizo'as Mensaje,vUltimoCierre as FechaUltimoCierre;
+
+ELSE
+
+	IF date(vUltimaApertura) = date(rFechaCierre) THEN
+    
+			INSERT INTO cierre VALUES (null,ridEmpresa,ridDepartamento,rImporte,ridUsuario,rFechaCierre,rFechaCierre);
+    
+    ELSE
+			SELECT 2 as Codigo,'No se a realizado la apertura'as Mensaje,vUltimaApertura as FechaUltimaApertura;
+
+    END IF;
+
+END IF;
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `sp_CorteDiario` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -1471,7 +1585,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_CorteDiario`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_CorteDiario`(
 IN rOpcion INT,
 in ridEmpresa INT,
 in ridDepartamento INT,
@@ -1532,7 +1646,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_execute_traspaso`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_execute_traspaso`(
   IN `ridestado` INT,
   IN `ridtraspaso` INT,
   IN `ridempresa` INT,
@@ -1688,7 +1802,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_GetMovimientosDiarios`()
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_GetMovimientosDiarios`()
 BEGIN
 
 SELECT 
@@ -1719,7 +1833,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_RegistrarAportacion`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_RegistrarAportacion`(
 in rLlave INT,
 in ridEmpresa INT,
 in ridDepartamento INT,
@@ -1757,7 +1871,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_registrar_entrada`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_registrar_entrada`(
 in rFolioCancelacion INT,
 in ridEmpresa INT,
 in ridDepartamento INT,
@@ -1793,7 +1907,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_registra_apertura`(IN `ridempresa` INT, IN `riddepartamento` INT, IN `rSaldoInicial` DECIMAL(19,2), IN `ridusuario_apertura` INT, IN `rfecha_apertura` DATETIME, IN `rfecha_registro` DATETIME)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_registra_apertura`(IN `ridempresa` INT, IN `riddepartamento` INT, IN `rSaldoInicial` DECIMAL(19,2), IN `ridusuario_apertura` INT, IN `rfecha_apertura` DATETIME, IN `rfecha_registro` DATETIME)
 BEGIN
 
 INSERT INTO apertura (idempresa,iddepartamento,SaldoInicial,idusuario_apertura,fecha_apertura,fecha_registro) VALUES 
@@ -1820,7 +1934,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_registra_articulo`(IN `ropcion` INT, IN `ridarticulo` INT, IN `ridempresa` INT, IN `rnombre_articulo` VARCHAR(45), IN `rdescripcion` TEXT, IN `rcodigo` VARCHAR(25), IN `ridcategoria` INT(11), IN `ridsubcategoria` INT(11), IN `ridtalla` INT(11), IN `ridcolor` INT(11), IN `ridunidad_medida` INT(11), IN `rprecio_compra` DECIMAL(19,2), IN `rprecio_venta` DECIMAL(19,2), IN `rprecio_mayoreo` DECIMAL(19,2), IN `rcantidad_mayoreo` INT(11), IN `rstock_minimo` INT(11), IN `rstock_maximo` INT(11), IN `ridestado` INT(11), IN `ridusuario_alta` INT(11), IN `rfecha_alta` DATETIME)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_registra_articulo`(IN `ropcion` INT, IN `ridarticulo` INT, IN `ridempresa` INT, IN `rnombre_articulo` VARCHAR(45), IN `rdescripcion` TEXT, IN `rcodigo` VARCHAR(25), IN `ridcategoria` INT(11), IN `ridsubcategoria` INT(11), IN `ridtalla` INT(11), IN `ridcolor` INT(11), IN `ridunidad_medida` INT(11), IN `rprecio_compra` DECIMAL(19,2), IN `rprecio_venta` DECIMAL(19,2), IN `rprecio_mayoreo` DECIMAL(19,2), IN `rcantidad_mayoreo` INT(11), IN `rstock_minimo` INT(11), IN `rstock_maximo` INT(11), IN `ridestado` INT(11), IN `ridusuario_alta` INT(11), IN `rfecha_alta` DATETIME)
 BEGIN
 IF ropcion = 1 THEN
 	INSERT INTO articulos 
@@ -1876,7 +1990,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_registra_cliente`(IN `ropcion` INT, IN `ridcliente` INT, IN `ridempresa` INT, IN `rnombre_completo` VARCHAR(125), IN `rcorreo` VARCHAR(95), IN `rtelefono` VARCHAR(18), IN `rcelular` VARCHAR(20), IN `ridestado` INT, IN `ridusuario_alta` INT, IN `rfecha_alta` DATETIME)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_registra_cliente`(IN `ropcion` INT, IN `ridcliente` INT, IN `ridempresa` INT, IN `rnombre_completo` VARCHAR(125), IN `rcorreo` VARCHAR(95), IN `rtelefono` VARCHAR(18), IN `rcelular` VARCHAR(20), IN `ridestado` INT, IN `ridusuario_alta` INT, IN `rfecha_alta` DATETIME)
 BEGIN
 
 IF ropcion = 1 THEN
@@ -1920,7 +2034,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_registra_combo`(IN `rOpcion` INT, IN `ridcombo` INT, IN `rcodigo_combo` VARCHAR(80), IN `rnombre_combo` VARCHAR(45), IN `rdescripcion` TEXT, IN `ridusuario_alta` INT, IN `rfecha_alta` DATETIME)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_registra_combo`(IN `rOpcion` INT, IN `ridcombo` INT, IN `rcodigo_combo` VARCHAR(80), IN `rnombre_combo` VARCHAR(45), IN `rdescripcion` TEXT, IN `ridusuario_alta` INT, IN `rfecha_alta` DATETIME)
 BEGIN
 
 case rOpcion 
@@ -1949,7 +2063,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_registra_detalle_combo`(IN `ridcombo` INT, IN `ridproducto` INT, IN `rtipo_producto` VARCHAR(5))
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_registra_detalle_combo`(IN `ridcombo` INT, IN `ridproducto` INT, IN `rtipo_producto` VARCHAR(5))
 BEGIN
 
 insert into detalle_combo VALUES(null,ridcombo,ridproducto,rtipo_producto);
@@ -1970,7 +2084,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_registra_detalle_compra`(IN `ridempresa` INT, IN `ridcompra` INT, IN `rtipo_articulo` VARCHAR(3), IN `ridarticulo` INT, IN `rcantidad` INT, IN `rprecio_compra` DECIMAL(19,2), IN `rprecio_venta` DECIMAL(19,2))
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_registra_detalle_compra`(IN `ridempresa` INT, IN `ridcompra` INT, IN `rtipo_articulo` VARCHAR(3), IN `ridarticulo` INT, IN `rcantidad` INT, IN `rprecio_compra` DECIMAL(19,2), IN `rprecio_venta` DECIMAL(19,2))
 BEGIN
 
 	INSERT INTO detalle_compra (
@@ -2012,7 +2126,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_registra_detalle_traspaso`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_registra_detalle_traspaso`(
 IN `rOpcion` INT, 
 IN `ridempresa` INT, 
 IN `ridtraspaso` INT, 
@@ -2062,7 +2176,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_registra_detalle_venta`(IN `ridempresa` INT, IN `ridalmacen` INT, IN `ridventa` INT, IN `rtipo_articulo` VARCHAR(5), IN `ridarticulo` INT, IN `rcantidad` DECIMAL(10,2), IN `rprecio_compra` DECIMAL(19,2),IN rCostoTrabajo DECIMAL(18,2), IN `rdescripcion` TEXT)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_registra_detalle_venta`(IN `ridempresa` INT, IN `ridalmacen` INT, IN `ridventa` INT, IN `rtipo_articulo` VARCHAR(5), IN `ridarticulo` INT, IN `rcantidad` DECIMAL(10,2), IN `rprecio_compra` DECIMAL(19,2),IN rCostoTrabajo DECIMAL(18,2), IN `rdescripcion` TEXT)
 BEGIN
 
 INSERT INTO detalle_venta VALUES (null,ridempresa,ridalmacen,ridventa,rtipo_articulo,ridarticulo,rcantidad,rprecio_compra,rCostoTrabajo,rdescripcion);
@@ -2083,7 +2197,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_registra_empresa`(IN `r_nombre_empresa` VARCHAR(85), IN `r_estado` INT, IN `r_municipio` INT)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_registra_empresa`(IN `r_nombre_empresa` VARCHAR(85), IN `r_estado` INT, IN `r_municipio` INT)
 BEGIN
 
 INSERT INTO empresas (idempresa,nombre_empresa,estado,municipio,idestado,fecha_alta) VALUES (
@@ -2106,7 +2220,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_registra_material`(IN `ropcion` INT, IN `ridmaterial` INT, IN `ridEmpresa` INT, IN `rnombre_material` VARCHAR(65), IN `rdescripcion_material` TEXT, IN `ridcolor` INT, IN `rtipo_unidad` INT, IN `rprecio_compra` DECIMAL(19,2), IN `rprecio_venta` DECIMAL(19,2), IN `rstock_minimo` INT, IN `rstock_maximo` INT, IN `ridestado` INT, IN `ridusuario_alta` INT, IN `rfecha_alta` DATETIME)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_registra_material`(IN `ropcion` INT, IN `ridmaterial` INT, IN `ridEmpresa` INT, IN `rnombre_material` VARCHAR(65), IN `rdescripcion_material` TEXT, IN `ridcolor` INT, IN `rtipo_unidad` INT, IN `rprecio_compra` DECIMAL(19,2), IN `rprecio_venta` DECIMAL(19,2), IN `rstock_minimo` INT, IN `rstock_maximo` INT, IN `ridestado` INT, IN `ridusuario_alta` INT, IN `rfecha_alta` DATETIME)
 BEGIN
 
 IF  ropcion = 1 THEN
@@ -2162,7 +2276,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_registra_movimientos_caja`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_registra_movimientos_caja`(
 IN `rtipo_venta` INT, 
 IN rTipoMovimiento INT,
 IN `ridventa` INT, 
@@ -2205,7 +2319,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_registra_orden`(IN `ropcion` INT, IN `ridcompra` INT, IN `ridempresa` INT, IN `ridproveedor` INT, IN `ridestado` INT, IN `ridautoriza` INT, IN `ridcancela` INT, IN `ridusuario_alta` INT, IN `rfecha_alta` DATETIME)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_registra_orden`(IN `ropcion` INT, IN `ridcompra` INT, IN `ridempresa` INT, IN `ridproveedor` INT, IN `ridestado` INT, IN `ridautoriza` INT, IN `ridcancela` INT, IN `ridusuario_alta` INT, IN `rfecha_alta` DATETIME)
 BEGIN
 
 IF ropcion = 1 THEN
@@ -2248,7 +2362,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_registra_sucursal`(IN `ropcion` INT, IN `ridempresa` INT, IN `riddepartamento` INT, IN `rnombre_departamento` VARCHAR(45), IN `rtipo` VARCHAR(1), IN `rencargado` INT, IN `ridalmacen` INT, IN `rtotal_cajas` INT, IN `rdomicilio` VARCHAR(65), IN `rtelefono01` VARCHAR(18), IN `rtelefono02` VARCHAR(18), IN `rcelular` VARCHAR(20), IN `rcorreo` VARCHAR(80), IN `rhorario_semanal` VARCHAR(45), IN `rhorario_findesemana` VARCHAR(45), IN `ridestado` INT, IN `ridusuario_alta` INT, IN `rfecha_alta` DATETIME)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_registra_sucursal`(IN `ropcion` INT, IN `ridempresa` INT, IN `riddepartamento` INT, IN `rnombre_departamento` VARCHAR(45), IN `rtipo` VARCHAR(1), IN `rencargado` INT, IN `ridalmacen` INT, IN `rtotal_cajas` INT, IN `rdomicilio` VARCHAR(65), IN `rtelefono01` VARCHAR(18), IN `rtelefono02` VARCHAR(18), IN `rcelular` VARCHAR(20), IN `rcorreo` VARCHAR(80), IN `rhorario_semanal` VARCHAR(45), IN `rhorario_findesemana` VARCHAR(45), IN `ridestado` INT, IN `ridusuario_alta` INT, IN `rfecha_alta` DATETIME)
 BEGIN
 
 IF ropcion = 1 THEN
@@ -2303,7 +2417,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_registra_usuario`(IN `rOpcion` INT, IN `ridusuario` INT, IN `ridempresa` INT, IN `riddepartamento` INT, IN `rtipo_usuario` INT, IN `rcorreo` VARCHAR(115), IN `rpass` VARCHAR(80), IN `rpass2` VARCHAR(80), IN `rintentos` INT, IN `ridestado` INT, IN `ridusuario_alta` INT, IN `rfecha_alta` DATETIME)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_registra_usuario`(IN `rOpcion` INT, IN `ridusuario` INT, IN `ridempresa` INT, IN `riddepartamento` INT, IN `rtipo_usuario` INT, IN `rcorreo` VARCHAR(115), IN `rpass` VARCHAR(80), IN `rpass2` VARCHAR(80), IN `rintentos` INT, IN `ridestado` INT, IN `ridusuario_alta` INT, IN `rfecha_alta` DATETIME)
 BEGIN
 
 
@@ -2326,7 +2440,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE PROCEDURE `sp_registra_venta`(IN `ridempresa` INT, IN `riddepartamento` INT, IN `ridusuario` INT, IN `ridcliente` INT, IN `ridtipo_venta` INT, IN `rdescripcion_general` TEXT, IN `ridestatus` INT, IN `rfecha_venta` DATETIME,IN rFechaPromesa DATETIME)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_registra_venta`(IN `ridempresa` INT, IN `riddepartamento` INT, IN `ridusuario` INT, IN `ridcliente` INT, IN `ridtipo_venta` INT, IN `rdescripcion_general` TEXT, IN `ridestatus` INT, IN `rfecha_venta` DATETIME,IN rFechaPromesa DATETIME)
 BEGIN
 
 INSERT INTO venta 
@@ -2369,7 +2483,7 @@ DELIMITER ;
 /*!50001 SET character_set_results     = utf8mb4 */;
 /*!50001 SET collation_connection      = utf8mb4_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 SQL SECURITY DEFINER */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
 /*!50001 VIEW `tabla_productos_materiales` AS select repeat('a',1) AS `REPEAT('a',1)` union select repeat('b',10) AS `REPEAT('b',10)` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
@@ -2384,4 +2498,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-10-10 18:57:29
+-- Dump completed on 2017-10-11  7:50:54

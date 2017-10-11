@@ -197,7 +197,7 @@ $core = new \core\core();
 
     $core::includeJS("plugins/Highcharts-5.0.10/code/highcharts.js",false);
     $core::includeJS("plugins/Highcharts-5.0.10/code/highcharts-3d.js",false);
-    $core::includeJS("plugins/Highcharts-5.0.10/js/modules/exporting.js",false);
+    $core::includeJS("plugins/Highcharts-5.0.10/code/js/modules/exporting.js",false);
 
     $core::includeJS("plugins/select2/select2.full.min.js",false);
     $core::includeJS("plugins/pnotify/pnotify.custom.min.js",false);

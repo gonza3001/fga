@@ -59,15 +59,15 @@ ob_start();
             <tr>
                 <td style="width: 15%;border: solid 1px #000;background: <?=$Background?> ;padding: 5px; text-align: left;"><b>Proveedor:</b></td>
                 <td style="width: 25%;border: solid 1px #000;padding: 5px; text-align: left;"><?=$RowsCompras[0][11]?></td>
-                <td style="width: 35%;border-right: solid 1px #000;padding: 5px; text-align: left;"></td>
-                <td style="width: 10%;border: solid 1px #000;background: <?=$Background?>;padding: 5px; text-align: left;"><b>Fch Registro:</b></td>
+                <td style="width: 30%;border-right: solid 1px #000;padding: 5px; text-align: left;"></td>
+                <td style="width: 15%;border: solid 1px #000;background: <?=$Background?>;padding: 5px; text-align: left;"><b>Fecha Reg.:</b></td>
                 <td style="width: 15%;border: solid 1px #000;padding: 5px; text-align: center;"><b><?=$RowsCompras[0][13]?></b></td>
             </tr>
             <tr>
                 <td style="width: 15%;border: solid 1px #000;background: <?=$Background?> ;padding: 5px; text-align: left;"><b>Telefono:</b></td>
                 <td style="width: 25%;border: solid 1px #000;padding: 5px; text-align: left;"><?=$RowsCompras[0][12]?></td>
-                <td style="width: 35%;border-right: solid 1px #000;padding: 5px; text-align: left;"></td>
-                <td style="width: 10%;border: solid 1px #000;background: <?=$Background?> ;padding: 5px; text-align: left;"><b>Fecha Imp.:</b></td>
+                <td style="width: 30%;border-right: solid 1px #000;padding: 5px; text-align: left;"></td>
+                <td style="width: 15%;border: solid 1px #000;background: <?=$Background?> ;padding: 5px; text-align: left;"><b>Fecha Imp.:</b></td>
                 <td style="width: 15%;border: solid 1px #000;padding: 5px; text-align: center;"><?=date("Y-m-d")?></td>
             </tr>
         </table>

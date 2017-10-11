@@ -98,7 +98,7 @@ function getCorteDiario(opc,Departamento) {
 
                     SubTotal = response.data.Movimientos.Total + response.data.Aportaciones.Total + response.data.Entradas.Total ;
 
-                    $("#total").text(SubTotal - CajaInicial);
+                    $("#total").text(SubTotal + CajaInicial);
                     $("#caja_inicial").text(CajaInicial);
                     $("#subtotal").text(SubTotal);
 

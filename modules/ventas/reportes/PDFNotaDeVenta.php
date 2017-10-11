@@ -30,7 +30,8 @@ $connect->_query = "SELECT
     a.idusuario,
     a.descripcion_general,
     a.idtipo_venta,
-    date(a.fecha_venta)
+    date(a.fecha_venta),
+    DATE_FORMAT(a.fecha_venta,'%d/%m/%Y')
 FROM detalle_venta as b 
 left join venta as a 
 on b.idventa = a.idventa
@@ -60,7 +61,7 @@ $ListaPagos = $connect->_rows;
 
 $FolioVenta = $ListaVenta[0][1];
 $NombreSucursal = $ListaVenta[0][2];
-$FechaVenta = date("dd/mmm/Y",$ListaVenta[0][16]);
+$FechaVenta = $ListaVenta[0][17];
 $Vendedor = $ListaVenta[0][3];
 $ClienteVenta = $ListaVenta[0][4];
 
@@ -110,8 +111,8 @@ ob_start();
 
         <table style="width: 100%;border-collapse: collapse;">
             <tr>
-                <td style="width: 10%;border: 1px solid #fafafa;font-weight: bold;background: #F3F3F3;padding: 4px;">Sucursal:</td>
-                <td style="width: 25%;border: 1px solid #fafafa;padding: 4px;"><?=$NombreSucursal?></td>
+                <td style="width: 10%;border: 1px solid #fafafa;font-weight: bold;background: #F3F3F3;padding: 4px;">Cliente:</td>
+                <td style="width: 25%;border: 1px solid #fafafa;padding: 4px;"><?=$ClienteVenta?></td>
                 <td style="width: 40%"></td>
                 <td style="width: 10%;border: 1px solid #fafafa;padding: 4px;;font-weight: bold;background: #F3F3F3">Fecha:</td>
                 <td style="width: 15%;border: 1px solid #fafafa;padding: 4px;"><?=$FechaVenta?></td>
@@ -120,8 +121,8 @@ ob_start();
                 <td style="width: 10%;border: 1px solid #fafafa;font-weight: bold;padding: 4px;;background: #F3F3F3">Agente:</td>
                 <td style="width: 25%;border: 1px solid #fafafa;padding: 4px;"><?=$Vendedor?></td>
                 <td style="width: 40%"></td>
-                <td style="width: 10%;border: 1px solid #fafafa;font-weight: bold;background: #F3F3F3;padding: 4px;">Estatus:</td>
-                <td style="width: 15%;border: 1px solid #fafafa;padding: 4px;"></td>
+                <td style="width: 10%;border: 1px solid #fafafa;font-weight: bold;background: #F3F3F3;padding: 4px;">Sucursal:</td>
+                <td style="width: 15%;border: 1px solid #fafafa;padding: 4px;"><?=$NombreSucursal?></td>
             </tr>
             <tr><td colspan="5"></td></tr><tr><td colspan="5"></td></tr>
         </table>
