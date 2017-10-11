@@ -25,13 +25,13 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 
             $connect->_query= "
             SELECT 
-              idmovimiento,NoPago,importe_venta,importe_pagado,
-              importe_recibido,fecha_movimiento,fecha_registro,idestatus 
+              idmovimiento,NoPago,Importe,TotalPagado,
+              TotalRecibido,FechaMovimiento,FechaMovimiento,idestatus 
             FROM 
               movimientos_caja 
             where 
               idventa = $Folio 
-            ORDER BY fecha_registro desc
+            ORDER BY FechaMovimiento desc
             ";
 
             $connect->get_result_query();
@@ -48,7 +48,8 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
                         "ImporteRecibido"=>$connect->_rows[$i][4],
                         "Estatus"=>$connect->_rows[$i][7],
                         "FechaMovimiento"=>$connect->_rows[$i][5],
-                        "FechaRegistro"=>$connect->_rows[$i][6]
+                        "FechaRegistro"=>$connect->_rows[$i][6],
+                        "idVenta"=>$Folio
                     );
                 }
 
@@ -77,8 +78,11 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
             $idMovimiento = $_POST['pago'];
 
             $connect->_query= "
-            UPDATE movimientos_caja SET idestatus ='C',idusuario_cancela=$NoUsuario,fecha_cancelacion=now() WHERE idmovimiento = $idMovimiento
+            UPDATE movimientos_caja SET idestatus ='C',idusuario_cancela=$NoUsuario,FechaCancelacion=now() WHERE idmovimiento = $idMovimiento
             ";
+
+            $connect->_query = "call sp_CancelarNotaVenta('1','$idMovimiento','$NoUsuario')";
+
             $connect->execute_query();
             echo json_encode(
                 array(
@@ -87,7 +91,6 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
                     "data" =>array()
                 )
             );
-
 
             break;
         default:

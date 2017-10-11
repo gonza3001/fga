@@ -21,7 +21,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST"){
 
     $Folio = $_POST['folio'];
 
-    $connect->_query= "SELECT idmovimiento,idventa,NoPago,importe_venta,importe_pagado,idestatus FROM movimientos_caja where idventa = $Folio ORDER BY fecha_registro desc";
+    $connect->_query= "SELECT idmovimiento,idventa,NoPago,Importe,TotalPagado,idestatus FROM movimientos_caja where idventa = $Folio ORDER BY FechaMovimiento desc";
     $connect->get_result_query();
 
     if(count($connect->_rows) > 0 ){

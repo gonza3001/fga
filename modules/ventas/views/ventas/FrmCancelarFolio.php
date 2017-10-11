@@ -62,11 +62,13 @@ unset($_SESSION['EXPORT']);
     });
 
     $("#folio_venta").on('keyup', function (e) {
+        $("#tableListaPagos").html(" ");
         if (e.keyCode == 13) {
             // Do something
             setVentaPagos({'opc':6,'folio':this.value});
         }
-    })
+
+    });
 </script>
 <div class="modal fade" id="mdl_programaciones" data-backdrop="static">
     <div class="modal-dialog">

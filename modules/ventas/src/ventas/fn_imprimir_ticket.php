@@ -19,7 +19,7 @@ $FolioVenta = $_REQUEST['folio_venta'];
 
 $connect->_query = "SELECT 
 	a.idventa,a.iddepartamento,a.idcliente,a.idusuario,b.idarticulo,b.tipo_articulo,
-    a.costo_trabajo_cp,b.precio_compra,b.cantidad,b.descripcion,a.fecha_venta 
+    b.costo_trabajo_cp,b.precio_compra,b.cantidad,b.descripcion,a.fecha_venta 
 FROM 
 	venta AS a 
 LEFT JOIN detalle_venta as b 

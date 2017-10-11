@@ -63,12 +63,8 @@ $PagoInicial = round(($Total *  $_SESSION['sys_config']['pago_inicial']) / 100);
         }
     });
 
-    $( ".datepicker" ).datepicker(
-        {
-            dateFormat: "yy-mm-dd",
-            changeMonth: true,
-            changeYear: true
-        });
+    $(".datepicker").datepicker({dateFormat:'yy-mm-dd'});
+
 
     if(gPagoEfectivo){
         $("#gpoPagoTarjeta").addClass("hidden");

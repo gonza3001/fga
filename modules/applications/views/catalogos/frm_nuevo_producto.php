@@ -166,7 +166,7 @@ unset($_SESSION['EXPORT']);
                 <div class="col-md-6">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-eyedropper"></i></span>
-                        <input type="text" id="idcolor" readonly onfocus="fn_seleccionar_color(1,0,0)" value="1" class="form-control" placeholder="Color del producto ">
+                        <input type="text" id="idcolor" readonly onclick="fn_seleccionar_color(1,0,0)" value="1" class="form-control" placeholder="Color del producto ">
                     </div>
                 </div>
             </div>

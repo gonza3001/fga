@@ -54,41 +54,25 @@ unset($_SESSION['EXPORT']);
 $idEmpresa = $_SESSION['data_home']['idempresa'];
 $idAlmacen = $_SESSION['data_home']['almacen'];
 
-$connect->_query = "
-SELECT a.idarticulo,idalmacen,b.nombre_articulo,a.existencias,b.precio_venta
-FROM almacen_articulos as a
-LEFT JOIN articulos as b
-ON a.idarticulo = b.idarticulo
-LEFT JOIN catalogo_general as c
-ON c.idcatalogo = 2 AND c.opc_catalogo = b.idsubcategoria AND c.idempresa = $idEmpresa
-LEFT JOIN catalogo_general as d
-ON d.idcatalogo = 3 AND d.opc_catalogo = b.idtalla AND d.idempresa = $idEmpresa
-LEFT JOIN catalogo_general as e
-ON e.idcatalogo = 4 AND e.opc_catalogo = b.idcolor AND e.idempresa = $idEmpresa
-WHERE a.existencias > 0 AND a.idalmacen = $idAlmacen AND b.idempresa = $idEmpresa GROUP BY b.idcolor
-";
-
-$connect->get_result_query();
-$lista = $connect->_rows;
-
 ?>
 <script>
     setOpenModal("mdl_categorias");
     $("th").addClass("bg-bareylev");
 </script>
 <div class="modal fade" id="mdl_categorias">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 Seleccione el Color
             </div>
             <div class="modal-body">
 
+                <!-- Caja para buscar el Producto -->
                 <div class="row" id="content01">
                     <div class="col-md-12">
                        <div class="form-group">
                            <label>Buscar Producto:</label>
-                           <input id="textSearch" type="text" autofocus onkeyup="fnVentaOpenModal({'opc':2})" class="form-control input-sm">
+                           <input id="textSearch" placeholder="Ingrese más de 3 Caracteres" type="text" autofocus onkeyup="fnVentaOpenModal({'opc':2})" class="form-control input-sm">
                        </div>
                     </div>
 
@@ -109,24 +93,21 @@ $lista = $connect->_rows;
                     </div>
                 </div>
 
+                <!-- Caja para Agregar la descripcion y cantidad del producto Seleccionado -->
                 <div class="row  hidden" id="content02">
 
                     <div class="col-md-12">
-
                         <div class="form-group ">
                             Producto:
                             <input class="form-control input-lg" id="producto" disabled placeholder="id del Producto" />
                         </div>
-
                         <div class="col-md-12 hidden">
                             <h3>Producto: <span class="text-success" id="txtNameProduc">Nombre</span></h3>
                         </div>
-
                         <div class="col-md-12">
                             <label>Agregar descripción</label>
                             <textarea id="descripcion_por_producto" class="form-control input-lg"></textarea>
                         </div>
-
                         <div class="col-md-4">
                             &nbsp;
                             <button id="btnregresar" class="btn btn-lg btn-block btn-primary" onclick="$('#textSearch').val('');$('#textSearch').focus();$('#lista_busqueda_producto').html('');$('#txtCantidad').val(1);$('#content02').addClass('hidden');$('#content01').removeClass('hidden');"><i class="fa fa-arrow-left"></i> Regresar</button>
@@ -137,11 +118,21 @@ $lista = $connect->_rows;
                         </div>
                         <div class="col-md-4">
                             &nbsp;
-                            <button class="btn btn-default btn-lg btn-block" onclick="fnVentaAddCartProducto(1);$('#btnregresar').click();" ><i class="fa fa-plus"></i> Agregar</button>
+                            <button class="btn btn-default btn-lg btn-block" onclick="fnVentaAddCartProducto(1);" ><i class="fa fa-plus"></i> Agregar</button>
                         </div>
-
-
                     </div>
+
+                </div>
+
+                <!-- Caja para agregar el material del producto -->
+                <div class="row hidden" id="content03">
+
+                    <h4>Seleccione el Tipo de Material</h4>
+
+                </div>
+
+                <!-- Caja para Agregar el Tipo de Diseño del producto -->
+                <div class="row hidden" id="content04">
 
                 </div>
 

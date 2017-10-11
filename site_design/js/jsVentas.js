@@ -33,8 +33,21 @@ function WindowsOpenReport(idReport,arrayid) {
 
 }
 
-function get() {
+function setCancelarNotaVenta(idVenta) {
+    bootbox.confirm({
+      title:"Cancelacion de Nota",
+      message:"Esta seguro de ralizar la cancelación",
+      size:"small",
+       buttons:buttonBootBox,
+       callback:function (result) {
+           if(result){
 
+
+
+
+           }
+       }
+   });
 }
 
 function getCorteDiario(opc,Departamento) {
@@ -66,7 +79,12 @@ function getCorteDiario(opc,Departamento) {
                 console.log(response);
                 if(response.result){
 
-                    var CajaInicial = 0,SubTotal = 0, Total = 0;
+                    var CajaInicial = 3500,SubTotal = 0, Total = 0;
+
+                    $("#nnotasventa").text(response.data.Movimientos.Notas);
+                    $("#npagos").text(response.data.Movimientos.Pagos);
+                    $("#ncancelaciones").text(response.data.Movimientos.Cancelaciones);
+                    $("#TotalMovimientos").text(response.data.Movimientos.Total);
 
                     $("#aportacion").text(response.data.Aportaciones.Aportacion);
                     $("#retiro").text(response.data.Aportaciones.Retiro);
@@ -78,7 +96,7 @@ function getCorteDiario(opc,Departamento) {
                     $("#cancelacion_entrada").text(response.data.Entradas.Cancelacion);
                     $("#total_entrada").text(response.data.Entradas.Total);
 
-                    SubTotal = response.data.Aportaciones.Total + response.data.Entradas.Total;
+                    SubTotal = response.data.Movimientos.Total + response.data.Aportaciones.Total + response.data.Entradas.Total ;
 
                     $("#total").text(SubTotal - CajaInicial);
                     $("#caja_inicial").text(CajaInicial);
@@ -127,35 +145,52 @@ function getReorteMovimientosDiario(opc) {
             );
             break;
         case 2:
-            //Corto Diario - por rango de fechas
-            bootbox.confirm({
-                title: "Corte diario",
-                message: "Se borrara la información si no ha guardado, esta seguro de continuar ?",
-                size:"small",
-                buttons: {
-                    cancel: {
-                        label: '<i class="fa fa-times"></i> Cancelar'
-                    },
-                    confirm: {
-                        label: '<i class="fa fa-check"></i> Aceptar'
+            //Mostrar Reporte de Movimientos diarios
+            $.ajax({
+                url:"modules/ventas/src/ventas/getMovimientosDiarios.php",
+                type:"get",
+                dataType:"json",
+                data:{opc:opc}
+            }).done(function (response) {
+
+                if(response.result){
+                    console.log(response);
+
+                    var templete = '<table id="tableMovimientos" class="table table-bordered table-hover table-striped table-condensed"><thead><tr><th>Nota de Venta</th><th>Cliente</th><th>NoPago</th><th>Importe</th><th>Pago</th><th>Estatus</th><th>Fecha</th></tr></thead><tbody>';
+                    var endTemplete = '</tbody></table>';
+                    var dataRows = '';
+                    var Total=0;
+                    var rows = response.data;
+
+                    for(i=0;i<rows.length;i++){
+
+                        dataRows = dataRows + "<tr><td>"+rows[i].FolioVenta+"</td><td>"+rows[i].nombre_completo+"</td><td>"+rows[i].FolioPago+"</td><td class='currency text-right'>"+rows[i].Importe+"</td><td class='currency text-right'>"+rows[i].TotalPagado+"</td><td>"+rows[i].idestatus+"</td><td>"+rows[i].FechaMovimiento+"</td></tr>";
+
                     }
-                },
-                callback: function (result) {
+                    Total = response.Total;
+                    var footer = "<tr><td colspan='4' class='text-bold text-right'>Total</td><td class='currency text-right'>"+Total+"</td><td colspan='2'></td></tr>";
 
-                    if(result){
 
-                        SenderAjax(
-                            "modules/ventas/src/ventas/",
-                            "fn_corte_diario.php",
-                            null,
-                            "form_caja",
-                            "POST",
-                            "{opc:0}"
-                        );
+                    $("#form_caja").html(templete+dataRows+footer+endTemplete);
+                    $("#tableMovimientos th").addClass("bg-bareylev");
+                    $("#mdlMovimientos").click();
+                    $(".currency").numeric({prefix:'$ ',cents:true});
 
+                }else{
+                    MyAlert(response.message)
+                }
+
+            }).fail(function (jqhr,textStatus,errno) {
+
+                if(console && console.log){
+                    if(textStatus == "timeout"){
+                        MyAlert("Tiempo de espera agotado");
+                    }else{
+                        MyAlert("Error al cargar la vista");
                     }
                 }
             });
+
             break;
         default:
             MyAlert("La opcion no existe");
@@ -716,7 +751,7 @@ function fngetDetaleTrabajo(idventa,data) {
 
             if(data[i].tipo_articulo == "ART"){
 
-                    $("#datos_cliente").html('<div class="col-md-6 invoice-col no-padding "><address class="well well-sm no-margin"><strong>Datos del cliente</strong><br>Nombre: '+data[i].NombreCliente+'<br>Fecha venta: '+data[i].FechaVenta+'<br>Fecha promesa: '+data[i].FechaPromesa+'</address></div><div class="col-md-6 no-margin invoice-col"><address class="well well-sm"><strong>Datos de Venta</strong><br>Sucursal: '+data[i].nombre_departamento+'<br>Cajer: '+data[i].nick_name+'<br> <span class="pull-left">Importe: $'+data[i].precio_compra+'</span><span class="pull-right">Pendiente: $'+data[i].precio_compra+'</span><br></address></div>');
+                    $("#datos_cliente").html('<div class="col-md-12 invoice-col no-padding "><address class="well well-sm no-margin"><strong>Datos del cliente</strong><br>Nombre: '+data[i].NombreCliente+'<br>Fecha venta: '+data[i].FechaVenta+'<br>Fecha promesa: '+data[i].FechaPromesa+'</address></div>');
 
 
                 NombreArticulo = data[i].nombre_articulo;

@@ -6,6 +6,7 @@ include "../../../../core/seguridad.class.php";
 <script src="<?=\core\core::ROOT_APP()?>site_design/js/js_formato_moneda.js"></script>
 <script>
     $('.currency').numeric({prefix:'$ ', cents: true});
+    $(".datepicker").datepicker({dateFormat:'yy-mm-dd'});
     getCorteDiario(2,0);
 </script>
 
@@ -15,45 +16,51 @@ include "../../../../core/seguridad.class.php";
 
         <div class="box box-warning">
             <div class="box-header padding-x3">
-                <button class="btn btn-xs btn-default"><i class="fa fa-print"></i> Imprimir</button>
-                <div class="btn-group">
-                    <button class="btn btn-default btn-xs dropdown-toggle"
-                            type="button" data-toggle="dropdown">
-                        <i class="fa fa-home"></i> Otro departamentos <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu">
-                        <li><a href="#" onclick="fnVentaCorteDiario(1)" >Plaza Sendero</a></li>
-                        <li><a href="#" onclick="fnVentaCorteDiario(2)" >Sendero Escobedo</a></li>
-                    </ul>
+                <div class="col-md-5 col-sm-4 col-lg-4 no-padding no-margin">
+                    <button class="btn btn-xs btn-default"><i class="fa fa-print"></i> Imprimir</button>
+                    <div class="btn-group">
+                        <button class="btn btn-default btn-xs dropdown-toggle"
+                                type="button" data-toggle="dropdown">
+                            <i class="fa fa-home"></i> Otro departamentos <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" onclick="fnVentaCorteDiario(1)" >Plaza Sendero</a></li>
+                            <li><a href="#" onclick="fnVentaCorteDiario(2)" >Sendero Escobedo</a></li>
+                        </ul>
+                    </div>
                 </div>
+                <div class="col-md-3 no-padding no-margin">
+                    <input class="form-control hidden datepicker input-sm">
+                </div>
+
             </div>
             <div class="box-body">
                 <div class="row">
                     <div class="col-md-12">
 
-                        <table class="table table-condensed small table-hover table-striped">
+                        <table class="table table-condensed  table-hover table-striped">
                             <tr>
                                 <td colspan="2" class="bg-blue-active text-bold">Pagos y Notas</td>
                             </tr>
                             <tr>
                                 <td>Caja Inicial</td>
-                                <td class="currency">0</td>
-                            </tr>
-                            <tr>
-                                <td>Pagos</td>
-                                <td class="currency">0</td>
+                                <td id="caja_inicial" class="currency">0</td>
                             </tr>
                             <tr>
                                 <td>Notas</td>
-                                <td class="currency">0</td>
+                                <td id="nnotasventa" class="currency">0</td>
+                            </tr>
+                            <tr>
+                                <td>Pagos</td>
+                                <td id="npagos" class="currency">0</td>
                             </tr>
                             <tr>
                                 <td>Cancelaciones</td>
-                                <td class="currency">0</td>
+                                <td id="ncancelaciones" class="currency">0</td>
                             </tr>
                             <tr>
                                 <td class="text-right text-bold">Total</td>
-                                <td class="currency">0</td>
+                                <td id="TotalMovimientos" class="currency">0</td>
                             </tr>
                             <tr>
                                 <td colspan="2" class="bg-blue-active text-bold">Aportaciones y Retiros</td>

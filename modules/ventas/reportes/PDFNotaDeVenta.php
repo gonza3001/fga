@@ -24,7 +24,7 @@ $connect->_query = "SELECT
     b.precio_compra,
     b.tipo_articulo,
     b.descripcion,
-    a.costo_trabajo_cp,
+    b.costo_trabajo_cp,
     a.idcliente,
     a.iddepartamento,
     a.idusuario,
@@ -48,8 +48,8 @@ $connect->get_result_query();
 $ListaVenta = $connect->_rows;
 
 $connect->_query = "SELECT 
-	a.fecha_registro,
-    a.importe_pagado,
+	a.FechaMovimiento,
+    a.TotalPagado,
     a.idestatus,
     a.NoPago
 FROM movimientos_caja as a

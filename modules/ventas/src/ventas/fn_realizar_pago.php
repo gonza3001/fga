@@ -51,7 +51,7 @@ if(
 
     //Movimientos Caja
     $connect->_query = "call sp_registra_movimientos_caja(
-    '$TipoVenta',
+    '$TipoVenta','2',
     '$FolioVenta',
     '$ImporteTotal',
     '$NoUsuarioAlta',
@@ -61,7 +61,7 @@ if(
     '1',
     '0',
     '0',
-    '$FechaActual',
+    '0',
     '$FechaActual'
     )";
     $connect->get_result_query();

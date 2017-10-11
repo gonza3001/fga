@@ -94,7 +94,7 @@ if(array_key_exists('idmaterial',$_POST)){
                         <div class="col-md-3">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-eyedropper"></i></span>
-                                <input type="text" id="idcolor" style="background: <?=$connect->getCodigoColor()?>" value="<?=$connect->getIdColor()?>-<?=$connect->getCodigoColor()?>" readonly onfocus="fn_seleccionar_color(1)" class="form-control" placeholder="Color">
+                                <input type="text" id="idcolor" style="background: <?=$connect->getCodigoColor()?>" value="<?=$connect->getIdColor()?>-<?=$connect->getCodigoColor()?>" readonly onclick="fn_seleccionar_color(1)" class="form-control" placeholder="Color">
                             </div>
                         </div>
                         <div class="col-md-3 hidden ">

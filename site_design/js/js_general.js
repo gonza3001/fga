@@ -17,17 +17,7 @@ var buttonBootBox = {
 };
 
 
-function DayFormat(datepicker) {
 
-    if(datepicker == null && datepicker == ""){datepicker = "dd/mm/yy";}
-
-    $( ".datepicker" ).datepicker(
-        {
-            dateFormat: datepicker,
-            changeMonth: true,
-            changeYear: true
-        });
-}
 
 function fnGnEliminarImpresora(idImpresora,idSucursal){
     $.ajax({
@@ -443,6 +433,8 @@ function setVentaPagos(data){
                             "</tr>";
                     }
 
+                    tr = tr + "<tr><td colspan='6'><button onclick='setCancelarNotaVenta("+rows[1]["idVenta"]+")' class='btn btn-warning btn-sm btn-block'>Cancelar Nota de Venta</button></td></tr>";
+
                     $("#tableListaPagos").html(tr);
                     $(".currency").numeric({prefix:'$ ', cents: true});
 
@@ -481,42 +473,44 @@ function setVentaPagos(data){
                 },
                 callback: function (result){
 
-                    $.ajax({
-                        url:"modules/ventas/src/ventas/fnCancelarFolio.php",
-                        data:{
-                            opc:opcion,
-                            folio:folio,
-                            pago:data.pago
-                        },
-                        type:"post",
-                        dataType:"json",
-                    }).done(function (response) {
+                    if(result){
+                        $.ajax({
+                            url:"modules/ventas/src/ventas/fnCancelarFolio.php",
+                            data:{
+                                opc:opcion,
+                                folio:folio,
+                                pago:data.pago
+                            },
+                            type:"post",
+                            dataType:"json",
+                        }).done(function (response) {
 
-                        console.log();
+                            console.log();
 
-                        if(response.result){
+                            if(response.result){
 
-                            var FolioVenta = $("#folio_venta").val();
+                                var FolioVenta = $("#folio_venta").val();
 
-                            setVentaPagos({opc:6,folio:FolioVenta});
+                                setVentaPagos({opc:6,folio:FolioVenta});
 
-                        }else{
-                            MyAlert(response.message,"error");
-                        }
-
-
-                    }).fail(function (jqhR,textStatus,errno) {
-                        if(console && console.log){
-
-                            if(textStatus == "timeout"){
-                                //Tiempo de espera agotado
-                                MyAlert("Tiempo de espera agotado","error");
                             }else{
-                                MyAlert("Error al cargar la vista","error")
+                                MyAlert(response.message,"error");
                             }
 
-                        }
-                    });
+
+                        }).fail(function (jqhR,textStatus,errno) {
+                            if(console && console.log){
+
+                                if(textStatus == "timeout"){
+                                    //Tiempo de espera agotado
+                                    MyAlert("Tiempo de espera agotado","error");
+                                }else{
+                                    MyAlert("Error al cargar la vista","error")
+                                }
+
+                            }
+                        });
+                    }
 
                 }
             });

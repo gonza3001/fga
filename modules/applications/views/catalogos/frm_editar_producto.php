@@ -172,7 +172,7 @@ $connect->get_articulos($_POST['idproducto'],$_SESSION['data_home']['idempresa']
                 <div class="col-md-6">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-eyedropper"></i></span>
-                        <input type="text" id="idcolor" style="background: <?=$connect->getCodigoColor()?>" readonly onfocus="fn_seleccionar_color(1,0,0)" value="<?=$connect->getIDColor()?>-<?=$connect->getCodigoColor()?>" class="form-control" placeholder="Color del producto ">
+                        <input type="text" id="idcolor" style="background: <?=$connect->getCodigoColor()?>" readonly onclick="fn_seleccionar_color(1,0,0)" value="<?=$connect->getIDColor()?>-<?=$connect->getCodigoColor()?>" class="form-control" placeholder="Color del producto ">
                     </div>
                 </div>
             </div>

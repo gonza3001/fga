@@ -31,7 +31,7 @@ $connect->valida_session_id();
                     <div class="col-md-12">
                         <div class="form-group">
                             Departamentos
-                            <select class="form-control">
+                            <select class="form-control " disabled>
                                 <option value="0">Todos</option>
                                 <?php
 
@@ -43,20 +43,20 @@ $connect->valida_session_id();
                     <div class="col-md-6">
                       <div class="form-group">
                           Fecha Inicial
-                          <input readonly class="form-control datepicker" />
+                          <input readonly value="<?=date("Y-m-d")?>" disabled class="form-control  datepicker" />
                       </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             Fecha Final
-                            <input readonly class="form-control datepicker" />
+                            <input readonly value="<?=date("Y-m-d")?>" disabled class="form-control  datepicker" />
                         </div>
                     </div>
 
                     <div class="col-md-6">
                         <div class="form-group">
                             Usuario
-                            <select class="form-control">
+                            <select class="form-control" disabled>
                                 <option value="0">Todos</option>
                                 <?php
 
@@ -67,7 +67,7 @@ $connect->valida_session_id();
                     <div class="col-md-6">
                         <div class="form-group">
                             Estatus
-                            <select class="form-control">
+                            <select class="form-control" disabled>
                                 <option value="0">Todos</option>
                                 <?php
 
@@ -81,8 +81,8 @@ $connect->valida_session_id();
 
             </div>
             <div class="modal-footer">
-                <button class="btn btn-default btn-sm"><i class="fa fa-search"></i> Buscar</button>
-                <button class="btn btn-danger btn-sm" data-dismiss="modal"><i class="fa fa-close"></i> Cerrar</button>
+                <button class="btn btn-default btn-sm" onclick="getReorteMovimientosDiario(2)"><i class="fa fa-search"></i> Buscar</button>
+                <button class="btn btn-danger btn-sm" id="mdlMovimientos" data-dismiss="modal"><i class="fa fa-close"></i> Cerrar</button>
             </div>
         </div>
     </div>

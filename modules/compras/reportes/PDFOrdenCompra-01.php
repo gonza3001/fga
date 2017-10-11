@@ -48,7 +48,8 @@ ob_start();
                 <td style="width: 100%;text-align: center">
                     <h3><?=$_SESSION['data_home']['nombre_empresa']?></h3>
                     <?=$DomicilioSucursal?><br>
-                    <?=$TelefonoSucursal?>
+                    <?=$TelefonoSucursal?><br><br>
+                    <b style="font-size: 22px">Folio: <?=$RowsCompras[0][3]?></b>
                 </td>
             </tr>
         </table>
@@ -59,15 +60,15 @@ ob_start();
                 <td style="width: 15%;border: solid 1px #000;background: <?=$Background?> ;padding: 5px; text-align: left;"><b>Proveedor:</b></td>
                 <td style="width: 25%;border: solid 1px #000;padding: 5px; text-align: left;"><?=$RowsCompras[0][11]?></td>
                 <td style="width: 35%;border-right: solid 1px #000;padding: 5px; text-align: left;"></td>
-                <td style="width: 10%;border: solid 1px #000;background: <?=$Background?>;padding: 5px; text-align: left;"><b>Folio:</b></td>
-                <td style="width: 15%;border: solid 1px #000;padding: 5px; text-align: center;"><b><?=$RowsCompras[0][3]?></b></td>
+                <td style="width: 10%;border: solid 1px #000;background: <?=$Background?>;padding: 5px; text-align: left;"><b>Fch Registro:</b></td>
+                <td style="width: 15%;border: solid 1px #000;padding: 5px; text-align: center;"><b><?=$RowsCompras[0][13]?></b></td>
             </tr>
             <tr>
                 <td style="width: 15%;border: solid 1px #000;background: <?=$Background?> ;padding: 5px; text-align: left;"><b>Telefono:</b></td>
                 <td style="width: 25%;border: solid 1px #000;padding: 5px; text-align: left;"><?=$RowsCompras[0][12]?></td>
                 <td style="width: 35%;border-right: solid 1px #000;padding: 5px; text-align: left;"></td>
-                <td style="width: 10%;border: solid 1px #000;background: <?=$Background?> ;padding: 5px; text-align: left;"><b>Fecha:</b></td>
-                <td style="width: 15%;border: solid 1px #000;padding: 5px; text-align: center;"><?=date("d/m/Y")?></td>
+                <td style="width: 10%;border: solid 1px #000;background: <?=$Background?> ;padding: 5px; text-align: left;"><b>Fecha Imp.:</b></td>
+                <td style="width: 15%;border: solid 1px #000;padding: 5px; text-align: center;"><?=date("Y-m-d")?></td>
             </tr>
         </table>
 

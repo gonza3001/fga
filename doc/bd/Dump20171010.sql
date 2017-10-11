@@ -1,10 +1,8 @@
-CREATE DATABASE  IF NOT EXISTS `bdpvt` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `bdpvt`;
--- MySQL dump 10.13  Distrib 5.6.24, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.9, for Win64 (x86_64)
 --
--- Host: localhost    Database: bdpvt
+-- Host: localhost    Database: 
 -- ------------------------------------------------------
--- Server version	5.6.17
+-- Server version	5.7.14
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -36,7 +34,7 @@ CREATE TABLE `almacen` (
   `fecha_alta` datetime DEFAULT NULL,
   `fecha_um` datetime DEFAULT NULL,
   PRIMARY KEY (`idalmacen`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -45,7 +43,7 @@ CREATE TABLE `almacen` (
 
 LOCK TABLES `almacen` WRITE;
 /*!40000 ALTER TABLE `almacen` DISABLE KEYS */;
-INSERT INTO `almacen` VALUES (1,1,'Almacen General','Almacen General',1,1,1,1,'2017-04-25 23:09:38','2017-04-25 23:09:38'),(4,1,'Almacen Interplaza','Almacen Interplaza',0,1,1,1,'2017-06-03 17:25:41','2017-06-03 17:25:41'),(5,1,'Almacen Escobedo','Almacen Sendero Escobedo',0,1,1,1,'2017-06-03 17:26:19','2017-06-03 17:26:19');
+INSERT INTO `almacen` VALUES (1,1,'Almacen General','Almacen General',1,1,1,1,'2017-04-25 23:09:38','2017-04-25 23:09:38'),(4,1,'Almacen Interplaza','Almacen Interplaza',0,1,1,1,'2017-06-03 17:25:41','2017-06-03 17:25:41'),(5,1,'Almacen Escobedo','Almacen Sendero Escobedo',0,1,1,1,'2017-06-03 17:26:19','2017-06-03 17:26:19'),(6,1,'Almacen de Merma','Mermas de Articulos',0,1,1,1,'2017-10-10 14:43:25','2017-10-10 14:43:25');
 /*!40000 ALTER TABLE `almacen` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -72,7 +70,6 @@ CREATE TABLE `almacen_articulos` (
 
 LOCK TABLES `almacen_articulos` WRITE;
 /*!40000 ALTER TABLE `almacen_articulos` DISABLE KEYS */;
-INSERT INTO `almacen_articulos` VALUES (1,1,1,'ART',37.00),(1,1,2,'ART',37.00),(1,1,3,'ART',30.00),(1,1,283,'ART',10.00),(1,1,284,'ART',10.00),(1,1,285,'ART',10.00),(1,1,286,'ART',10.00),(1,1,287,'ART',10.00),(1,1,295,'ART',10.00),(1,1,296,'ART',10.00),(1,1,297,'ART',10.00),(1,1,312,'ART',20.00),(1,1,313,'ART',20.00),(1,1,314,'ART',20.00),(1,1,315,'ART',20.00),(1,1,319,'MAT',37.00),(1,1,320,'MAT',37.00),(1,4,1,'ART',3.00),(1,4,2,'ART',3.00),(1,4,283,'ART',5.00),(1,4,284,'ART',5.00),(1,4,285,'ART',5.00),(1,4,286,'ART',5.00),(1,4,287,'ART',5.00),(1,4,295,'ART',15.00),(1,4,296,'ART',15.00),(1,4,297,'ART',15.00),(1,5,283,'ART',15.00),(1,5,284,'ART',15.00),(1,5,285,'ART',15.00),(1,5,286,'ART',15.00),(1,5,287,'ART',15.00),(1,5,295,'ART',17.00),(1,5,296,'ART',25.00),(1,5,297,'ART',25.00),(1,5,312,'ART',18.00),(1,5,313,'ART',20.00),(1,5,314,'ART',20.00),(1,5,315,'ART',20.00),(1,5,319,'MAT',21.50),(1,5,320,'MAT',23.00);
 /*!40000 ALTER TABLE `almacen_articulos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -86,13 +83,16 @@ DROP TABLE IF EXISTS `almacen_mermas`;
 CREATE TABLE `almacen_mermas` (
   `idmerma` int(11) NOT NULL AUTO_INCREMENT,
   `idempresa` int(11) NOT NULL,
+  `iddepartamento` int(11) NOT NULL,
   `idventa` int(11) NOT NULL,
   `idalmacen_origen` int(11) DEFAULT NULL,
   `idarticulo` int(11) DEFAULT NULL,
   `tipo_articulo` varchar(5) DEFAULT NULL,
   `cantidad` decimal(18,2) DEFAULT NULL,
+  `medida_ancho` decimal(18,2) DEFAULT '0.00',
+  `medida_alto` decimal(18,2) DEFAULT '0.00',
   `FechaRegistro` datetime DEFAULT NULL,
-  PRIMARY KEY (`idmerma`,`idempresa`,`idventa`)
+  PRIMARY KEY (`idmerma`,`idempresa`,`iddepartamento`,`idventa`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -159,7 +159,7 @@ CREATE TABLE `aportaciones` (
   `fecha_registro` datetime NOT NULL,
   `fecha_cancelacion` datetime DEFAULT NULL,
   PRIMARY KEY (`idFolio`,`idLlave`,`idempresa`,`iddepartamento`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -168,7 +168,6 @@ CREATE TABLE `aportaciones` (
 
 LOCK TABLES `aportaciones` WRITE;
 /*!40000 ALTER TABLE `aportaciones` DISABLE KEYS */;
-INSERT INTO `aportaciones` VALUES (1,0,1,3,'A',300.00,1,2,'Aportacion de prueba',1,1,NULL,'A','A','2017-10-10 02:02:59',NULL);
 /*!40000 ALTER TABLE `aportaciones` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -284,7 +283,7 @@ CREATE TABLE `catalogo_general` (
 
 LOCK TABLES `catalogo_general` WRITE;
 /*!40000 ALTER TABLE `catalogo_general` DISABLE KEYS */;
-INSERT INTO `catalogo_general` VALUES (0,1,1,0,0,'Categorias','Categorias de Articulos',0.00,0.00,0.00,1,1,1,'2017-01-11 15:43:08','2017-01-11 15:43:08'),(0,1,2,0,0,'Sub Categorías','Sub Categorías',0.00,0.00,0.00,1,1,1,'2017-04-16 09:42:30','2017-04-16 09:42:30'),(0,1,3,0,0,'Tallas','Tallas y Medidas',0.00,0.00,0.00,1,1,1,'2017-04-16 13:36:31','2017-04-16 13:36:31'),(0,1,4,0,0,'Colores','Colores',0.00,0.00,0.00,1,1,1,'2017-04-16 13:36:31','2017-04-16 13:36:31'),(0,1,5,0,0,'Perfiles','Catalogo de Perfiles',0.00,0.00,0.00,1,1,1,'2017-04-28 16:14:47','2017-04-28 16:14:47'),(0,1,6,0,0,'Tipo de Productos','Tipos de Articulos',0.00,0.00,0.00,1,1,1,'2017-04-28 16:14:47','2017-04-28 16:14:47'),(0,1,7,0,0,'Costos de trabajo','Costos de trabajo',0.00,0.00,0.00,1,1,1,'2017-04-28 16:14:47','2017-04-28 16:14:47'),(0,1,8,0,0,'Impresoras','Impresras por Sucursal',0.00,0.00,0.00,1,1,1,'2017-04-28 16:14:47','2017-04-28 16:14:47'),(1,1,1,0,0,'Playera','Pya',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(1,1,2,0,0,'Playera Poly','Pya Poly',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(1,1,3,0,0,'Sudadera Cy Canguro','Sud Cy Cang',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(1,1,4,0,0,'Sudadera Cy Red','Sud CRed',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(1,1,5,0,0,'Pañaleros','Pañaleros',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(1,1,6,0,0,'Pañaleros Poly','Pañaleros Poly',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(1,1,7,0,0,'Taza 1','Taza 1',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(1,1,8,0,0,'Taza','Taza',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(1,1,9,0,0,'Mouse Pad','Mouse Pad',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(1,1,10,0,0,'Rompecabezas','Rompecabezas',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(1,1,11,0,0,'Bote Agua','Bote Agua',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(1,1,12,0,0,'Tarro Cervecero','Tarro Cervecero',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(1,1,14,0,0,'Plaquita','Plaquita',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(1,1,15,0,0,'Madera','Madera',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(1,1,16,0,0,'Lamina','Lamina',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(1,1,17,0,0,'Llavero ','Llavero ',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(2,1,1,0,0,'Caballero','Cab',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(2,1,2,0,0,'Dama','Dama',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(2,1,3,0,0,'Juvenil','Juv',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(2,1,4,0,0,'Niño','Niño',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(2,1,5,0,0,'Bebe','Bebe',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(2,1,6,0,0,'General','General',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(2,1,7,0,0,'Standart','std',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(2,1,8,0,0,'Standart','gde',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(2,1,9,0,0,'Magia','magica',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(2,1,10,0,0,'Corazon','corazon',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(2,1,11,0,0,'Circlar','circular',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(2,1,12,0,0,'Tela','tela',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(2,1,13,0,0,'Subliminacion','sublimacion',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(2,1,14,0,0,'Con Popote','con popote',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(2,1,15,0,0,'Lata','lata',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(2,1,16,0,0,'Claro','claro',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(2,1,17,0,0,'Esmerilado','esmerilado',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(2,1,18,0,0,'Aluminio','aluminio',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(2,1,19,0,0,'Reconocimiento','reconocimiento',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(2,1,20,0,0,'Plata Mate','plata mate',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(2,1,21,0,0,'Laton Mate','laton mate',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(2,1,22,0,0,'Acrilico','acrilico',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(3,1,1,0,0,'Chica','CH',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(3,1,2,0,0,'Mediana','M',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(3,1,3,0,0,'Grande','GDE',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(3,1,4,0,0,'Extra Grande','XL',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(3,1,5,0,0,'Extra Ex Grande','XXL',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(3,1,6,0,0,'Extra Chica','XCH',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(3,1,7,0,0,'Talla L','L',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(3,1,8,0,0,'Talla 1','T1',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(3,1,9,0,0,'Talla 2','T2',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(3,1,10,0,0,'Talla 3','T3',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(3,1,11,0,0,'3 Meses','3 meses',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(3,1,12,0,0,'6 Meses','6 meses',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(3,1,13,0,0,'9 Meses','9 meses',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(3,1,14,0,0,'12 Meses','12 meses',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(3,1,15,0,0,'Standart','Standart',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(3,1,16,0,0,'Paq 3 Piezas','paq. 3pzas',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(4,1,1,0,0,'#ffffff','Bca',0.00,0.00,0.00,1,1,1,'0000-00-00 00:00:00','0000-00-00 00:00:00'),(4,1,2,0,0,'#000000','Neg',0.00,0.00,0.00,1,1,1,'2017-09-02 01:10:21','0000-00-00 00:00:00'),(4,1,3,0,0,'#ffffff','ARoy',0.00,0.00,0.00,1,1,1,'0000-00-00 00:00:00','0000-00-00 00:00:00'),(4,1,4,0,0,'#ff0000','Roja',0.00,0.00,0.00,1,1,1,'2017-09-02 01:10:12','0000-00-00 00:00:00'),(4,1,5,0,0,'#ffffff','Cana',0.00,0.00,0.00,1,1,1,'0000-00-00 00:00:00','0000-00-00 00:00:00'),(4,1,6,0,0,'#ff00a8','Turq',0.00,0.00,0.00,1,1,1,'2017-09-02 01:09:56','0000-00-00 00:00:00'),(4,1,7,0,0,'#636363','Carb',0.00,0.00,0.00,1,1,1,'2017-09-02 01:09:22','0000-00-00 00:00:00'),(4,1,8,0,0,'#ffffff','GJasp',0.00,0.00,0.00,1,1,1,'0000-00-00 00:00:00','0000-00-00 00:00:00'),(4,1,9,0,0,'#a8a8a8','Gris',0.00,0.00,0.00,1,1,1,'2017-09-02 01:09:08','0000-00-00 00:00:00'),(4,1,10,0,0,'#ffffff','Standart',0.00,0.00,0.00,1,1,1,'0000-00-00 00:00:00','0000-00-00 00:00:00'),(5,1,1,0,0,'Administrador','Administrador',NULL,NULL,NULL,1,NULL,1,NULL,'2017-06-26 12:45:17'),(5,1,2,0,0,'Usuario','Usuario',NULL,NULL,NULL,1,NULL,1,NULL,'2017-06-26 12:45:23'),(6,1,1,0,0,'ART','Articulos Terminados',0.00,0.00,0.00,1,1,1,'2017-04-28 16:14:47','2017-04-28 16:14:47'),(6,1,2,0,0,'MAT','Materiales',0.00,0.00,0.00,1,1,1,'2017-04-28 16:14:47','2017-04-28 16:14:47'),(7,1,1,0,0,'Costo Sencillo','Costo Sencillo',30.00,0.00,0.00,1,1,1,'2017-09-16 11:34:26','2017-09-16 11:34:26'),(7,1,2,0,0,'Costo Medio','Costo Medio',45.00,0.00,0.00,1,1,1,'2017-09-16 11:34:34','2017-09-16 11:34:34'),(7,1,3,0,0,'Costo Dificil','Costo Dificil',150.00,0.00,0.00,1,1,1,'2017-09-16 11:36:26','2017-09-16 11:36:26'),(7,1,4,0,0,'Prueba 22','Prueba 22',120.00,0.00,0.00,1,1,1,'2017-09-16 11:39:06','2017-09-16 11:39:06'),(7,1,5,0,0,'Standart','Standart',20.00,0.00,0.00,1,1,1,'2017-09-16 12:30:07','2017-09-16 12:30:07'),(7,1,6,0,0,'Sin Costo','Sin Costo',0.00,0.00,0.00,1,1,1,'2017-09-16 12:31:08','2017-09-16 12:31:08'),(8,1,1,4,0,'HP Laser 234','HP234',0.00,0.00,0.00,0,1,1,'2017-09-16 12:11:25','2017-09-16 12:11:25'),(8,1,2,4,0,'Epson TMU220','Epson TMU220',0.00,0.00,0.00,0,1,1,'2017-09-16 12:25:34','2017-09-16 12:25:34'),(8,1,3,4,0,'Epson','Epson TMU220',0.00,0.00,0.00,1,1,1,'2017-09-16 12:31:56','2017-09-16 12:31:56'),(8,1,4,4,0,'HP Laser 1212','HP1212',0.00,0.00,0.00,1,1,1,'2017-09-16 12:32:12','2017-09-16 12:32:12'),(8,1,5,4,0,'XPS LOCAL HP','Microsoft XPS Document Writer',0.00,0.00,0.00,1,1,1,'2017-09-16 22:47:55','2017-09-16 22:47:55'),(8,1,6,3,0,'XPS LOCAL','Microsoft XPS Document Writer',0.00,0.00,0.00,1,1,1,'2017-09-18 22:44:30','2017-09-18 22:44:30');
+INSERT INTO `catalogo_general` VALUES (0,1,1,0,0,'Categorias','Categorias de Articulos',0.00,0.00,0.00,1,1,1,'2017-01-11 15:43:08','2017-01-11 15:43:08'),(0,1,2,0,0,'Sub Categorías','Sub Categorías',0.00,0.00,0.00,1,1,1,'2017-04-16 09:42:30','2017-04-16 09:42:30'),(0,1,3,0,0,'Tallas','Tallas y Medidas',0.00,0.00,0.00,1,1,1,'2017-04-16 13:36:31','2017-04-16 13:36:31'),(0,1,4,0,0,'Colores','Colores',0.00,0.00,0.00,1,1,1,'2017-04-16 13:36:31','2017-04-16 13:36:31'),(0,1,5,0,0,'Perfiles','Catalogo de Perfiles',0.00,0.00,0.00,1,1,1,'2017-04-28 16:14:47','2017-04-28 16:14:47'),(0,1,6,0,0,'Tipo de Productos','Tipos de Articulos',0.00,0.00,0.00,1,1,1,'2017-04-28 16:14:47','2017-04-28 16:14:47'),(0,1,7,0,0,'Costos de trabajo','Costos de trabajo',0.00,0.00,0.00,1,1,1,'2017-04-28 16:14:47','2017-04-28 16:14:47'),(0,1,8,0,0,'Impresoras','Impresras por Sucursal',0.00,0.00,0.00,1,1,1,'2017-04-28 16:14:47','2017-04-28 16:14:47'),(1,1,1,0,0,'Playera','Pya',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(1,1,2,0,0,'Playera Poly','Pya Poly',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(1,1,3,0,0,'Sudadera Cy Canguro','Sud Cy Cang',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(1,1,4,0,0,'Sudadera Cy Red','Sud CRed',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(1,1,5,0,0,'Pañaleros','Pañaleros',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(1,1,6,0,0,'Pañaleros Poly','Pañaleros Poly',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(1,1,7,0,0,'Taza 1','Taza 1',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(1,1,8,0,0,'Taza','Taza',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(1,1,9,0,0,'Mouse Pad','Mouse Pad',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(1,1,10,0,0,'Rompecabezas','Rompecabezas',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(1,1,11,0,0,'Bote Agua','Bote Agua',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(1,1,12,0,0,'Tarro Cervecero','Tarro Cervecero',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(1,1,14,0,0,'Plaquita','Plaquita',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(1,1,15,0,0,'Madera','Madera',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(1,1,16,0,0,'Lamina','Lamina',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(1,1,17,0,0,'Llavero ','Llavero ',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(2,1,1,0,0,'Caballero','Cab',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(2,1,2,0,0,'Dama','Dama',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(2,1,3,0,0,'Juvenil','Juv',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(2,1,4,0,0,'Niño','Niño',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(2,1,5,0,0,'Bebe','Bebe',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(2,1,6,0,0,'General','General',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(2,1,7,0,0,'Standart','std',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(2,1,8,0,0,'Standart','gde',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(2,1,9,0,0,'Magia','magica',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(2,1,10,0,0,'Corazon','corazon',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(2,1,11,0,0,'Circlar','circular',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(2,1,12,0,0,'Tela','tela',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(2,1,13,0,0,'Subliminacion','sublimacion',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(2,1,14,0,0,'Con Popote','con popote',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(2,1,15,0,0,'Lata','lata',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(2,1,16,0,0,'Claro','claro',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(2,1,17,0,0,'Esmerilado','esmerilado',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(2,1,18,0,0,'Aluminio','aluminio',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(2,1,19,0,0,'Reconocimiento','reconocimiento',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(2,1,20,0,0,'Plata Mate','plata mate',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(2,1,21,0,0,'Laton Mate','laton mate',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(2,1,22,0,0,'Acrilico','acrilico',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(3,1,1,0,0,'Chica','CH',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(3,1,2,0,0,'Mediana','M',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(3,1,3,0,0,'Grande','GDE',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(3,1,4,0,0,'Extra Grande','XL',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(3,1,5,0,0,'Extra Ex Grande','XXL',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(3,1,6,0,0,'Extra Chica','XCH',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(3,1,7,0,0,'Talla L','L',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(3,1,8,0,0,'Talla 1','T1',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(3,1,9,0,0,'Talla 2','T2',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(3,1,10,0,0,'Talla 3','T3',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(3,1,11,0,0,'3 Meses','3 meses',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(3,1,12,0,0,'6 Meses','6 meses',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(3,1,13,0,0,'9 Meses','9 meses',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(3,1,14,0,0,'12 Meses','12 meses',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(3,1,15,0,0,'Standart','Standart',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(3,1,16,0,0,'Paq 3 Piezas','paq. 3pzas',0.00,0.00,0.00,1,1,1,'2017-09-01 00:00:00','2017-09-01 00:00:00'),(4,1,1,0,0,'#ffffff','Bca',0.00,0.00,0.00,1,1,1,'0000-00-00 00:00:00','0000-00-00 00:00:00'),(4,1,2,0,0,'#000000','Neg',0.00,0.00,0.00,1,1,1,'2017-09-02 01:10:21','0000-00-00 00:00:00'),(4,1,3,0,0,'#ffffff','ARoy',0.00,0.00,0.00,1,1,1,'0000-00-00 00:00:00','0000-00-00 00:00:00'),(4,1,4,0,0,'#ff0000','Roja',0.00,0.00,0.00,1,1,1,'2017-09-02 01:10:12','0000-00-00 00:00:00'),(4,1,5,0,0,'#ffffff','Cana',0.00,0.00,0.00,1,1,1,'0000-00-00 00:00:00','0000-00-00 00:00:00'),(4,1,6,0,0,'#ff00a8','Turq',0.00,0.00,0.00,1,1,1,'2017-09-02 01:09:56','0000-00-00 00:00:00'),(4,1,7,0,0,'#636363','Carb',0.00,0.00,0.00,1,1,1,'2017-09-02 01:09:22','0000-00-00 00:00:00'),(4,1,8,0,0,'#ffffff','GJasp',0.00,0.00,0.00,1,1,1,'0000-00-00 00:00:00','0000-00-00 00:00:00'),(4,1,9,0,0,'#a8a8a8','Gris',0.00,0.00,0.00,1,1,1,'2017-09-02 01:09:08','0000-00-00 00:00:00'),(4,1,10,0,0,'#ffffff','Standart',0.00,0.00,0.00,1,1,1,'0000-00-00 00:00:00','0000-00-00 00:00:00'),(4,1,11,0,0,'#f00000','Rojo',0.00,0.00,0.00,1,1,1,'2017-10-10 14:19:10','2017-10-10 14:19:10'),(5,1,1,0,0,'Administrador','Administrador',NULL,NULL,NULL,1,NULL,1,NULL,'2017-06-26 12:45:17'),(5,1,2,0,0,'Usuario','Usuario',NULL,NULL,NULL,1,NULL,1,NULL,'2017-06-26 12:45:23'),(6,1,1,0,0,'ART','Articulos Terminados',0.00,0.00,0.00,1,1,1,'2017-04-28 16:14:47','2017-04-28 16:14:47'),(6,1,2,0,0,'MAT','Materiales',0.00,0.00,0.00,1,1,1,'2017-04-28 16:14:47','2017-04-28 16:14:47'),(7,1,1,0,0,'Costo Sencillo','Costo Sencillo',30.00,0.00,0.00,1,1,1,'2017-09-16 11:34:26','2017-09-16 11:34:26'),(7,1,2,0,0,'Costo Medio','Costo Medio',45.00,0.00,0.00,1,1,1,'2017-09-16 11:34:34','2017-09-16 11:34:34'),(7,1,3,0,0,'Costo Dificil','Costo Dificil',150.00,0.00,0.00,1,1,1,'2017-09-16 11:36:26','2017-09-16 11:36:26'),(7,1,4,0,0,'Prueba 22','Prueba 22',120.00,0.00,0.00,1,1,1,'2017-09-16 11:39:06','2017-09-16 11:39:06'),(7,1,5,0,0,'Standart','Standart',20.00,0.00,0.00,1,1,1,'2017-09-16 12:30:07','2017-09-16 12:30:07'),(7,1,6,0,0,'Sin Costo','Sin Costo',0.00,0.00,0.00,1,1,1,'2017-09-16 12:31:08','2017-09-16 12:31:08'),(8,1,1,4,0,'HP Laser 234','HP234',0.00,0.00,0.00,0,1,1,'2017-09-16 12:11:25','2017-09-16 12:11:25'),(8,1,2,4,0,'Epson TMU220','Epson TMU220',0.00,0.00,0.00,0,1,1,'2017-09-16 12:25:34','2017-09-16 12:25:34'),(8,1,3,4,0,'Epson','Epson TMU220',0.00,0.00,0.00,1,1,1,'2017-09-16 12:31:56','2017-09-16 12:31:56'),(8,1,4,4,0,'HP Laser 1212','HP1212',0.00,0.00,0.00,1,1,1,'2017-09-16 12:32:12','2017-09-16 12:32:12'),(8,1,5,4,0,'XPS LOCAL HP','Microsoft XPS Document Writer',0.00,0.00,0.00,1,1,1,'2017-09-16 22:47:55','2017-09-16 22:47:55'),(8,1,6,3,0,'XPS LOCAL','Microsoft XPS Document Writer',0.00,0.00,0.00,1,1,1,'2017-09-18 22:44:30','2017-09-18 22:44:30');
 /*!40000 ALTER TABLE `catalogo_general` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -370,7 +369,7 @@ CREATE TABLE `compra` (
   `fecha_alta` datetime DEFAULT NULL,
   `fecha_um` datetime DEFAULT NULL,
   PRIMARY KEY (`idcompra`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -379,7 +378,6 @@ CREATE TABLE `compra` (
 
 LOCK TABLES `compra` WRITE;
 /*!40000 ALTER TABLE `compra` DISABLE KEYS */;
-INSERT INTO `compra` VALUES (1,1,1,NULL,2,NULL,NULL,1,NULL,'2017-10-05 21:16:36',NULL),(2,1,1,NULL,2,NULL,NULL,1,NULL,'2017-10-05 21:20:46',NULL),(3,1,1,NULL,2,NULL,NULL,1,NULL,'2017-10-05 21:52:46',NULL),(4,1,1,NULL,1,NULL,NULL,1,NULL,'2017-10-07 11:57:01',NULL),(5,1,1,NULL,1,NULL,NULL,1,NULL,'2017-10-08 00:25:45',NULL);
 /*!40000 ALTER TABLE `compra` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -464,7 +462,7 @@ CREATE TABLE `detalle_compra` (
   `cantidad` int(11) DEFAULT NULL,
   `precio_compra` decimal(19,2) DEFAULT NULL,
   PRIMARY KEY (`iddetalle_compra`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -473,7 +471,6 @@ CREATE TABLE `detalle_compra` (
 
 LOCK TABLES `detalle_compra` WRITE;
 /*!40000 ALTER TABLE `detalle_compra` DISABLE KEYS */;
-INSERT INTO `detalle_compra` VALUES (1,1,1,'MAT',320,10,10.00),(2,1,1,'MAT',319,10,10.00),(3,1,1,'ART',1,10,28.42),(4,1,1,'ART',2,10,28.42),(5,1,2,'ART',283,30,60.00),(6,1,2,'ART',284,30,60.00),(7,1,2,'ART',285,30,60.00),(8,1,2,'ART',286,30,60.00),(9,1,2,'ART',287,30,65.00),(10,1,2,'ART',312,40,90.00),(11,1,2,'ART',313,40,130.00),(12,1,2,'ART',314,40,270.00),(13,1,2,'ART',315,40,90.00),(14,1,2,'ART',295,50,25.00),(15,1,2,'ART',296,50,40.00),(16,1,2,'ART',297,50,80.00),(17,1,3,'MAT',320,50,10.00),(18,1,3,'MAT',319,50,10.00),(19,1,3,'ART',1,30,28.42),(20,1,3,'ART',2,30,28.42),(21,1,3,'ART',3,30,28.42),(22,1,4,'ART',1,20,28.42),(23,1,4,'ART',2,20,28.42),(24,1,5,'MAT',320,50,10.00),(25,1,5,'MAT',319,50,10.00);
 /*!40000 ALTER TABLE `detalle_compra` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -491,7 +488,7 @@ CREATE TABLE `detalle_traspasos` (
   `idarticulo` int(11) DEFAULT NULL,
   `cantidad` int(11) DEFAULT NULL,
   PRIMARY KEY (`iddetalle_traspaso`)
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -500,7 +497,6 @@ CREATE TABLE `detalle_traspasos` (
 
 LOCK TABLES `detalle_traspasos` WRITE;
 /*!40000 ALTER TABLE `detalle_traspasos` DISABLE KEYS */;
-INSERT INTO `detalle_traspasos` VALUES (1,1,'ART',283,15),(2,1,'ART',284,15),(3,1,'ART',295,15),(4,1,'ART',287,15),(5,1,'ART',296,15),(6,1,'ART',285,15),(7,1,'ART',286,15),(8,1,'ART',297,15),(9,1,'ART',312,15),(10,1,'ART',313,15),(11,1,'ART',314,15),(12,1,'ART',315,15),(13,2,'ART',1,3),(14,2,'ART',2,3),(15,2,'ART',285,5),(16,2,'ART',284,5),(17,2,'ART',283,5),(18,2,'ART',286,5),(19,2,'ART',287,5),(20,2,'ART',295,15),(21,2,'ART',296,15),(22,2,'ART',297,15),(23,3,'ART',295,10),(24,3,'ART',296,10),(25,3,'ART',297,10),(26,3,'ART',312,5),(27,3,'ART',313,5),(28,3,'ART',314,5),(29,3,'ART',315,5),(30,4,'MAT',319,23),(31,4,'MAT',320,23);
 /*!40000 ALTER TABLE `detalle_traspasos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -520,9 +516,10 @@ CREATE TABLE `detalle_venta` (
   `idarticulo` int(11) DEFAULT NULL,
   `cantidad` decimal(10,2) DEFAULT NULL,
   `precio_compra` decimal(19,2) DEFAULT NULL,
+  `costo_trabajo_cp` decimal(18,2) DEFAULT NULL,
   `descripcion` text,
   PRIMARY KEY (`iddetalle_venta`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -531,7 +528,6 @@ CREATE TABLE `detalle_venta` (
 
 LOCK TABLES `detalle_venta` WRITE;
 /*!40000 ALTER TABLE `detalle_venta` DISABLE KEYS */;
-INSERT INTO `detalle_venta` VALUES (1,1,5,1,'ART',295,1.00,55.00,' Imagen centrada'),(2,1,5,2,'ART',295,2.00,55.00,' Prueba de Taza con descripcion'),(3,1,5,3,'ART',295,1.00,55.00,' Prueba de '),(4,1,5,3,'ART',312,1.00,90.00,'Nombre alejandro gomez y Belem'),(5,1,5,4,'ART',295,1.00,55.00,' '),(6,1,5,5,'ART',295,1.00,55.00,' Prueba e taaaaa'),(7,1,5,6,'ART',295,1.00,55.00,' Imagen centrada'),(8,1,5,6,'MAT',319,1.00,18.00,''),(9,1,5,7,'ART',295,1.00,55.00,' Imgen de Pacman'),(10,1,5,7,'MAT',319,0.50,18.00,''),(11,1,5,8,'ART',312,1.00,90.00,' Foto de Alexs');
 /*!40000 ALTER TABLE `detalle_venta` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -543,7 +539,7 @@ UNLOCK TABLES;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`root`@`localhost`*/ /*!50003 TRIGGER `detalle_venta_BEFORE_INSERT` BEFORE INSERT ON `detalle_venta` FOR EACH ROW BEGIN
+/*!50003 CREATE*/ /*!50017*/ /*!50003 TRIGGER `detalle_venta_BEFORE_INSERT` BEFORE INSERT ON `detalle_venta` FOR EACH ROW BEGIN
 
 	UPDATE almacen_articulos 
 		SET 
@@ -631,7 +627,7 @@ CREATE TABLE `entradas` (
   `fecha_registro` datetime NOT NULL,
   `fecha_cancelacion` datetime DEFAULT NULL,
   PRIMARY KEY (`Folio`,`FolioLlave`,`idempresa`,`iddepartamento`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -640,7 +636,6 @@ CREATE TABLE `entradas` (
 
 LOCK TABLES `entradas` WRITE;
 /*!40000 ALTER TABLE `entradas` DISABLE KEYS */;
-INSERT INTO `entradas` VALUES (1,0,1,3,'E',1,300.00,'Prueba',1,NULL,1,'A','A','2017-10-10 00:18:11',NULL),(2,0,1,3,'E',1,1500.00,'Prueba',1,NULL,1,'A','C','2017-10-10 00:18:55',NULL),(3,0,1,3,'S',1,150.00,'Salida',1,NULL,1,'A','A','2017-10-10 00:19:11',NULL),(4,2,1,3,'E',1,1500.00,'Error en entrada',1,1,1,'C','C','2017-10-10 00:24:23','2017-10-10 00:24:23');
 /*!40000 ALTER TABLE `entradas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -707,25 +702,27 @@ DROP TABLE IF EXISTS `movimientos_caja`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `movimientos_caja` (
   `idmovimiento` int(11) NOT NULL AUTO_INCREMENT,
-  `tipo_venta` int(11) NOT NULL,
   `idventa` int(11) NOT NULL,
-  `NoPago` int(11) NOT NULL,
-  `importe_venta` decimal(19,2) DEFAULT NULL,
-  `idusuario` int(11) DEFAULT NULL,
+  `NoPago` varchar(45) DEFAULT NULL,
+  `TipoMovimiento` int(11) DEFAULT NULL,
+  `TipoVenta` int(11) DEFAULT NULL,
+  `Importe` decimal(18,2) DEFAULT NULL,
+  `TotalPagado` decimal(18,2) DEFAULT NULL,
+  `TotalRecibido` decimal(18,2) DEFAULT NULL,
+  `TipoPago` int(11) DEFAULT NULL,
+  `FechaPagoVoucher` datetime DEFAULT NULL,
+  `NumeroTarjeta` varchar(45) DEFAULT NULL,
+  `PagoEfectivo` decimal(18,2) DEFAULT NULL,
+  `Pago` decimal(18,2) DEFAULT NULL,
+  `FolioOperacion` varchar(8) DEFAULT NULL,
+  `idestatus` varchar(1) DEFAULT NULL,
+  `idusuario_regitra` int(11) DEFAULT NULL,
   `idusuario_cancela` int(11) DEFAULT NULL,
-  `fecha_cancelacion` datetime DEFAULT NULL,
-  `idmotivo_cancelacion` int(11) DEFAULT NULL,
-  `descripcion_cancelacion` text,
-  `idestatus` varchar(2) DEFAULT NULL,
-  `importe_pagado` decimal(19,2) DEFAULT NULL,
-  `importe_recibido` decimal(19,2) DEFAULT NULL,
-  `tipo_pago` int(11) DEFAULT NULL,
-  `pago_efectivo` decimal(19,2) DEFAULT NULL,
-  `pago_voucher` decimal(19,2) DEFAULT NULL,
-  `fecha_movimiento` datetime DEFAULT NULL,
-  `fecha_registro` datetime DEFAULT NULL,
-  PRIMARY KEY (`idmovimiento`)
-) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+  `MotivoCancelacion` text,
+  `FechaMovimiento` datetime DEFAULT NULL,
+  `FechaCancelacion` datetime DEFAULT NULL,
+  PRIMARY KEY (`idventa`,`idmovimiento`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -734,8 +731,36 @@ CREATE TABLE `movimientos_caja` (
 
 LOCK TABLES `movimientos_caja` WRITE;
 /*!40000 ALTER TABLE `movimientos_caja` DISABLE KEYS */;
-INSERT INTO `movimientos_caja` VALUES (1,1,1,1,85.00,1,NULL,NULL,NULL,NULL,'A',85.00,100.00,1,0.00,0.00,'2017-10-05 21:42:54','2017-10-05 21:42:54'),(2,2,2,1,155.00,1,1,'2017-10-09 22:19:41',NULL,NULL,'C',80.00,80.00,1,0.00,0.00,'2017-10-06 17:23:37','2017-10-06 17:23:37'),(3,2,3,1,190.00,1,NULL,NULL,NULL,NULL,'A',80.00,80.00,1,0.00,0.00,'2017-10-06 17:37:15','2017-10-06 17:37:15'),(4,2,2,2,155.00,1,1,'2017-10-09 22:19:31',NULL,NULL,'C',75.00,80.00,1,0.00,0.00,'2017-10-06 17:42:11','2017-10-06 17:42:11'),(5,2,3,2,190.00,1,NULL,NULL,NULL,NULL,'A',110.00,200.00,1,0.00,0.00,'2017-10-07 00:53:37','2017-10-07 00:53:37'),(6,1,4,1,100.00,1,NULL,NULL,NULL,NULL,'A',100.00,200.00,1,0.00,0.00,'2017-10-07 13:45:15','2017-10-07 13:45:15'),(7,1,5,1,85.00,1,NULL,NULL,NULL,NULL,'A',85.00,100.00,1,0.00,0.00,'2017-10-07 17:20:36','2017-10-07 17:20:36'),(8,2,6,1,118.00,1,NULL,NULL,NULL,NULL,'A',50.00,50.00,1,0.00,0.00,'2017-10-08 00:29:03','2017-10-08 00:29:03'),(9,2,7,1,109.00,1,NULL,NULL,NULL,NULL,'A',50.00,50.00,1,0.00,0.00,'2017-10-09 13:37:36','2017-10-09 13:37:36'),(10,1,8,1,135.00,1,NULL,NULL,NULL,NULL,'A',135.00,150.00,1,0.00,0.00,'2017-10-09 22:12:56','2017-10-09 22:12:56'),(11,2,2,3,155.00,1,1,'2017-10-09 22:42:33',NULL,NULL,'C',100.00,100.00,1,0.00,0.00,'2017-10-09 22:20:11','2017-10-09 22:20:11');
 /*!40000 ALTER TABLE `movimientos_caja` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `movimientos_cancelados`
+--
+
+DROP TABLE IF EXISTS `movimientos_cancelados`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `movimientos_cancelados` (
+  `NoCancelacion` int(11) NOT NULL AUTO_INCREMENT,
+  `idventa` int(11) DEFAULT NULL,
+  `NoPago` int(11) DEFAULT NULL,
+  `Importe` decimal(18,2) DEFAULT NULL,
+  `MotivoCancelacion` text,
+  `idusuario_cancela` int(11) DEFAULT NULL,
+  `idusuario_autoriza` int(11) DEFAULT NULL,
+  `FechaCancelacion` datetime DEFAULT NULL,
+  PRIMARY KEY (`NoCancelacion`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `movimientos_cancelados`
+--
+
+LOCK TABLES `movimientos_cancelados` WRITE;
+/*!40000 ALTER TABLE `movimientos_cancelados` DISABLE KEYS */;
+/*!40000 ALTER TABLE `movimientos_cancelados` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -925,7 +950,7 @@ CREATE TABLE `traspasos` (
   `fecha_um` datetime DEFAULT NULL,
   `idusuario_um` int(11) DEFAULT NULL,
   PRIMARY KEY (`idtraspaso`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -934,7 +959,6 @@ CREATE TABLE `traspasos` (
 
 LOCK TABLES `traspasos` WRITE;
 /*!40000 ALTER TABLE `traspasos` DISABLE KEYS */;
-INSERT INTO `traspasos` VALUES (1,1,1,5,1,1,1,1,NULL,'2017-10-05 21:23:35',1,'2017-10-05 21:24:36',1),(2,1,1,4,1,5,1,1,NULL,'2017-10-05 21:57:19',1,'2017-10-05 21:57:20',1),(3,1,1,5,1,1,1,1,NULL,'2017-10-05 21:59:20',1,'2017-10-08 00:27:48',1),(4,1,1,5,1,1,1,1,NULL,'2017-10-08 00:27:21',1,'2017-10-08 00:27:50',1);
 /*!40000 ALTER TABLE `traspasos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -988,8 +1012,6 @@ CREATE TABLE `venta` (
   `idcliente` int(11) NOT NULL,
   `idtipo_venta` int(11) DEFAULT NULL,
   `descripcion_general` text,
-  `costo_trabajo_cp` decimal(19,2) NOT NULL,
-  `costo_trabajo_sp` decimal(19,2) DEFAULT NULL,
   `idusuario_termina` int(11) DEFAULT NULL,
   `idusuario_cancela` int(11) DEFAULT NULL,
   `idestatus` int(11) NOT NULL,
@@ -997,7 +1019,7 @@ CREATE TABLE `venta` (
   `fecha_venta` datetime DEFAULT NULL,
   `fecha_cancela` datetime DEFAULT NULL,
   PRIMARY KEY (`idventa`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1006,16 +1028,15 @@ CREATE TABLE `venta` (
 
 LOCK TABLES `venta` WRITE;
 /*!40000 ALTER TABLE `venta` DISABLE KEYS */;
-INSERT INTO `venta` VALUES (1,1,3,1,2,1,'',30.00,0.00,NULL,NULL,1,'2017-10-07 09:42:00','2017-10-05 21:42:54',NULL),(2,1,3,1,2,2,'',45.00,0.00,NULL,NULL,1,'2017-10-13 05:23:00','2017-10-06 17:23:37',NULL),(3,1,3,1,2,2,'',45.00,0.00,NULL,NULL,1,'2017-10-07 05:37:00','2017-10-06 17:37:15',NULL),(4,1,3,1,2,1,'',45.00,0.00,NULL,NULL,1,'2017-10-07 01:45:00','2017-10-07 13:45:15',NULL),(5,1,3,1,2,1,'',30.00,0.00,NULL,NULL,1,'2017-10-10 05:20:00','2017-10-07 17:20:36',NULL),(6,1,3,1,1,2,'',45.00,0.00,NULL,NULL,1,'2017-10-10 12:28:00','2017-10-08 00:29:03',NULL),(7,1,3,1,2,2,'',45.00,0.00,NULL,NULL,1,'2017-10-13 01:37:00','2017-10-09 13:37:36',NULL),(8,1,3,1,2,1,'',45.00,0.00,NULL,NULL,1,'0000-00-00 00:00:00','2017-10-09 22:12:56',NULL);
 /*!40000 ALTER TABLE `venta` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Dumping events for database 'bdpvt'
+-- Dumping events for database ''
 --
 
 --
--- Dumping routines for database 'bdpvt'
+-- Dumping routines for database ''
 --
 /*!50003 DROP FUNCTION IF EXISTS `FN_ExisteArticuloInventario` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -1027,7 +1048,7 @@ UNLOCK TABLES;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` FUNCTION `FN_ExisteArticuloInventario`(
+CREATE FUNCTION `FN_ExisteArticuloInventario`(
   ridAlmacen INT,
   ridEmpresa INT,
   ridArticulo INT
@@ -1059,7 +1080,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_actualiza_inventario`(
+CREATE PROCEDURE `sp_actualiza_inventario`(
 ridEmpresa INT,
 rTipoArticulo VARCHAR(3),
 ridArticulo INT,
@@ -1106,7 +1127,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_AutorizarTraspaso`(
+CREATE PROCEDURE `sp_AutorizarTraspaso`(
 IN ridTraspaso INT,
 IN rNoUsuario INT,
 IN ridEmpresa INT
@@ -1145,7 +1166,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_CancelarAportaciones`(
+CREATE PROCEDURE `sp_CancelarAportaciones`(
 in rFolio INT,
 in ridEmpresa INT,
 in ridDepartamento INT,
@@ -1209,7 +1230,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_CancelarAutorizar`(
+CREATE PROCEDURE `sp_CancelarAutorizar`(
 in ridTraspaso INT,
 in rNoUsuario INT
 )
@@ -1281,7 +1302,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_CancelarEntradas`(
+CREATE PROCEDURE `sp_CancelarEntradas`(
 in rFolio INT,
 in ridEmpresa INT,
 in ridDepartamento INT,
@@ -1337,6 +1358,31 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `sp_CancelarNotaVenta` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = '' */ ;
+DELIMITER ;;
+CREATE PROCEDURE `sp_CancelarNotaVenta`(
+in rOpcion INT,
+in ridMovimiento INT,
+in ridUsaurio INT
+)
+BEGIN
+
+
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `sp_CancelarTraspaso` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -1347,7 +1393,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_CancelarTraspaso`(
+CREATE PROCEDURE `sp_CancelarTraspaso`(
   in ridTraspaso INT,
   in rNoUsuario INT
 )
@@ -1423,12 +1469,14 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_CorteDiario`(
+CREATE PROCEDURE `sp_CorteDiario`(
 IN rOpcion INT,
 in ridEmpresa INT,
-in ridDepartamento INT
+in ridDepartamento INT,
+in rFechaInicial datetime,
+in rFechaFinal datetime
 )
 BEGIN
 
@@ -1440,16 +1488,33 @@ declare vAportaciones decimal(18,2);
 declare vRetiros decimal(18,2);
 declare vCancelacionAportaciones decimal(18,2);
 
-set vEntradas = (SELECT ifnull(SUM(importe),0) FROM entradas WHERE idempresa = ridEmpresa AND iddepartamento = ridDepartamento AND idtipo = 'E' AND idestatus_registro = 'A');
-set vSalidas = (SELECT ifnull(SUM(importe),0) FROM entradas WHERE idempresa = ridEmpresa AND iddepartamento = ridDepartamento AND idtipo = 'S' AND idestatus_registro = 'A');
-set vCancelaciones = (SELECT ifnull(SUM(importe),0) FROM entradas WHERE idempresa = ridEmpresa AND iddepartamento = ridDepartamento AND idestatus_registro = 'C');
+declare vNotas decimal(18,2);
+declare vPagosNotas decimal(18,2);
+declare vCancelacionNotas decimal(18,2);
 
-set vAportaciones = (SELECT ifnull(SUM(importe),0) FROM aportaciones WHERE idempresa = ridEmpresa AND iddepartamento = ridDepartamento AND idtipo = 'A' AND idestatus_registro = 'A');
-set vRetiros = (SELECT ifnull(SUM(importe),0) FROM aportaciones WHERE idempresa = ridEmpresa AND iddepartamento = ridDepartamento AND idtipo = 'R' AND idestatus_registro = 'A');
-set vCancelacionAportaciones = (SELECT ifnull(SUM(importe),0) FROM aportaciones WHERE idempresa = ridEmpresa AND iddepartamento = ridDepartamento AND idestatus_registro = 'C');
+case rOpcion 
 
+	WHEN 1 THEN
+    
+		set vEntradas = (SELECT ifnull(SUM(importe),0) FROM entradas WHERE idempresa = ridEmpresa AND iddepartamento = ridDepartamento AND idtipo = 'E' AND idestatus_registro = 'A' AND date(fecha_registro) >= date(rFechaInicial) AND date(fecha_registro) <= date(rFechaInicial) );
+		set vSalidas = (SELECT ifnull(SUM(importe),0) FROM entradas WHERE idempresa = ridEmpresa AND iddepartamento = ridDepartamento AND idtipo = 'S' AND idestatus_registro = 'A' AND date(fecha_registro) >= date(rFechaInicial) AND date(fecha_registro) <= date(rFechaInicial));
+		set vCancelaciones = (SELECT ifnull(SUM(importe),0) FROM entradas WHERE idempresa = ridEmpresa AND iddepartamento = ridDepartamento AND idestatus_registro = 'C' AND date(fecha_registro) >= date(rFechaInicial) AND date(fecha_registro) <= date(rFechaInicial));
 
-select vEntradas,vSalidas,vCancelaciones,vAportaciones,vRetiros,vCancelacionAportaciones;
+		set vAportaciones = (SELECT ifnull(SUM(importe),0) FROM aportaciones WHERE idempresa = ridEmpresa AND iddepartamento = ridDepartamento AND idtipo = 'A' AND idestatus_registro = 'A' AND date(fecha_registro) >= date(rFechaInicial) AND date(fecha_registro) <= date(rFechaInicial));
+		set vRetiros = (SELECT ifnull(SUM(importe),0) FROM aportaciones WHERE idempresa = ridEmpresa AND iddepartamento = ridDepartamento AND idtipo = 'R' AND idestatus_registro = 'A' AND date(fecha_registro) >= date(rFechaInicial) AND date(fecha_registro) <= date(rFechaInicial));
+		set vCancelacionAportaciones = (SELECT ifnull(SUM(importe),0) FROM aportaciones WHERE idempresa = ridEmpresa AND iddepartamento = ridDepartamento AND idestatus_registro = 'C' AND date(fecha_registro) >= date(rFechaInicial) AND date(fecha_registro) <= date(rFechaInicial));
+
+		select vEntradas,vSalidas,vCancelaciones,vAportaciones,vRetiros,vCancelacionAportaciones;
+
+    WHEN 2 THEN
+    
+		set vNotas = (SELECT ifnull(SUM(a.TotalPagado),0) FROM movimientos_caja as a LEFT JOIN venta as b ON a.idventa = b.idventa WHERE b.idempresa = ridEmpresa AND b.iddepartamento = ridDepartamento AND a.NoPago = 1 AND a.idestatus = 'A' AND date(a.FechaMovimiento) >= date(rFechaInicial) AND date(a.FechaMovimiento) <= date(rFechaInicial) );
+		set vPagosNotas = (SELECT ifnull(SUM(a.TotalPagado),0) FROM movimientos_caja as a LEFT JOIN venta as b ON a.idventa = b.idventa WHERE b.idempresa = ridEmpresa AND b.iddepartamento = ridDepartamento AND a.NoPago > 1 AND a.idestatus = 'A' AND date(a.FechaMovimiento) >= date(rFechaInicial) AND date(a.FechaMovimiento) <= date(rFechaInicial) );
+		set vCancelacionNotas = (SELECT ifnull(SUM(a.TotalPagado),0) FROM movimientos_caja as a LEFT JOIN venta as b ON a.idventa = b.idventa WHERE b.idempresa = ridEmpresa AND b.iddepartamento = ridDepartamento AND a.idestatus = 'C' AND date(a.FechaMovimiento) >= date(rFechaInicial) AND date(a.FechaMovimiento) <= date(rFechaInicial) );
+
+		select vNotas,vPagosNotas,vCancelacionNotas;
+
+END CASE;
 
 END ;;
 DELIMITER ;
@@ -1467,7 +1532,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_execute_traspaso`(
+CREATE PROCEDURE `sp_execute_traspaso`(
   IN `ridestado` INT,
   IN `ridtraspaso` INT,
   IN `ridempresa` INT,
@@ -1613,6 +1678,37 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `sp_GetMovimientosDiarios` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = '' */ ;
+DELIMITER ;;
+CREATE PROCEDURE `sp_GetMovimientosDiarios`()
+BEGIN
+
+SELECT 
+	a.idventa,LPAD(a.idventa,4,'0')as FolioVenta,c.nombre_completo,LPAD(a.NoPago,2,'0')as FolioPago,a.TipoMovimiento,a.TipoVenta,a.Importe,a.TotalPagado,a.TotalRecibido,a.TipoPago,
+    a.idestatus,a.idusuario_regitra,d.nick_name,a.FechaMovimiento
+FROM 
+movimientos_caja as a 
+LEFT JOIN venta as b 
+ON a.idventa = b.idventa 
+LEFT JOIN clientes as c 
+ON b.idcliente = c.idcliente 
+LEFT JOIN perfil_usuarios as d 
+ON a.idusuario_regitra = d.idusuario WHERE date(a.FechaMovimiento) = date(now());
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `sp_RegistrarAportacion` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -1623,7 +1719,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_RegistrarAportacion`(
+CREATE PROCEDURE `sp_RegistrarAportacion`(
 in rLlave INT,
 in ridEmpresa INT,
 in ridDepartamento INT,
@@ -1661,7 +1757,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_registrar_entrada`(
+CREATE PROCEDURE `sp_registrar_entrada`(
 in rFolioCancelacion INT,
 in ridEmpresa INT,
 in ridDepartamento INT,
@@ -1697,7 +1793,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_registra_apertura`(IN `ridempresa` INT, IN `riddepartamento` INT, IN `rSaldoInicial` DECIMAL(19,2), IN `ridusuario_apertura` INT, IN `rfecha_apertura` DATETIME, IN `rfecha_registro` DATETIME)
+CREATE PROCEDURE `sp_registra_apertura`(IN `ridempresa` INT, IN `riddepartamento` INT, IN `rSaldoInicial` DECIMAL(19,2), IN `ridusuario_apertura` INT, IN `rfecha_apertura` DATETIME, IN `rfecha_registro` DATETIME)
 BEGIN
 
 INSERT INTO apertura (idempresa,iddepartamento,SaldoInicial,idusuario_apertura,fecha_apertura,fecha_registro) VALUES 
@@ -1724,7 +1820,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_registra_articulo`(IN `ropcion` INT, IN `ridarticulo` INT, IN `ridempresa` INT, IN `rnombre_articulo` VARCHAR(45), IN `rdescripcion` TEXT, IN `rcodigo` VARCHAR(25), IN `ridcategoria` INT(11), IN `ridsubcategoria` INT(11), IN `ridtalla` INT(11), IN `ridcolor` INT(11), IN `ridunidad_medida` INT(11), IN `rprecio_compra` DECIMAL(19,2), IN `rprecio_venta` DECIMAL(19,2), IN `rprecio_mayoreo` DECIMAL(19,2), IN `rcantidad_mayoreo` INT(11), IN `rstock_minimo` INT(11), IN `rstock_maximo` INT(11), IN `ridestado` INT(11), IN `ridusuario_alta` INT(11), IN `rfecha_alta` DATETIME)
+CREATE PROCEDURE `sp_registra_articulo`(IN `ropcion` INT, IN `ridarticulo` INT, IN `ridempresa` INT, IN `rnombre_articulo` VARCHAR(45), IN `rdescripcion` TEXT, IN `rcodigo` VARCHAR(25), IN `ridcategoria` INT(11), IN `ridsubcategoria` INT(11), IN `ridtalla` INT(11), IN `ridcolor` INT(11), IN `ridunidad_medida` INT(11), IN `rprecio_compra` DECIMAL(19,2), IN `rprecio_venta` DECIMAL(19,2), IN `rprecio_mayoreo` DECIMAL(19,2), IN `rcantidad_mayoreo` INT(11), IN `rstock_minimo` INT(11), IN `rstock_maximo` INT(11), IN `ridestado` INT(11), IN `ridusuario_alta` INT(11), IN `rfecha_alta` DATETIME)
 BEGIN
 IF ropcion = 1 THEN
 	INSERT INTO articulos 
@@ -1780,7 +1876,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_registra_cliente`(IN `ropcion` INT, IN `ridcliente` INT, IN `ridempresa` INT, IN `rnombre_completo` VARCHAR(125), IN `rcorreo` VARCHAR(95), IN `rtelefono` VARCHAR(18), IN `rcelular` VARCHAR(20), IN `ridestado` INT, IN `ridusuario_alta` INT, IN `rfecha_alta` DATETIME)
+CREATE PROCEDURE `sp_registra_cliente`(IN `ropcion` INT, IN `ridcliente` INT, IN `ridempresa` INT, IN `rnombre_completo` VARCHAR(125), IN `rcorreo` VARCHAR(95), IN `rtelefono` VARCHAR(18), IN `rcelular` VARCHAR(20), IN `ridestado` INT, IN `ridusuario_alta` INT, IN `rfecha_alta` DATETIME)
 BEGIN
 
 IF ropcion = 1 THEN
@@ -1824,7 +1920,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_registra_combo`(IN `rOpcion` INT, IN `ridcombo` INT, IN `rcodigo_combo` VARCHAR(80), IN `rnombre_combo` VARCHAR(45), IN `rdescripcion` TEXT, IN `ridusuario_alta` INT, IN `rfecha_alta` DATETIME)
+CREATE PROCEDURE `sp_registra_combo`(IN `rOpcion` INT, IN `ridcombo` INT, IN `rcodigo_combo` VARCHAR(80), IN `rnombre_combo` VARCHAR(45), IN `rdescripcion` TEXT, IN `ridusuario_alta` INT, IN `rfecha_alta` DATETIME)
 BEGIN
 
 case rOpcion 
@@ -1853,7 +1949,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_registra_detalle_combo`(IN `ridcombo` INT, IN `ridproducto` INT, IN `rtipo_producto` VARCHAR(5))
+CREATE PROCEDURE `sp_registra_detalle_combo`(IN `ridcombo` INT, IN `ridproducto` INT, IN `rtipo_producto` VARCHAR(5))
 BEGIN
 
 insert into detalle_combo VALUES(null,ridcombo,ridproducto,rtipo_producto);
@@ -1874,7 +1970,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_registra_detalle_compra`(IN `ridempresa` INT, IN `ridcompra` INT, IN `rtipo_articulo` VARCHAR(3), IN `ridarticulo` INT, IN `rcantidad` INT, IN `rprecio_compra` DECIMAL(19,2), IN `rprecio_venta` DECIMAL(19,2))
+CREATE PROCEDURE `sp_registra_detalle_compra`(IN `ridempresa` INT, IN `ridcompra` INT, IN `rtipo_articulo` VARCHAR(3), IN `ridarticulo` INT, IN `rcantidad` INT, IN `rprecio_compra` DECIMAL(19,2), IN `rprecio_venta` DECIMAL(19,2))
 BEGIN
 
 	INSERT INTO detalle_compra (
@@ -1916,7 +2012,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_registra_detalle_traspaso`(
+CREATE PROCEDURE `sp_registra_detalle_traspaso`(
 IN `rOpcion` INT, 
 IN `ridempresa` INT, 
 IN `ridtraspaso` INT, 
@@ -1960,16 +2056,16 @@ DELIMITER ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
+/*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_registra_detalle_venta`(IN `ridempresa` INT, IN `ridalmacen` INT, IN `ridventa` INT, IN `rtipo_articulo` VARCHAR(5), IN `ridarticulo` INT, IN `rcantidad` DECIMAL(10,2), IN `rprecio_compra` DECIMAL(19,2), IN `rdescripcion` TEXT)
+CREATE PROCEDURE `sp_registra_detalle_venta`(IN `ridempresa` INT, IN `ridalmacen` INT, IN `ridventa` INT, IN `rtipo_articulo` VARCHAR(5), IN `ridarticulo` INT, IN `rcantidad` DECIMAL(10,2), IN `rprecio_compra` DECIMAL(19,2),IN rCostoTrabajo DECIMAL(18,2), IN `rdescripcion` TEXT)
 BEGIN
 
-INSERT INTO detalle_venta VALUES (null,ridempresa,ridalmacen,ridventa,rtipo_articulo,ridarticulo,rcantidad,rprecio_compra,rdescripcion);
+INSERT INTO detalle_venta VALUES (null,ridempresa,ridalmacen,ridventa,rtipo_articulo,ridarticulo,rcantidad,rprecio_compra,rCostoTrabajo,rdescripcion);
 
 END ;;
 DELIMITER ;
@@ -1987,7 +2083,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_registra_empresa`(IN `r_nombre_empresa` VARCHAR(85), IN `r_estado` INT, IN `r_municipio` INT)
+CREATE PROCEDURE `sp_registra_empresa`(IN `r_nombre_empresa` VARCHAR(85), IN `r_estado` INT, IN `r_municipio` INT)
 BEGIN
 
 INSERT INTO empresas (idempresa,nombre_empresa,estado,municipio,idestado,fecha_alta) VALUES (
@@ -2010,7 +2106,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_registra_material`(IN `ropcion` INT, IN `ridmaterial` INT, IN `ridEmpresa` INT, IN `rnombre_material` VARCHAR(65), IN `rdescripcion_material` TEXT, IN `ridcolor` INT, IN `rtipo_unidad` INT, IN `rprecio_compra` DECIMAL(19,2), IN `rprecio_venta` DECIMAL(19,2), IN `rstock_minimo` INT, IN `rstock_maximo` INT, IN `ridestado` INT, IN `ridusuario_alta` INT, IN `rfecha_alta` DATETIME)
+CREATE PROCEDURE `sp_registra_material`(IN `ropcion` INT, IN `ridmaterial` INT, IN `ridEmpresa` INT, IN `rnombre_material` VARCHAR(65), IN `rdescripcion_material` TEXT, IN `ridcolor` INT, IN `rtipo_unidad` INT, IN `rprecio_compra` DECIMAL(19,2), IN `rprecio_venta` DECIMAL(19,2), IN `rstock_minimo` INT, IN `rstock_maximo` INT, IN `ridestado` INT, IN `ridusuario_alta` INT, IN `rfecha_alta` DATETIME)
 BEGIN
 
 IF  ropcion = 1 THEN
@@ -2060,27 +2156,37 @@ DELIMITER ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
+/*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_registra_movimientos_caja`(IN `rtipo_venta` INT, IN `ridventa` INT, IN `rimporte_venta` DECIMAL(19,2), IN `ridusuario` INT, IN `ridestatus` VARCHAR(2), IN `rimporte_pagado` DECIMAL(19,2), IN `rimporte_recibido` DECIMAL(19,2), IN `rtipo_pago` INT, IN `rpago_efectivo` DECIMAL(19,2), IN `rpago_voucher` DECIMAL(19,2), IN `rfecha_movimiento` DATETIME, IN `rfecha_registro` DATETIME)
+CREATE PROCEDURE `sp_registra_movimientos_caja`(
+IN `rtipo_venta` INT, 
+IN rTipoMovimiento INT,
+IN `ridventa` INT, 
+IN `rimporte_venta` DECIMAL(19,2), 
+IN `ridusuario` INT, 
+IN `ridestatus` VARCHAR(2), 
+IN `rimporte_pagado` DECIMAL(19,2), 
+IN `rimporte_recibido` DECIMAL(19,2), 
+IN `rtipo_pago` INT, 
+IN `rpago_efectivo` DECIMAL(19,2), 
+IN `rpago_voucher` DECIMAL(19,2),
+IN rNumeroTarjeta VARCHAR(45), 
+IN `rfecha_movimiento` DATETIME
+)
 BEGIN
 
 SELECT @NoPago:=(ifnull(max(NoPago),0))+1 FROM movimientos_caja WHERE idventa = ridventa ;
 
-
 INSERT INTO movimientos_caja 
-(
-	tipo_venta,idventa,NoPago,importe_venta,idusuario,idestatus,
-    importe_pagado,importe_recibido,tipo_pago,pago_efectivo,pago_voucher,fecha_movimiento,fecha_registro
-) 
 VALUES 
 (
-	rtipo_venta,ridventa,@NoPago,rimporte_venta,ridusuario,ridestatus,
-    rimporte_pagado,rimporte_recibido,rtipo_pago,rpago_efectivo,rpago_voucher,rfecha_movimiento,rfecha_registro
+	null,ridventa,@NoPago,rTipoMovimiento,rtipo_venta,rimporte_venta,rimporte_pagado,rimporte_recibido,rtipo_pago,
+    null,null,null,null,null,ridestatus,
+    ridusuario,null,null,rfecha_movimiento,null
 );
 
 END ;;
@@ -2099,7 +2205,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_registra_orden`(IN `ropcion` INT, IN `ridcompra` INT, IN `ridempresa` INT, IN `ridproveedor` INT, IN `ridestado` INT, IN `ridautoriza` INT, IN `ridcancela` INT, IN `ridusuario_alta` INT, IN `rfecha_alta` DATETIME)
+CREATE PROCEDURE `sp_registra_orden`(IN `ropcion` INT, IN `ridcompra` INT, IN `ridempresa` INT, IN `ridproveedor` INT, IN `ridestado` INT, IN `ridautoriza` INT, IN `ridcancela` INT, IN `ridusuario_alta` INT, IN `rfecha_alta` DATETIME)
 BEGIN
 
 IF ropcion = 1 THEN
@@ -2142,7 +2248,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_registra_sucursal`(IN `ropcion` INT, IN `ridempresa` INT, IN `riddepartamento` INT, IN `rnombre_departamento` VARCHAR(45), IN `rtipo` VARCHAR(1), IN `rencargado` INT, IN `ridalmacen` INT, IN `rtotal_cajas` INT, IN `rdomicilio` VARCHAR(65), IN `rtelefono01` VARCHAR(18), IN `rtelefono02` VARCHAR(18), IN `rcelular` VARCHAR(20), IN `rcorreo` VARCHAR(80), IN `rhorario_semanal` VARCHAR(45), IN `rhorario_findesemana` VARCHAR(45), IN `ridestado` INT, IN `ridusuario_alta` INT, IN `rfecha_alta` DATETIME)
+CREATE PROCEDURE `sp_registra_sucursal`(IN `ropcion` INT, IN `ridempresa` INT, IN `riddepartamento` INT, IN `rnombre_departamento` VARCHAR(45), IN `rtipo` VARCHAR(1), IN `rencargado` INT, IN `ridalmacen` INT, IN `rtotal_cajas` INT, IN `rdomicilio` VARCHAR(65), IN `rtelefono01` VARCHAR(18), IN `rtelefono02` VARCHAR(18), IN `rcelular` VARCHAR(20), IN `rcorreo` VARCHAR(80), IN `rhorario_semanal` VARCHAR(45), IN `rhorario_findesemana` VARCHAR(45), IN `ridestado` INT, IN `ridusuario_alta` INT, IN `rfecha_alta` DATETIME)
 BEGIN
 
 IF ropcion = 1 THEN
@@ -2197,7 +2303,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_registra_usuario`(IN `rOpcion` INT, IN `ridusuario` INT, IN `ridempresa` INT, IN `riddepartamento` INT, IN `rtipo_usuario` INT, IN `rcorreo` VARCHAR(115), IN `rpass` VARCHAR(80), IN `rpass2` VARCHAR(80), IN `rintentos` INT, IN `ridestado` INT, IN `ridusuario_alta` INT, IN `rfecha_alta` DATETIME)
+CREATE PROCEDURE `sp_registra_usuario`(IN `rOpcion` INT, IN `ridusuario` INT, IN `ridempresa` INT, IN `riddepartamento` INT, IN `rtipo_usuario` INT, IN `rcorreo` VARCHAR(115), IN `rpass` VARCHAR(80), IN `rpass2` VARCHAR(80), IN `rintentos` INT, IN `ridestado` INT, IN `ridusuario_alta` INT, IN `rfecha_alta` DATETIME)
 BEGIN
 
 
@@ -2218,9 +2324,9 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = '' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `sp_registra_venta`(IN `ridempresa` INT, IN `riddepartamento` INT, IN `ridusuario` INT, IN `ridcliente` INT, IN `ridtipo_venta` INT, IN `rdescripcion_general` TEXT, IN `rcosto_trabajo_cp` DECIMAL(19,2), IN `rcosto_trabajo_sp` DECIMAL(19,2), IN `ridestatus` INT, IN `rfecha_venta` DATETIME,IN rFechaPromesa DATETIME)
+CREATE PROCEDURE `sp_registra_venta`(IN `ridempresa` INT, IN `riddepartamento` INT, IN `ridusuario` INT, IN `ridcliente` INT, IN `ridtipo_venta` INT, IN `rdescripcion_general` TEXT, IN `ridestatus` INT, IN `rfecha_venta` DATETIME,IN rFechaPromesa DATETIME)
 BEGIN
 
 INSERT INTO venta 
@@ -2233,8 +2339,6 @@ INSERT INTO venta
 		ridcliente,
 		ridtipo_venta,
 		rdescripcion_general,
-		rcosto_trabajo_cp,
-		rcosto_trabajo_sp,
         null,
         null,
 		ridestatus,
@@ -2265,7 +2369,7 @@ DELIMITER ;
 /*!50001 SET character_set_results     = utf8mb4 */;
 /*!50001 SET collation_connection      = utf8mb4_general_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
-/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50013 SQL SECURITY DEFINER */
 /*!50001 VIEW `tabla_productos_materiales` AS select repeat('a',1) AS `REPEAT('a',1)` union select repeat('b',10) AS `REPEAT('b',10)` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
@@ -2280,4 +2384,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-10-10  8:10:03
+-- Dump completed on 2017-10-10 18:57:29

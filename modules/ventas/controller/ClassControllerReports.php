@@ -16,7 +16,7 @@ class ClassControllerReports extends \core\seguridad {
         if(array_key_exists('idperfil',$data_array)){
             $this->_query = "
                     SELECT 
-                        a.idmovimiento,a.tipo_venta,a.idventa,a.NoPago,a.idusuario,a.idestatus,
+                        a.idmovimiento,a.tipo_venta,a.idventa,a.NoPago,a.idusuario_regitra,a.idestatus,
                         a.importe_venta,sum(importe_pagado) as ImportePagado,a.importe_recibido,a.tipo_pago,a.pago_efectivo,a.pago_voucher,b.idcliente,c.nombre_completo,d.nombre_departamento
                     FROM movimientos_caja as a 
                     JOIN venta as b 

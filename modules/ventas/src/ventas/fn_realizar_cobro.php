@@ -99,7 +99,7 @@ if(
     $Cambio = (($PagoEfectivo + $PagoTarjeta) - $TotalVenta);
 
     //Registrar en ventas
-    $connect->_query = "call sp_registra_venta('$idEmpresa','$idDepartamento','$NoUsuarioAlta','$idCliente','$TipoVenta','$DescripcionGeneral','$CostoTrabajoCP','0',1,'$FechaActual','$FechaEntrega')";
+    $connect->_query = "call sp_registra_venta('$idEmpresa','$idDepartamento','$NoUsuarioAlta','$idCliente','$TipoVenta','$DescripcionGeneral',1,'$FechaActual','$FechaEntrega')";
     $connect->get_result_query();
     $idVenta = $connect->_rows[0][0];
 
@@ -131,6 +131,7 @@ if(
                     '$idArticulo',
                     '$Cantidad',
                     '$PrecioCompra',
+                    '$CostoTrabajoCP',
                     '$Descripcion'                  
                     )";
                     $connect->execute_query();
@@ -138,7 +139,7 @@ if(
 
                 //Movimientos Caja
                 $connect->_query = "call sp_registra_movimientos_caja(
-                '1',
+                '1','1',
                 '$idVenta',
                 '$TotalVenta',
                 '$NoUsuarioAlta',
@@ -148,7 +149,7 @@ if(
                 '$TipoPago',
                 '0',
                 '$PagoTarjeta',
-                '$FechaActual',
+                '',
                 '$FechaActual'
                 )";
 
@@ -183,6 +184,7 @@ if(
                     '$idArticulo',
                     '$Cantidad',
                     '$PrecioCompra',
+                    '$CostoTrabajoCP',
                     '$Descripcion'
                     )";
                     $connect->execute_query();
@@ -198,7 +200,7 @@ if(
 
                 //Movimientos Caja
                 $connect->_query = "call sp_registra_movimientos_caja(
-                '2',
+                '2','1',
                 '$idVenta',
                 '$TotalVenta',
                 '$NoUsuarioAlta',
@@ -208,7 +210,7 @@ if(
                 '$TipoPago',
                 '0',
                 '$PagoTarjeta',
-                '$FechaActual',
+                '',
                 '$FechaActual'
                 )";
 

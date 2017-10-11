@@ -79,7 +79,7 @@ unset($_SESSION['EXPORT']);
                                         <input class="form-control my-colorpicker1" style="background: <?=$color->getCodigoColor()?>" value="<?=$color->getCodigoColor()?>" onfocus="$(this).css('background',this.val())" id="codigo_color" placeholder="Codigo" />
                                     </div>
                                     <div class="col-md-7">
-                                        <input class="form-control" value="<?=$color->getNombreColor()?>" onfocus="$('#codigo_color').css('background',$('#codigo_color').val())" id="nombre_color" placeholder="Nombre Color"/>
+                                        <input class="form-control" value="<?=$color->getNombreColor()?>" onclick="$('#codigo_color').css('background',$('#codigo_color').val())" id="nombre_color" placeholder="Nombre Color"/>
                                     </div>
                                 </div>
                             </div>

@@ -35,7 +35,7 @@ $DetalleART = $connect->_rows;
 
 //Numeros de pagos
 $connect->_query = "
-SELECT idmovimiento,NoPago,importe_venta,importe_pagado,fecha_movimiento,idestatus FROM movimientos_caja WHERE idventa = $FolioVenta ORDER BY NoPago DESC
+SELECT idmovimiento,NoPago,Importe,TotalPagado,FechaMovimiento,idestatus FROM movimientos_caja WHERE idventa = $FolioVenta ORDER BY NoPago DESC
 ";
 $connect->get_result_query();
 $DetallePagos = $connect->_rows;

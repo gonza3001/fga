@@ -59,6 +59,8 @@ $idEmpresa = $_SESSION['data_home']['iddepartamento'];
 ?>
 <script src="<?=\core\core::ROOT_APP()?>site_design/js/jsVentas.js"></script>
 <script src="<?=\core\core::ROOT_APP()?>site_design/js/jsCatalogos.js"></script>
+<script src="<?=\core\core::ROOT_APP()?>site_design/js/js_formato_moneda.js"></script>
+
 
 <script>
     $(".select2").select2();
@@ -188,7 +190,7 @@ $idEmpresa = $_SESSION['data_home']['iddepartamento'];
                         <li><a href="#" onclick="getCancelarAportacionesRetiros(1,2,0)" >Retiros</a></li>
                     </ul>
                 </li>
-                <li><a href="#" onclick="setVentaPagos({'opc':5,'folio':0})" >Cierre</a></li>
+                <li><a href="#" onclick="setVentaPagos({'opc':5,'folio':0})" >Cancelar Cierre</a></li>
 
             </ul>
         </div>
@@ -200,7 +202,7 @@ $idEmpresa = $_SESSION['data_home']['iddepartamento'];
             </button>
             <ul class="dropdown-menu">
                 <li><a href="#" onclick="getReorteMovimientosDiario(1)" >Movimientos Diario</a></li>
-                <li><a href="#" onclick="getCorteDiario(1,0)" >Corto Diario</a></li>
+                <li><a href="#" onclick="getCorteDiario(1,0)" >Corte Diario</a></li>
                 <li><a href="#">Entradas y salidas</a></li>
                 <li><a href="#">Aportaciones y Retiros</a></li>
                 <li class="divider"></li>

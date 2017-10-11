@@ -62,7 +62,7 @@ unset($_SESSION['EXPORT']);
                 <div class="row">
                     <div class="col-md-12">
                         <?php
-                        $connect->_query = "SELECT opc_catalogo,nombre_catalogo,descripcion_catalogo FROM bdpvt.catalogo_general where idcatalogo = 4 AND idestado = 1 ";
+                        $connect->_query = "SELECT opc_catalogo,nombre_catalogo,descripcion_catalogo FROM catalogo_general where idcatalogo = 4 AND idestado = 1 ";
                         $connect->get_result_query();
                         for($i=0;$i < count($connect->_rows);$i++){
                             echo "<a class='btn margin-bottom' style='border:1px solid #000;background: ".$connect->_rows[$i][1].";' onclick='fn_seleccionar_color(2,".$connect->_rows[$i][0].",\"".$connect->_rows[$i][1]."\")'>".$connect->_rows[$i][2]."</a> &nbsp;";
@@ -79,9 +79,6 @@ unset($_SESSION['EXPORT']);
 </div>
 <script>
     $(document).ready(function(){
-        $('#modal_seleccionar_color').modal('toggle');
-        $("#modal_seleccionar_color").draggable({
-            handle: ".modal-header"
-        });
+        setOpenModal('modal_seleccionar_color');
     });
 </script>
