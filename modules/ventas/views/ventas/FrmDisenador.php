@@ -135,12 +135,6 @@ $idAlmacen = $_SESSION['data_home']['almacen'];
             </div>
             <div class="modal-body scroll-auto table-responsive" style="min-height: 50vh;max-height: 50vh">
 
-                <div class="row hidden">
-                    <div class="col-md-12 scroll-auto" style="max-height: 30vh">
-                        <?=var_dump(array())?>
-                    </div>
-                </div>
-
                 <!-- Caja para buscar el Producto -->
                 <div class="row" id="content01">
                     <div class="col-md-12">
@@ -150,7 +144,7 @@ $idAlmacen = $_SESSION['data_home']['almacen'];
                         </div>
                     </div>
 
-                    <div class="col-md-12 table-responsive"  style="max-height: 500px;overflow-y: scroll;" >
+                    <div class="col-md-12 table-responsive"  style="max-height: 30vh;overflow-y: scroll;" >
                         <table class="table table-condensed table-hover">
                             <thead>
                             <tr>

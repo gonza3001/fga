@@ -23,7 +23,7 @@ $FolioVenta = $_POST['folio_venta'];
 $idCliente = $_POST['idcliente'];
 
 $connect->_query = "SELECT 
-                      a.iddetalle_venta,a.idalmacen,a.idventa,a.tipo_articulo,b.nombre_articulo,a.cantidad,a.precio_compra,a.descripcion 
+                      a.iddetalle_venta,a.idalmacen,a.idventa,a.tipo_articulo,b.nombre_articulo,a.cantidad,a.precio_compra,a.descripcion,a.costo_trabajo_cp 
                     FROM 
                       detalle_venta as a
                       LEFT JOIN articulos as b
@@ -63,7 +63,7 @@ $a=1;
         $SubTotalART=0;
         for($i=0;$i < count($DetalleART);$i++){
 
-            $PrecioSubtotal = $DetalleART[$i][6] * $DetalleART[$i][5];
+            $PrecioSubtotal = ($DetalleART[$i][6] + $DetalleART[$i][8]) * $DetalleART[$i][5];
             echo "<tr><td>".$a++."</td>
                     <td>".$DetalleART[$i][4]."</td>
                     <td>".$DetalleART[$i][5]."</td>
@@ -72,15 +72,12 @@ $a=1;
                     </tr>";
             $SubTotalART = $SubTotalART + $PrecioSubtotal;
         }
-
-        $Total = $SubTotalART + $_SESSION['sys_config']['costo_trabajo_cp'];
         ?>
-        <tr><td><?=$a++?></td><td>Costo trabajo</td><td>0</td><td class="currency"><?=$_SESSION['sys_config']['costo_trabajo_cp']?></td><td class="currency text-right"><?=$_SESSION['sys_config']['costo_trabajo_cp']?></td></tr>
         </tbody>
         <tbody>
         <tr>
             <td colspan="3" class="text-right text-bold">Total: </td>
-            <td colspan="3" class="text-right text-bold currency"><?=$Total?></td>
+            <td colspan="3" class="text-right text-bold currency"><?=$PrecioSubtotal?></td>
         </tr>
         </tbody>
     </table>

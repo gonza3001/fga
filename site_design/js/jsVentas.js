@@ -104,7 +104,6 @@ function getCorteDiario(opc,Departamento) {
 
                     $('.currency').numeric({prefix:'$ ', cents: true});
 
-
                 }else{
                     MyAlert(response.message);
                 }
@@ -121,7 +120,6 @@ function getCorteDiario(opc,Departamento) {
                     }
                 }
             });
-
 
             break;
         default:

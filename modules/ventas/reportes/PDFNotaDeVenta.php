@@ -52,7 +52,8 @@ $connect->_query = "SELECT
 	a.FechaMovimiento,
     a.TotalPagado,
     a.idestatus,
-    a.NoPago
+    a.NoPago,
+    a.Importe
 FROM movimientos_caja as a
 where a.idventa = $FolioVenta";
 
@@ -227,7 +228,7 @@ ob_start();
                                 </tr>
                                 ";
                             }
-                            echo "<tr><td colspan='3' style='text-align: right;background: #F3F3F3'>Importe</td><td style='text-align: center'>".$connect->setFormatoMoneda($TotalImporte,'pesos')."</td></tr>";
+                            echo "<tr><td colspan='3' style='text-align: right;background: #F3F3F3'>Importe</td><td style='text-align: center'>".$connect->setFormatoMoneda($ListaPagos[0][0])."</td></tr>";
                             echo "<tr><td colspan='3' style='text-align: right;background: #F3F3F3'>Saldo Pendiente</td><td style='text-align: center'>".$connect->setFormatoMoneda(($TotalImporte - $TotalPagos),'pesos')."</td></tr>";
                         }
 

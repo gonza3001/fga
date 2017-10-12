@@ -18,17 +18,11 @@ $idAlmacen = $_SESSION['data_home']['almacen'];
 $textSearch = $_POST['textSearch'];
 
 $connect->_query = "
-SELECT a.idarticulo,idalmacen,b.nombre_articulo,a.existencias,b.precio_venta
-FROM almacen_articulos as a
-LEFT JOIN articulos as b
-ON a.idarticulo = b.idarticulo
-LEFT JOIN catalogo_general as c
-ON c.idcatalogo = 2 AND c.opc_catalogo = b.idsubcategoria AND c.idempresa = $idEmpresa
-LEFT JOIN catalogo_general as d
-ON d.idcatalogo = 3 AND d.opc_catalogo = b.idtalla AND d.idempresa = $idEmpresa
-LEFT JOIN catalogo_general as e
-ON e.idcatalogo = 4 AND e.opc_catalogo = b.idcolor AND e.idempresa = $idEmpresa
-WHERE a.existencias > 0 AND a.idalmacen = $idAlmacen AND b.idempresa = $idEmpresa AND b.nombre_articulo LIKE '%$textSearch%'  GROUP BY b.idcolor
+SELECT b.idarticulo,idalmacen,b.nombre_articulo,ifnull(a.existencias,0),b.precio_venta
+FROM articulos as b
+LEFT JOIN almacen_articulos as a
+ON b.idarticulo = a.idarticulo 
+WHERE b.idempresa = $idEmpresa AND b.nombre_articulo LIKE '%$textSearch%' ORDER BY a.existencias DESC
 ";
 
 $connect->get_result_query();
