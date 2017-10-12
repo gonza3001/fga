@@ -214,7 +214,78 @@ $idEmpresa = $_SESSION['data_home']['iddepartamento'];
 
     <div id="form_caja" class="box-body">
 
-        <div id="cashOpen" >
+        <div class="hidden row">
+
+            <div class="col-md-12">
+
+                <div class="row row-sm">
+
+                    <div class="col-md-1 text-center">
+
+                        <div class="box box-info">
+                            <div class="box-header">
+                                <span class="text-bold">Tools</span>
+                            </div>
+                            <div class="box-body no-padding">
+                                <div class="form-group">
+                                    <button class="btn-circle btn-lg btn-default"><i class="fa fa-home"></i> </button>
+                                </div>
+                                <div class="form-group">
+                                    <button class="btn-circle btn-lg btn-default"><i class="fa fa-home"></i> </button>
+                                </div>
+                                <div class="form-group">
+                                    <button class="btn-circle btn-lg btn-default"><i class="fa fa-home"></i> </button>
+                                </div>
+                                <div class="form-group">
+                                    <button class="btn-circle btn-lg btn-default"><i class="fa fa-home"></i> </button>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="col-md-11">
+
+                        <div class="row row-sm">
+                            <div class="col-md-8">
+
+                                <div class="box box-info">
+                                    <div class="box-header">
+                                        <span class="text-bold">Diseñador</span>
+                                    </div>
+                                    <div class="box-body no-padding">
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="box box-warning">
+                                    <div class="box-header">
+                                        <span class="text-bold">Listado</span>
+                                    </div>
+                                    <div class="box-body no-padding">
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-12">
+
+            </div>
+
+        </div>
+
+        <div id="cashOpen" class="" >
             <div class="row row-sm">
                 <div class="col-md-7">
                     <div class="box box-primary">
@@ -235,7 +306,7 @@ $idEmpresa = $_SESSION['data_home']['iddepartamento'];
                                         </div>
                                     </div><br>
                                 </div>
-                                <div class="col-md-12">
+                                <div class="col-md-12 hidden">
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="input-group">
@@ -248,10 +319,10 @@ $idEmpresa = $_SESSION['data_home']['iddepartamento'];
                                         </div>
                                     </div>
                                 </div>
-                            </div><br/>
+                            </div>
 
-                            <div class="row row-sm">
-                                <div class="col-md-12">
+                            <div class="row  row-sm">
+                                <div class="col-md-12 hidden">
                                     <div class="row">
                                         <div class="col-md-12">
                                             <div class="input-group">
@@ -270,9 +341,8 @@ $idEmpresa = $_SESSION['data_home']['iddepartamento'];
                                                 </select>
                                             </div><!-- /input-group -->
                                         </div>
-                                    </div><br>
+                                    </div>
                                 </div>
-
                                 <div class="col-md-12">
                                     <div class="row">
                                         <div class="col-md-12">
@@ -291,11 +361,11 @@ $idEmpresa = $_SESSION['data_home']['iddepartamento'];
                                                 </select>
                                             </div><!-- /input-group -->
                                         </div>
-                                    </div><br>
+                                    </div>
                                 </div>
 
                             </div>
-
+                            <br>
                             <div class="row row-sm">
                                 <div class="col-md-12">
                                     <div class="row">

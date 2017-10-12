@@ -15,6 +15,10 @@ $connect->valida_session_id();
 unset($_SESSION['cart']);
 $idEmpresa = $_SESSION['data_home']['idempresa'];
 
+$connect->_query = "SELECT MAX(idcompra)as UltimoIdCompra FROM compra WHERE idempresa = $idEmpresa ";
+$connect->get_result_query(true);
+$UltimoIdCompra = $connect->_rows[0]['UltimoIdCompra'];
+
 ?>
 <script>
     //Script parar recorrer una tabla y sacar los valores de los tr
@@ -63,9 +67,18 @@ $idEmpresa = $_SESSION['data_home']['idempresa'];
 
     <div class="col-md-2">
         <div class="form-group">
-            <label>Sucursal</label>
-            <select class="form-control select2" style="width: 100%">
-                <option value="0"> Sucursal de Entrega</option>
+            <label>Sucursal Entrega</label>
+            <select id="iddepartamento" class="form-control select2" style="width: 100%">
+                <option value="0">-- Seleccione una Opción --</option>
+                <?php
+                $connect->_query = "SELECT iddepartamento,nombre_departamento FROM departamentos WHERE idestado = 1 AND idempresa = 1";
+                $connect->get_result_query();
+                if(count($connect->_rows) > 0){
+                    for($i=0;$i<count($connect->_rows);$i++){
+                        echo "<option value='".$connect->_rows[$i][0]."'>".$connect->_rows[$i][1]."</option>";
+                    }
+                }
+                ?>
             </select>
         </div>
     </div>
@@ -73,13 +86,13 @@ $idEmpresa = $_SESSION['data_home']['idempresa'];
     <div class="col-md-2">
         <div class="form-group">
             <label>Fecha</label>
-            <input class="form-control" disabled value="<?=date("d/m/Y")?>" />
+            <input class="form-control text-right" disabled value="<?=date("d/m/Y")?>" />
         </div>
     </div>
     <div class="col-md-2">
         <div class="form-group">
             <label>Orde de Compra Nº</label>
-            <input class="form-control" disabled value="2" />
+            <input class="form-control text-center" disabled value="<?=$connect->getFormatFolio(($UltimoIdCompra + 1),4)?>" />
         </div>
     </div>
     <div class="col-md-2">

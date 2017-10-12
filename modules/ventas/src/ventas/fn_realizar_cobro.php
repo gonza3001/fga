@@ -71,7 +71,6 @@ if(
     $idDepartamento = $_SESSION['data_home']['iddepartamento'];
     $idAlmacen = $_SESSION['data_home']['almacen'];
     $NoUsuarioAlta = $_SESSION['data_login']['idusuario'];
-    $CostoTrabajoCP = $_SESSION['sys_config']['costo_trabajo_cp'];
 
     $idCliente = $_POST['idcliente'];
     $DescripcionGeneral = $_POST['descripcion_general'];
@@ -92,7 +91,7 @@ if(
     $CadenaHora = strtotime($CadenaHora);
     $HoraEntrega = date("H:i:s", $CadenaHora);
 
-    echo $FechaEntrega = $FechaEntrega." ".$HoraEntrega;
+    $FechaEntrega = $FechaEntrega." ".$HoraEntrega;
 
 
     $FechaActual = date("Y-m-d H:i:s");
@@ -121,6 +120,8 @@ if(
                     $Cantidad = $listaCarrito[$i]['cantidad'];
                     $PrecioCompra = $listaCarrito[$i]['precio_venta'];
                     $Descripcion = $listaCarrito[$i]['descripcion'];
+                    $CostoTrabajoCP = $listaCarrito[$i]['TipoDiseno'];
+
 
 
                     $connect->_query = "call sp_registra_detalle_venta(
@@ -174,6 +175,7 @@ if(
                     $Cantidad = $listaCarrito[$i]['cantidad'];
                     $PrecioCompra = $listaCarrito[$i]['precio_venta'];
                     $Descripcion = $listaCarrito[$i]['descripcion'];
+                    $CostoTrabajoCP = $listaCarrito[$i]['TipoDiseno'];
 
 
                     $connect->_query = "call sp_registra_detalle_venta(

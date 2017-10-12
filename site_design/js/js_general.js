@@ -414,29 +414,33 @@ function setVentaPagos(data){
 
                     //setVentaPagos({'opc':6,'folio':this.value});
 
-                    for(i=0;i<rows.length;i++){
+                    if(rows.length > 0){
+                        for(i=0;i<rows.length;i++){
 
-                        btnDisabled = "";
-                        idmovimiento = rows[i]["idMovimiento"];
+                            btnDisabled = "";
+                            idmovimiento = rows[i]["idMovimiento"];
 
-                        if(rows[i]["Estatus"] == "C"){
-                            btnDisabled = "disabled";
+                            if(rows[i]["Estatus"] == "C"){
+                                btnDisabled = "disabled";
+                            }
+
+
+                            tr = tr + "<tr><td>"+rows[i]["NoPago"]+"</td>" +
+                                "<td class='currency' >"+rows[i]["ImporteVenta"]+"</td>" +
+                                "<td class='currency'>"+rows[i]["ImportePagado"]+"</td>" +
+                                "<td>"+rows[i]["Estatus"]+"</td>" +
+                                "<td>"+rows[i]["FechaRegistro"]+"</td>" +
+                                "<td><button "+btnDisabled+" onclick='setVentaPagos({opc:7,folio:"+folio+",pago:"+idmovimiento+"})' class='btn btn-xs btn-danger'><i class='fa fa-close'></i></button></td>" +
+                                "</tr>";
                         }
 
+                        tr = tr + "<tr><td colspan='6'><button onclick='setCancelarNotaVenta("+rows[0]["idVenta"]+")' class='btn btn-warning btn-sm btn-block'>Cancelar Nota de Venta</button></td></tr>";
 
-                        tr = tr + "<tr><td>"+rows[i]["NoPago"]+"</td>" +
-                            "<td class='currency' >"+rows[i]["ImporteVenta"]+"</td>" +
-                            "<td class='currency'>"+rows[i]["ImportePagado"]+"</td>" +
-                            "<td>"+rows[i]["Estatus"]+"</td>" +
-                            "<td>"+rows[i]["FechaRegistro"]+"</td>" +
-                            "<td><button "+btnDisabled+" onclick='setVentaPagos({opc:7,folio:"+folio+",pago:"+idmovimiento+"})' class='btn btn-xs btn-danger'><i class='fa fa-close'></i></button></td>" +
-                            "</tr>";
+                        $("#tableListaPagos").html(tr);
+                        $(".currency").numeric({prefix:'$ ', cents: true});
+                    }else{
+                        MyAlert(response.message);
                     }
-
-                    tr = tr + "<tr><td colspan='6'><button onclick='setCancelarNotaVenta("+rows[1]["idVenta"]+")' class='btn btn-warning btn-sm btn-block'>Cancelar Nota de Venta</button></td></tr>";
-
-                    $("#tableListaPagos").html(tr);
-                    $(".currency").numeric({prefix:'$ ', cents: true});
 
                 }else{
                     MyAlert(response.message,"error");
@@ -623,6 +627,9 @@ nueva_orden_compra = function(opc,idorden){
             if($("#idproveedor").val() == 0 ){
                 MyAlert("Seleccione un proveedor para registrar la compra","alert");
 
+            }else if($("#iddepartamento").val()==0){
+                MyAlert("Seleccione un departamento de entrega","alert");
+
             }else{
                 SenderAjax(
                     "modules/applications/views/productos/",
@@ -660,9 +667,12 @@ nueva_orden_compra = function(opc,idorden){
 
             if(idproveedor == 0 ){
                 MyAlert("Seleccione un proveedor para registrar la compra","alert");
+            }else if($("#iddepartamento").val()==0){
+                MyAlert("Seleccione un departamento de entrega","alert");
+
             }else{
                 $.ajax({
-                    data:{opc:opc,parametro:4,idproveedor:idproveedor},
+                    data:{opc:opc,parametro:4,idproveedor:idproveedor,iddepartamento:$("#iddepartamento").val()},
                     type:"POST",
                     beforeSend:function(){
                         fnloadSpinner(1);

@@ -28,7 +28,7 @@ class ControllerCompras extends \core\seguridad
             SELECT 
                 a.iddetalle_compra,a.idempresa,a.idcompra,lpad(a.idcompra,4,'0'),a.tipo_articulo,a.idarticulo,
                 c.nombre_articulo,a.cantidad,a.precio_compra,
-                b.precio_iva,b.idproveedor,d.nombre_proveedor,d.telefono01,date(b.fecha_alta),b.fecha_alta 
+                b.precio_iva,b.idproveedor,d.nombre_proveedor,d.telefono01,date(b.fecha_alta),b.fecha_alta,e.nombre_departamento,e.domicilio,e.telefono01,e.telefono02 
             FROM detalle_compra as a 
             JOIN compra as b 
             on a.idcompra = b.idcompra 
@@ -36,6 +36,8 @@ class ControllerCompras extends \core\seguridad
             on a.idarticulo = c.idarticulo 
             JOIN proveedores as d 
             on b.idproveedor = d.idproveedor 
+            LEFT JOIN departamentos as e 
+            ON b.iddepartamento_entrega = e.iddepartamento 
             WHERE a.idcompra = '$dataCompra[idcompra]' AND b.idempresa = '$dataCompra[idempresa]' ORDER BY b.fecha_alta DESC
             ";
 

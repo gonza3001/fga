@@ -61,6 +61,7 @@ $idArticulo = $_POST['idproducto'];
 $Descripcion = $_POST['descripcion'];
 $Cantidad = $_POST['idcantidad'];
 $TipoProducto  = $_POST['tipo_producto'];
+$TipoDiseno = $_POST['TipoDiseno'];
 
 $connect->_query = "
         select a.idarticulo,b.nombre_articulo,b.codigo,b.precio_venta,b.precio_mayoreo,b.cantidad_mayoreo,a.existencias FROM almacen_articulos as a
@@ -88,7 +89,8 @@ $carrito->introduce_producto(
     $_POST['nombre_producto'],
     $data_producto[3],
     $Cantidad,
-    $Descripcion
+    $Descripcion,
+    $TipoDiseno
 );
 
 echo json_encode(array(

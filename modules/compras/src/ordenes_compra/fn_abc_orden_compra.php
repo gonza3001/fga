@@ -91,11 +91,13 @@ switch ($opc){
             if(count($lista_producto) > 0){
 
                 $idProveedor = $_POST['idproveedor'];
+                $idDepartamento = $_POST['iddepartamento'];
 
                 $connect->_query = "call sp_registra_orden(
                 '1',
                 '0',
                 '$idEmpresa',
+                '$idDepartamento',
                 '$idProveedor',
                 '1',
                 '0',

@@ -149,13 +149,15 @@ ob_start();
                                 $No++;
 
                                 if($ListaVenta[$i][8] == "ART"){
+
                                     echo "<tr>
                                 <td style='text-align: center'>$No</td>
                                 <td style='text-align: center'>".(int)$ListaVenta[$i][6]."</td>
                                 <td>".$ListaVenta[$i][5]."</td>
                                 </tr>";
+
                                 }
-                                $TotalImporte = ($ListaVenta[$i][7] * $ListaVenta[$i][6]) + $TotalImporte;
+                                $TotalImporte = ( ($ListaVenta[$i][7] * $ListaVenta[$i][6] ) + $ListaVenta[$i][10])  + $TotalImporte;
                             }
                             $TotalImporte = $TotalImporte + $ListaVenta[0][10];
                         }
@@ -207,7 +209,7 @@ ob_start();
                                 <td style='text-align: center'>".$ListaPagos[$i][3]."</td>
                                 <td >".$ListaPagos[$i][0]."</td>
                                 <td style='text-align: center'>".$ListaPagos[$i][2]."</td>
-                                <td style='text-align: center'> ".$ListaPagos[$i][1]."</td>
+                                <td style='text-align: center'>".$connect->setFormatoMoneda($ListaPagos[$i][1],'pesos')."</td>
                                 </tr>";
 
                             }
@@ -225,8 +227,8 @@ ob_start();
                                 </tr>
                                 ";
                             }
-                            echo "<tr><td colspan='3' style='text-align: right;background: #F3F3F3'>Importe</td><td style='text-align: center'>".$TotalImporte."</td></tr>";
-                            echo "<tr><td colspan='3' style='text-align: right;background: #F3F3F3'>Saldo Pendiente</td><td style='text-align: center'>".($TotalImporte - $TotalPagos)."</td></tr>";
+                            echo "<tr><td colspan='3' style='text-align: right;background: #F3F3F3'>Importe</td><td style='text-align: center'>".$connect->setFormatoMoneda($TotalImporte,'pesos')."</td></tr>";
+                            echo "<tr><td colspan='3' style='text-align: right;background: #F3F3F3'>Saldo Pendiente</td><td style='text-align: center'>".$connect->setFormatoMoneda(($TotalImporte - $TotalPagos),'pesos')."</td></tr>";
                         }
 
                         ?>

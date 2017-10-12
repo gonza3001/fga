@@ -79,7 +79,7 @@ function getCorteDiario(opc,Departamento) {
                 console.log(response);
                 if(response.result){
 
-                    var CajaInicial = 3500,SubTotal = 0, Total = 0;
+                    var CajaInicial = 1500,SubTotal = 0, Total = 0;
 
                     $("#nnotasventa").text(response.data.Movimientos.Notas);
                     $("#npagos").text(response.data.Movimientos.Pagos);
@@ -1419,8 +1419,6 @@ function fnVentaCobrarVenta(opc) {
 
             if(idcliente == 0){
                 MyAlert("Seleccione un cliente, antes de realizar el cobro","alert");
-            }else if(tipodiseno == 0) {
-                MyAlert("Seleccione el tipo de diseño","alert");
             }else{
 
                 SenderAjax(
@@ -1686,7 +1684,7 @@ function fnVentaAddCartMateriales(){
     var producto = $("#material").val(),
         idproducto = setFormatoColor(1,producto),
         nombre_producto = setFormatoColor(2,producto),
-        idcantidad = $("#txtCantidad").val(),
+        idcantidad = $("#txtCantidadMat").val(),
         tipo_producto = "MAT";
 
     if(idcantidad == 100){idcantidad = '1';}else{idcantidad = '0.'+idcantidad;}
@@ -1786,12 +1784,174 @@ function fnVentaAddCartProducto(opc,param) {
     }
 }
 
-function fnVentaComboSeleccionado(idcombo,nombrecombo) {
+function getCrearTrabajo(opc,array) {
+
+    console.log(array);
+
+    switch (opc){
+        //Mostrar Contenedor para ingresar la descripcion del trabajo
+        case 1:
+            var ValorProducto = array.valor;
+            var NombreProducto = array.NombreProducto;
+
+            $("#producto").val(ValorProducto);
+            $("#txtNameProduc").html(NombreProducto);
+            $("#descripcion_por_producto").val('').focus();
+            $("#content02").removeClass("hidden");
+            $("#content01").addClass("hidden");
+
+            break;
+        //Regresar al Paso 1 (Seleccionar el producto)
+        case 2:
+
+            if(array.opc == 1){
+                bootbox.confirm({
+                    title:"Regresar",
+                    message:"Se perderan los datos, esta seguro de continuar",
+                    size:"small",
+                    buttons:buttonBootBox,
+                    callback:function (result) {
+                        if(result){
+                            $('#textSearch').val('');
+                            $('#textSearch').focus();
+                            $('#lista_busqueda_producto').html('');
+                            $('#txtCantidad').val(1);
+                            $('#content02').addClass('hidden');
+                            $('#content01').removeClass('hidden');
+                        }
+                    }
+                });
+            }else if(array.opc == 2){
+                bootbox.confirm({
+                    title:"Regresar",
+                    message:"Se perderan los datos, esta seguro de continuar",
+                    size:"small",
+                    buttons:buttonBootBox,
+                    callback:function (result) {
+                        if(result){
+
+                            $('#content03').addClass('hidden');
+                            $('#content02').removeClass('hidden');
+
+                            $("#content02MAT").addClass("hidden");
+                            $("#content01MAT").addClass("hidden");
+                            $("#tipoMaterial").removeClass('hidden');
+                            $("#lista_materiales").html('');
+                        }
+                    }
+                });
+            }
+
+            break;
+         //Mostrar Contenedor para Agegar Material
+        case 3:
+            var Descripcion = $("#descripcion_por_producto").val(),isNext = false;
+
+            if($.trim(Descripcion)==""){
+                bootbox.confirm({
+                    title:"Continuar",
+                    message:"La descripción esta vacía, esta seguro de continuar",
+                    size:"small",
+                    buttons:buttonBootBox,
+                    callback:function (result) {
+                        if(result){
+                            isNext = true;
+                            $("#content02").addClass("hidden");
+                            $("#content03").removeClass("hidden");
+
+                        }
+                    }
+                });
+            }else{
+                $("#content02").addClass("hidden");
+                $("#content03").removeClass("hidden");
+            }
 
 
+            break;
+        //Seleccionar el Nombre del Material
+        case 4:
+            var ValorProducto = array.valor;
+            var NombreProducto = "Material: "+array.NombreProducto;
 
+            $("#material").val(ValorProducto);
+            $("#title_cantida").html(NombreProducto);
+            $("#content02MAT").removeClass("hidden");
+            $("#content01MAT").addClass("hidden");
+            $("#txtCantidad").val(100);
+            $("#btnregresar2").addClass('hidden');
+
+            break;
+        // Agrear producto, material Utilizado, Tipo de Diseño y Cantidad al carrito
+        case 5:
+
+            var producto = $("#producto").val(),
+                idproducto = setFormatoColor(1,producto),
+                nombre_producto = setFormatoColor(2,producto),
+                idcantidad = $("#txtCantidad").val(),
+                descripcion_por_producto = $("#descripcion_por_producto").val(),
+                TipoDiseno = $("#costotrabajo").val(),
+                tipo_producto = "ART";
+
+
+            if($.trim(producto) == ""){
+                MyAlert("No se encontro ningun producto seleccionado","alert");
+            }else if(isNaN(idcantidad)){
+                MyAlert("La cantidad seleccionada es incorrecta","alert");
+            }else if(idcantidad <= 0){
+                MyAlert("La cantidad seleccionada es incorrecta","alert");
+            }else if(TipoDiseno==0){
+                MyAlert("Ingrese el tipo de diseño");
+            }else{
+
+                $.ajax({
+                    url:"modules/ventas/src/ventas/fn_agregar_producto.php",
+                    type:"post",
+                    data:{
+                        opc:opc,
+                        producto:producto,
+                        tipo_producto:tipo_producto,
+                        descripcion:descripcion_por_producto,
+                        nombre_producto:nombre_producto,
+                        idproducto:idproducto,
+                        idcantidad:idcantidad,
+                        TipoDiseno:TipoDiseno
+                    },
+                    dataType:"JSON"
+                }).done(function(response){
+
+                    console.log(response);
+
+
+                    if(response.result == "ok"){
+
+                        fnVentaShowCartProducto(1);
+                        $("#btnModalClose").click();
+
+                    }else if(response.result == "error"){
+
+                        if(response.result.data.opc == 2 ){
+                            MyAlert("Prueba.... "+response.mensaje,"alert");
+                        }else{
+                            MyAlert(response.mensaje,"alert");
+                        }
+                    }
+
+                }).fail(function(jqXHR,textStatus,errorThrown){
+
+                    console.log(textStatus + errorThrown);
+
+                });
+            }
+
+            break;
+        default:
+            MyAlert("La opcion solicitada no existe");
+            break;
+    }
 
 }
+
 
 function fnVentaOpenModal(data) {
 
@@ -1800,11 +1960,11 @@ function fnVentaOpenModal(data) {
 
     switch (opcion){
         case 1:
+            //frm_modal_productos.php
                 SenderAjax(
                     "modules/ventas/views/ventas/",
-                    "frm_modal_productos.php",
+                    "FrmDisenador.php",
                     null,"show_modal","post",{
-
                     }
                 );
             break;

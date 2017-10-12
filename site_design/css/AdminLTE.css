@@ -10572,3 +10572,6 @@ Info Box
   background: #387fce !important;
   color: #fff !important;
 }
+textarea {
+  resize: none;
+}

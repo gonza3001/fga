@@ -59,20 +59,20 @@ $idAlmacen = $_SESSION['data_home']['almacen'];
     setOpenModal("mdl_categorias");
     $("th").addClass("bg-bareylev");
 </script>
-<div class="modal fade" id="mdl_categorias">
+<div class="modal fade" data-backdrop="static" id="mdl_categorias">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 Seleccione el Color
             </div>
-            <div class="modal-body">
+            <div class="modal-body" style="min-height: 50vh;max-height: 50vh">
 
                 <!-- Caja para buscar el Producto -->
                 <div class="row" id="content01">
                     <div class="col-md-12">
                        <div class="form-group">
                            <label>Buscar Producto:</label>
-                           <input id="textSearch" placeholder="Ingrese más de 3 Caracteres" type="text" autofocus onkeyup="fnVentaOpenModal({'opc':2})" class="form-control input-sm">
+                           <input id="textSearch" placeholder="Ingrese más de 3 Caracteres" type="text" autofocus onkeyup="fnVentaOpenModal({'opc':2})" class="form-control">
                        </div>
                     </div>
 
@@ -106,7 +106,7 @@ $idAlmacen = $_SESSION['data_home']['almacen'];
                         </div>
                         <div class="col-md-12">
                             <label>Agregar descripción</label>
-                            <textarea id="descripcion_por_producto" class="form-control input-lg"></textarea>
+                            <textarea rows="4" id="descripcion_por_producto" class="form-control input-lg"></textarea>
                         </div>
                         <div class="col-md-4">
                             &nbsp;
@@ -136,6 +136,9 @@ $idAlmacen = $_SESSION['data_home']['almacen'];
 
                 </div>
 
+            </div>
+            <div class="modal-footer">
+                <button data-dismiss="modal">Cerrar</button>
             </div>
         </div>
     </div>

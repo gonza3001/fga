@@ -61,14 +61,18 @@ $lista_carrito = $carrito->imprime_carrito();
 $a=1;
 for($i=0;$i < count($lista_carrito); $i++){
 
-    $subtotal = ($lista_carrito[$i]['precio_venta'] *  $lista_carrito[$i]['cantidad']);
     $num_array = $i;
+    $TipoDiseno =  $lista_carrito[$i]['TipoDiseno'];
     $Descripcion = $lista_carrito[$i]['descripcion'];
+
+    $Importe = $lista_carrito[$i]['precio_venta'] + $TipoDiseno;
+    $subtotal = ($Importe *  $lista_carrito[$i]['cantidad']);
+
 
     echo "<tr title='$Descripcion'>
         <td class='' width='15'>".$a++."</td>
         <td class=''>".$lista_carrito[$i]['nombre']."</td>
-        <td class=' currency'>".$lista_carrito[$i]['precio_venta']."</td>
+        <td class=' currency'>".$Importe."</td>
         <td class=''>".$lista_carrito[$i]['cantidad']."</td>
         <td class=''><span class='currency'>".$subtotal."</span></td>
         <td><span onclick='fnVentaEliminarProducto(".$num_array.")' class='fa fa-trash btn btn-link btn-xs text-danger'></span> </td>
@@ -77,14 +81,6 @@ for($i=0;$i < count($lista_carrito); $i++){
     $Total = $Total + $subtotal;
 }
 
-if(count($lista_carrito)>=1){
-    $_SESSION['sys_config']['costo_trabajo_cp'] = $_SESSION['cart_costo_trabajo']['precio'];
-    echo "<tr><td>".$a."</td><td>Diseño ".$_SESSION['cart_costo_trabajo']['nombre']."</td><td class='currency' >".$_SESSION['cart_costo_trabajo']['precio']."</td><td>1</td><td>".$_SESSION['cart_costo_trabajo']['precio']."</td><td></td><td></td></tr>";
-    $Total = $Total + $_SESSION['sys_config']['costo_trabajo_cp'];
-
-}else{
-    $Total = "0";
-}
 ?>
 <script src="<?=\core\core::ROOT_APP()?>site_design/js/js_formato_moneda.js"></script>
 <script>

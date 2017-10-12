@@ -31,12 +31,16 @@ if(count($lista_carrito) <= 0  ){
 }
 
 for($i=0;$i <count($lista_carrito);$i++){
-    $subtotal = ($lista_carrito[$i]['precio_venta'] *  $lista_carrito[$i]['cantidad']);
+
+    $TipoDiseno =  $lista_carrito[$i]['TipoDiseno'];
+
+    $Importe = $lista_carrito[$i]['precio_venta'] + $TipoDiseno;
+    $subtotal = ($Importe *  $lista_carrito[$i]['cantidad']);
+
     $Total = $Total + $subtotal;
 
 }
 
-$Total = $Total + $_SESSION['sys_config']['costo_trabajo_cp'];
 
 $PagoInicial = round(($Total *  $_SESSION['sys_config']['pago_inicial']) / 100);
 ?>

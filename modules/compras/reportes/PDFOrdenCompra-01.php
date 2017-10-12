@@ -99,8 +99,8 @@ ob_start();
                     <tr>
                     <td style='width: 10%;padding: 5px; text-align: center; border: solid 1px #000;'>".$RowsCompras[$i][7]."</td>
                     <td style='width: 60%;padding: 5px; text-align: left; border: solid 1px #000;'>".$RowsCompras[$i][6]."</td>
-                    <td style='width: 15%;padding: 5px; text-align: right; border: solid 1px #000;'>$ ".$RowsCompras[$i][8]."</td>
-                    <td style='width: 15%;padding: 5px; text-align: right; border: solid 1px #000;'>$ ".$importe."</td>
+                    <td style='width: 15%;padding: 5px; text-align: right; border: solid 1px #000;'>".$connect->setFormatoMoneda($RowsCompras[$i][8],'pesos')."</td>
+                    <td style='width: 15%;padding: 5px; text-align: right; border: solid 1px #000;'>".$connect->setFormatoMoneda($importe,'pesos')."</td>
                     </tr>
                     ";
                 }
@@ -123,7 +123,7 @@ ob_start();
             }
             echo "<tr><td style='width: 70%;padding: 5px; text-align: right; border-right: solid 1px #000;' colspan='2'></td>
                         <td style='width: 15%;padding: 5px; text-align: right; border: solid 1px #000;background: ".$Background.";'><b>Total:</b></td>
-                        <td style='width: 15%;padding: 5px; text-align: right; border: solid 1px #000;'>$ ".$TotalImporte."</td></tr>";
+                        <td style='width: 15%;padding: 5px; text-align: right; border: solid 1px #000;'>".$connect->setFormatoMoneda($TotalImporte,'pesos')."</td></tr>";
             ?>
             </tbody>
         </table>
@@ -134,7 +134,11 @@ ob_start();
             </tr>
             <tr>
                 <td style='width: 100%;padding: 5px; text-align: left; border: solid 1px #000;'>
-                    &nbsp;<br><br><br>
+                    <br>
+                    <?=$RowsCompras[0][15]?><br/>
+                    <?=$RowsCompras[0][16]?><br/>
+                    <?=$RowsCompras[0][17]?> -
+                    <?=$RowsCompras[0][18]?><br/>
                 </td>
             </tr>
             <tr><td>&nbsp;</td></tr>
@@ -155,6 +159,6 @@ $content = ob_get_clean();
 $pdf = new HTML2PDF('P','Letter','es','UTF-8');
 $pdf->writeHTML($content);
 $pdf->pdf->IncludeJS('print(TRUE)');
-$pdf->output('Reporte.pdf');
+$pdf->output('Reporte_'.date("YmdHis").'.pdf');
 
 ?>

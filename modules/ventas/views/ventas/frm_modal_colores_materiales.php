@@ -71,7 +71,7 @@ if(count($lista) > 0 ){
         $ColorMaterial = $lista[$i][2];
         $valor = $lista[$i][0]."-".$lista[$i][1];
         $nombre_articulo = $lista[$i][1];
-        echo "<div class='col-md-4'><button style='background: ".$ColorMaterial."' onclick='$(\"#material\").val(\"".$valor."\");$(\"#title_cantida\").text(\"Material: ".$nombre_articulo."\");$(\"#content02\").removeClass(\"hidden\");$(\"#content01\").addClass(\"hidden\");$(\"#txtCantidad\").val(100);'  class='btn btn-app btn-block'>".$lista[$i][1]."</button></div>";
+        echo "<div class='col-md-4'><button style='background: ".$ColorMaterial."' onclick='getCrearTrabajo(4,{valor:\"".$valor."\",NombreProducto:\"".$nombre_articulo."\"})'  class='btn btn-app btn-block'>".$lista[$i][1]."</button></div>";
     }
 }else{
     echo "<div class='col-md-12 ' style='margin-top: -19px;'><h4 class='text-danger'>No se encontro el Material</h4></div>";
