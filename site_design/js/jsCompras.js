@@ -1,7 +1,6 @@
 /**
  * Created by USUARIO on 10/05/2017.
  */
-
 function CancelarFacturaCompra(opc,idcompra){
 
     bootbox.confirm({
@@ -61,7 +60,6 @@ function CancelarFacturaCompra(opc,idcompra){
 
 
 }
-
 
 function AutorizarFacturaCompra(opc,idcompra){
 

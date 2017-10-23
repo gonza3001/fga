@@ -21,7 +21,6 @@ class SistemIkro
         $vista = new views();
         $sesiones = new sesiones();
 
-
         if($sesiones->validar_sesion()){
 
             $vista->call_view(

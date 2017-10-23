@@ -283,7 +283,7 @@ function CargarTableroAlmacen(opc,idempresa,idalmacen){
                 for(i=0;i < response.data.datalist.autorizar.length;i++){
 
 
-                    listaTraspasos3 = listaTraspasos3 + "<tr><td>"+response.data.datalist.autorizar[i]['FolioTraspaso']+"</td><td>"+response.data.datalist.autorizar[i]['almacen_origen']+"</td><td>"+response.data.datalist.autorizar[i]['almacen_destino']+"</td><td>"+response.data.datalist.autorizar[i]['fecha_alta']+"</td><td><button onclick='fnImprimirTraspaso("+response.data.datalist.autorizar[i]['FolioTraspaso']+")' class='btn btn-xs btn-success'><i class='fa fa-print'></i> ver</button>&nbsp;<button onclick='fnAutorizarTraspaso(1,"+response.data.datalist.autorizar[i]['FolioTraspaso']+")' class='btn btn-xs btn-primary'><i class='fa fa-check'></i> autorizar</button></td></tr>"
+                    listaTraspasos3 = listaTraspasos3 + "<tr><td>"+response.data.datalist.autorizar[i]['FolioTraspaso']+"</td><td>"+response.data.datalist.autorizar[i]['almacen_origen']+"</td><td>"+response.data.datalist.autorizar[i]['almacen_destino']+"</td><td>"+response.data.datalist.autorizar[i]['fecha_alta']+"</td><td><button onclick='fnImprimirTraspaso("+response.data.datalist.autorizar[i]['FolioTraspaso']+")' class='btn btn-xs btn-success'><i class='fa fa-print'></i> ver</button>&nbsp;<button onclick='fnAutorizarTraspaso(2,"+response.data.datalist.autorizar[i]['FolioTraspaso']+")' class='btn btn-xs btn-primary'><i class='fa fa-check'></i> autorizar</button></td></tr>"
 
                 }
 
