@@ -62,7 +62,7 @@ unset($_SESSION['EXPORT']);
 </script>
 <div class="box box-danger animated fadeInDown" xmlns="http://www.w3.org/1999/html">
     <div class="box-header">
-        <i class="fa fa-truck"></i> Administracion y Compras
+        <i class="fa fa-truck"></i> Administración y Compras
     </div>
     <div class="toolbars">
 

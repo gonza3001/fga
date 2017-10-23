@@ -8,7 +8,6 @@
 /**
  * Incluir las Librerias Principales del Sistema
  * En el Siguiente Orden ruta de libreias: @@/SistemaIntegral/core/
- *
  * 1.- core.php;
  * 2.- sesiones.php
  * 3.- seguridad.php o modelo ( ej: model_aparatos.php)
@@ -58,8 +57,6 @@ $lista = $CarritoTraspasos->imprime_carrito();
 
 header('Content-type: application/json; charset=utf-8');
 
-$error = $_GET['opc'];
-
 $idempresa = IDEMPRESA ;
 $opcion = $_GET['opc'];
 $idestado = $_GET['idestado'];
@@ -71,7 +68,7 @@ $FechaActual = date("Y-m-d H:i:s");
 $UsuarioRegistra = IDUSUARIO;
 $UsuarioAutoriza = 0;
 
-if($idestado == 1){ $UsuarioAutoriza = $UsuarioRegistra ;}
+if($idestado == 2){ $UsuarioAutoriza = $UsuarioRegistra ;}
 
 
 if(count($lista) > 0){

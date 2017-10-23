@@ -67,11 +67,11 @@ $UltimoIdCompra = $connect->_rows[0]['UltimoIdCompra'];
 
     <div class="col-md-2">
         <div class="form-group">
-            <label>Sucursal Entrega</label>
+            <label>Almace Entrega</label>
             <select id="iddepartamento" class="form-control select2" style="width: 100%">
                 <option value="0">-- Seleccione una Opción --</option>
                 <?php
-                $connect->_query = "SELECT iddepartamento,nombre_departamento FROM departamentos WHERE idestado = 1 AND idempresa = 1";
+                $connect->_query = "SELECT idalmacen,nombre_almacen FROM almacen WHERE idestado = 1 AND idempresa = 1";
                 $connect->get_result_query();
                 if(count($connect->_rows) > 0){
                     for($i=0;$i<count($connect->_rows);$i++){

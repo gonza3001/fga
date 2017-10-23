@@ -121,9 +121,6 @@ $idAlmacen = $_SESSION['data_home']['almacen'];
 
             Canditad.val(parseFloat(Canditad.val()) + 5);
         }
-
-
-
     });
     
 </script>

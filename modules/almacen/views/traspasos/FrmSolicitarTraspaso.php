@@ -141,7 +141,7 @@ $ListaAlmacenes = $connect->_rows;
                         <td colspan="3"></td>
                         <td class="text-right" width="300">
                             <button id="btnNuevoTraspaso01" onclick="compras_nuevo_traspaso(2)" class="btn  btn-danger btn-sm" > <i class="fa fa-trash"></i> Cancelar</button>
-                            <button id="btnNuevoTraspaso01" onclick="setRealizarTraspaso(1,0,2)" class="btn  btn-success btn-sm" > <i class="fa fa-save"></i> Guardar  </button>
+                            <button id="btnNuevoTraspaso01" onclick="setRealizarTraspaso(1,0,1)" class="btn  btn-success btn-sm" > <i class="fa fa-save"></i> Guardar  </button>
                         </td>
                     </tr>
                     </tfoot>

@@ -17,7 +17,6 @@
 include "../../../../core/core.class.php";
 include "../../../../core/sesiones.class.php";
 include "../../../../core/seguridad.class.php";
-
 /**
  * 1.- Instanciar la Clase seguridad y pasar como valor la BD del Usuario
  * 2.- Llamar al metodo @@valida_session_id($NoUsuario), para validar que el usuario este conectado y con una sesión valida

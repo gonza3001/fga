@@ -15,26 +15,43 @@ $connect = new model_almacen();
 $idEmpresa = $_SESSION['data_home']['idempresa'];
 $idAlmacen = $_POST['idalmacen'];
 
-$HiddenBtn = "hidden";
+$BtnPrint = "hidden";
+$BtnEdit = "hidden";
+$BtnConfirmar = "hidden";
+$BtnAutorizar = "hidden";
+$BtnCancelar = "hidden";
 
-
-if($_POST['opc']==3){
-    //Si el lista es para mostrar los traspasos por autorizar
-    $HiddenBtn = "";
-    $Titulo = "Traspasos por Autorizar";
-    $Where = " WHERE a.idempresa = $idEmpresa AND a.idestado = 2 ";
-}
-
-if($_POST['opc'] == 2){
-    //Todos los traspasos
-    $Titulo = 'Todos los Traspasos';
-    $Where = " WHERE a.idempresa = $idEmpresa AND a.idestado = 1 ";
-
-}else if($_POST['opc']==1){
+switch ($_POST['opc']){
     //Traspasos por almacen seleccionado
-    $Titulo = 'Lista de Traspasos <br>'.$_POST['nombre_almacen'];
-    $Where = " WHERE a.idempresa = $idEmpresa AND a.idestado = 1 AND a.idalmacen_destino = $idAlmacen ";
-
+    case 1:
+        $Titulo = 'Lista de Traspasos <br>'.$_POST['nombre_almacen'];
+        $Where = " WHERE a.idempresa = $idEmpresa AND a.idestado = 3 AND a.idalmacen_destino = $idAlmacen ";
+        $BtnPrint = "";
+        break;
+    case 2:
+        //Todos los traspass realizados
+        $Titulo = 'Todos los Traspasos';
+        $Where = " WHERE a.idempresa = $idEmpresa AND a.idestado = 3 ";
+        $BtnPrint = "";
+        break;
+    // Opcion para mostrar los traspasos por autorizar
+    case 3:
+        $BtnPrint = "";
+        $BtnAutorizar = "";
+        $BtnCancelar = "";
+        $Titulo = "Traspasos por Autorizar";
+        $Where = " WHERE a.idempresa = $idEmpresa AND a.idestado = 1 ";
+        break;
+    //Opcion para mostrar los traspass por confirmar
+    case 4:
+        $BtnPrint = "";
+        $BtnConfirmar = "";
+        $BtnCancelar = "";
+        $Titulo = "Traspasos por Confirmar";
+        $Where = " WHERE a.idempresa = $idEmpresa AND a.idestado = 2 ";
+        break;
+    default:
+        break;
 }
 
 $connect->_query = "
@@ -78,11 +95,12 @@ $connect->get_result_query();
         <td>".$connect->_rows[$i][3]."</td>
         <td>".$connect->_rows[$i][4]."</td>
         <td>".$connect->_rows[$i][5]."</td>
-        <td width='290' class='text-right'>
-            <button class='btn btn-xs btn-default' onclick='fnImprimirTraspaso(".$connect->_rows[$i][1].")'><i class='fa fa-print'></i> Imprimir</button>
-            <button class='btn btn-xs btn-default' onclick='fnEditarTraspaso(1,$idTraspaso)'><i class='fa fa-edit'></i> Editar</button>
-            <button class='btn btn-xs btn-default ".$HiddenBtn."' onclick='fnAutorizarTraspaso($idTraspaso)' ><i class='fa fa-check'></i> Autorizar</button>
-            <button class='btn btn-xs btn-default ".$HiddenBtn." ' onclick='fnCancelarTraspaso($idTraspaso)' ><i class='fa fa-close'></i> Cancelar</button>
+        <td style='width: 30%' class='text-right'>
+            <button class='btn btn-xs btn-default ".$BtnPrint."' ' onclick='fnImprimirTraspaso(".$connect->_rows[$i][1].")'><i class='fa fa-print'></i> Imprimir</button>
+            <button class='btn btn-xs btn-default ".$BtnEdit."' '  onclick='fnEditarTraspaso(1,$idTraspaso)'><i class='fa fa-edit'></i> Editar</button>
+            <button class='btn btn-xs btn-default ".$BtnAutorizar." ' onclick='fnAutorizarTraspaso(1,$idTraspaso)' ><i class='fa fa-check'></i> Autorizar</button>
+            <button class='btn btn-xs btn-default ".$BtnConfirmar." ' onclick='fnAutorizarTraspaso(2,$idTraspaso)' ><i class='fa fa-check'></i> Confirmar</button>
+            <button class='btn btn-xs btn-default ".$BtnCancelar." ' onclick='fnCancelarTraspaso($idTraspaso)' ><i class='fa fa-close'></i> Cancelar</button>
         </td>
         </tr>";
     }

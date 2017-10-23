@@ -91,6 +91,7 @@ function AutorizarFacturaCompra(opc,idcompra){
                }).done(function(response){
 
                    fnloadSpinner(2);
+                   console.log(response);
 
                    if(response.result){
 

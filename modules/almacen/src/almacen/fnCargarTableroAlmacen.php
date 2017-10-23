@@ -117,16 +117,44 @@ if($_SESSION['data_login']['idperfil'] == 1){
     on a.idalmacen_origen = b.idalmacen 
     left join almacen as c 
     on a.idalmacen_destino = c.idalmacen
-    where a.idempresa = $idEmpresa and a.idestado = 1 ORDER BY a.fecha_alta DESC limit 0,10 
+    where a.idempresa = $idEmpresa and a.idestado >= 3 ORDER BY a.fecha_alta DESC limit 0,10 
     ";
     $connect->get_result_query(true);
     $ListaTraspasos = $connect->_rows;
+
+    //Traaspasos por autrizar
+    $connect->_query = "
+    SELECT LPAD(a.idtraspaso,6,'0')as FolioTraspaso,a.idtraspaso,b.nombre_almacen as almacen_origen,c.nombre_almacen as almacen_destino,a.idestado,date(a.fecha_alta)as fecha_alta,a.fecha_alta as FechaHora 
+    FROM traspasos as a 
+    left join almacen as b 
+    on a.idalmacen_origen = b.idalmacen 
+    left join almacen as c 
+    on a.idalmacen_destino = c.idalmacen
+    where a.idempresa = $idEmpresa and a.idestado = 1 ORDER BY a.fecha_alta DESC limit 0,10 
+    ";
+    $connect->get_result_query(true);
+    $TraspasosPorAutorizar = $connect->_rows;
+
+    //Traaspasos por Confirmar y En Transito
+    $connect->_query = "
+    SELECT LPAD(a.idtraspaso,6,'0')as FolioTraspaso,a.idtraspaso,b.nombre_almacen as almacen_origen,c.nombre_almacen as almacen_destino,a.idestado,date(a.fecha_alta)as fecha_alta,a.fecha_alta as FechaHora 
+    FROM traspasos as a 
+    left join almacen as b 
+    on a.idalmacen_origen = b.idalmacen 
+    left join almacen as c 
+    on a.idalmacen_destino = c.idalmacen
+    where a.idempresa = $idEmpresa and a.idestado = 2 ORDER BY a.fecha_alta DESC limit 0,10 
+    ";
+    $connect->get_result_query(true);
+    $TraspasosPorConfirmar = $connect->_rows;
 
 
     $dataList = array(
         'sinExistencias'=>$ListaSinExistencias,
         'existenciasBajas'=>$ListaExistanciasBajas,
-        'traspasos'=>$ListaTraspasos
+        'traspasos'=>$ListaTraspasos,
+        'autorizar'=>$TraspasosPorAutorizar,
+        'confirmar'=>$TraspasosPorConfirmar
     );
 
 
