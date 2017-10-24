@@ -45,7 +45,6 @@ $UltimoIdCompra = $connect->_rows[0]['UltimoIdCompra'];
     $(".select2").select2();
 </script>
 <div class="row row-sm">
-
     <div class="col-md-4">
         <div class="form-group">
             <label>Proveedor</label>

@@ -1,6 +1,7 @@
 /**
  * Created by USUARIO on 10/05/2017.
  */
+
 function CancelarFacturaCompra(opc,idcompra){
 
     bootbox.confirm({
@@ -271,6 +272,7 @@ function lista_compras_realizadas(opc){
     );
 
 }
+
 //ELiminar producto del carrito de compras
 function fnCompraEliminarProducto(idproducto){
 

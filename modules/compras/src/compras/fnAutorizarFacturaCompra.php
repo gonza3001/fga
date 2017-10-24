@@ -85,58 +85,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
             }
 
-            $connect->_query = "INSERT INTO traspasos (
-            idempresa,
-            idalmacen_origen,
-            idalmacen_destino,
-            idestado,
-            idusuario_solicita,
-            idusuario_registra,
-            fecha_alta,
-            idusuario_alta,
-            fecha_um,
-            idusuario_um
-            ) VALUES (
-            '$idempresa',
-            '1',
-            '$idAlmacen',
-            '1',
-            '$NoUsuario',
-            '$NoUsuario',
-            '$FechaActual',
-            '$NoUsuario',
-            '$FechaActual',
-            '$NoUsuario'
-            )";
-            $connect->execute_query();
-            $connect->_query = "SELECT @@identity AS id";
-            $connect->get_result_query();
-            $idTraspaso = $connect->_rows[0][0];
-
-            for($i=0;$i < count($DataArticulos); $i++){
-
-
-                $connect->_query = "CALL sp_registra_detalle_traspaso(
-                '1',
-                '$idEmpresa',
-                '$idTraspaso',
-                '1',
-                '$NoUsuario',
-                '1',
-                '$idAlmacen',
-                '$TipoArticulo',
-                '$idArticulo',
-                '$Cantidad'
-                )";
-
-                $connect->get_result_query();
-            }
-
-
-
-
-
-
             echo json_encode(array('result'=>true,'message'=>"Compra autorizada correctamente".$connect->_message,"data"=>array()));
         }else{
             echo json_encode(array('result'=>false,'message'=>"No se encontraron articulos","data"=>array()));

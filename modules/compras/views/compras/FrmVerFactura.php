@@ -30,8 +30,6 @@ include "../../../../core/seguridad.class.php";
  *   'bdPass'=>'pasword',
  *   'port'=>'3306',
  *   'bdData'=>'dataBase'
- *);
- *
  * Si no es requerdio se puede dejar en null
  *
  * con @data_server
